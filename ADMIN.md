@@ -19,34 +19,34 @@ Various files that should be in the run/msgs directory:
 ## Admin Commands
 Here are some commands that would probably only be useful to someone running a MUSE.
 
-### @allquota <quota>
-changes everyone's quota to <quota>.
+### @allquota &lt;quota&gt;
+changes everyone's quota to &lt;quota&gt;.
 
-### @broadcast <message>
-broascast <message> through no_wall flags. it would be best
+### @broadcast &lt;message&gt;
+broascast &lt;message&gt; through no_wall flags. it would be best
 to only use this for inportant messages, such as the muse going
 down.
 
-### @boot <player>
-disconnect <player> from the game. if there are more than one
-<player>s connected, disconnect the one that was connected
+### @boot &lt;player&gt;
+disconnect &lt;player&gt; from the game. if there are more than one
+&lt;player&gt;s connected, disconnect the one that was connected
 most recently.
 
-### @chownall <player>=<newplayer>
-change the ownershi pof all <player>'s objects to <newplayer>.
+### @chownall &lt;player&gt;=&lt;newplayer&gt;
+change the ownershi pof all &lt;player&gt;'s objects to &lt;newplayer&gt;.
 
 ### @ctrace
 trace all concentrator connections. there is no concentrator
 client right now, so this is sorta useless.
 
-### @class <player>=<new class>
-change <player>'s class to <new class>. see doc/CLASSES.
+### @class &lt;player&gt;=&lt;new class&gt;
+change &lt;player&gt;'s class to &lt;new class&gt;. see doc/CLASSES.
 
 ### @dbck
 do various things to make sure the database is all in
 order.
 
-### @dbtop [<catagories>]
+### @dbtop [&lt;catagories&gt;]
 show highest users of space; catagories are shown with
 just plain '@dbtop'.
 
@@ -57,10 +57,10 @@ it may give an error (db/mdb.#xxx#: no such file or
 directory). it will have saved the database anyways,
 though.)
 
-### @empower <player>=<power>:<class>
-give <player> the power of <power> to act on <class>.
-<power> can be one of the powers defined in powers.h
-<class> can be one of:
+### @empower &lt;player&gt;=&lt;power&gt;:&lt;class&gt;
+give &lt;player&gt; the power of &lt;power&gt; to act on &lt;class&gt;.
+&lt;power&gt; can be one of the powers defined in powers.h
+&lt;class&gt; can be one of:
 yes: always
 yeseq: for equal and lower classes
 yeslt: for lower classes
@@ -69,24 +69,24 @@ no: never; take away the power.
 ### @mailhuh
 Mail out huh logs; this isn't currently tested very much.
 
-### @newpassword <player>=<password>
-change <player>'s password to <password>. if you're thinking
+### @newpassword &lt;player&gt;=&lt;password&gt;
+change &lt;player&gt;'s password to &lt;password&gt;. if you're thinking
 of using this to change your own password, don't. use
 @password instead. passwords are plaintext after @newpassword.
 
-### @nuke <player>
-destroy <player>. doesn't work if they own stuff; need to
+### @nuke &lt;player&gt;
+destroy &lt;player&gt;. doesn't work if they own stuff; need to
 @wipeout first.
 
 ### @pbreak
 show various statistics on how many people are in which class.
 
-### @pcreate <name>=<password>
+### @pcreate &lt;name&gt;=&lt;password&gt;
 only effective if you have WCREAT defined. creates a new
-character, name <name>, password <password>.
+character, name &lt;name&gt;, password &lt;password&gt;.
 
-### @poor <value>
-make everyone's credits change to <value>. this isn't very
+### @poor &lt;value&gt;
+make everyone's credits change to &lt;value&gt;. this isn't very
 good to do.
 
 ### @purge
@@ -100,10 +100,10 @@ and restarting the wd.
 shut down the muse. probably would be a good thing to
 @broascast telling people about this first.
 
-### @wipeout <player> type=<type>
-wipe out all possessions of <player> of type <type>.
-<type> can be:
-all: wipeout all <player>'s possessions
+### @wipeout &lt;player&gt; type=&lt;type&gt;
+wipe out all possessions of &lt;player&gt; of type &lt;type&gt;.
+&lt;type&gt; can be:
+all: wipeout all &lt;player&gt;'s possessions
 rooms: wipeout all rooms
 exits: wipeout all exits
 objects: wileout all objects
