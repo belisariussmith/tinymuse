@@ -26,6 +26,10 @@ This project is a work of love, in appreciation for all the hours of fun from ru
 
 See [ADMIN.md](ADMIN.md)
 
+## Version
+
+This is currently version 2.0 (alpha)
+
 ## Original Changelog (pre-git)
 
 See [CHANGES.md](CHANGES.md)
@@ -34,7 +38,7 @@ See [CHANGES.md](CHANGES.md)
 
 This project and its original code is licensed under multiple custom copyright licenses. See [COPYRIGHT.md](COPYRIGHT.md)
 
-Primarily, attribution is what is most required for non-commercial purposes.
+Primarily, attribution is what is mostly required for non-commercial purposes.
 
 Any new code or separate code in version 2.0+ falls under the MIT license.
 

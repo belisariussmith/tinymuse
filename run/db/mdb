@@ -1,0 +1,2413 @@
+@15
+250
+0
+~13
+&0
+The First Room
+0
+5
+2
+-1
+-1
+-1
+2
+303104
+804624164
+0
+>11
+-1
+BLUE
+>6
+-1
+This is the only room right now.
+>52
+-1
+0
+<
+0
+0
+\
+&1
+root
+0
+-1
+-1
+-1
+0
+-1
+1
+19959816
+804623854
+0
+10/40/y/2/y/3/y/4/y/5/=/6/</7/y/8/y/9/y/10/y/11/y/12/y/13/y/14/=/15/y/16/</17/y/18/y/19/</20/y/22/y/23/y/24/=/25/</27/y/28/y/29/</26/y/30/y/31/y/32/y/33/y/34/y/35/y/36/y/37/y/38/y/39/y/41/y/0
+>175
+-1
+ muse@localhost
+>180
+-1
+1
+>42
+-1
+God
+>25
+-1
+813121821
+>52
+-1
+3000
+>38
+-1
+54
+>140
+-1
+nafoichp
+>5
+-1
+mike
+>129
+-1
+#1
+>50
+-1
+public;pub dbinfo;db log_gripe;lg *log_io;io *log_err;err *log_imp;imp *log_sens;sens *log_root;root warn_security;wsec
+>30
+-1
+813121812
+>6
+-1
+The God character.
+<
+0
+0
+\
+&2
+Wizard
+0
+-1
+-1
+-1
+0
+1
+2
+26772040
+804623862
+766463276
+10/2/y/3/y/4/y/5/=/6/</7/y/8/y/9/y/10/y/11/y/12/y/13/y/14/=/15/y/16/</17/y/19/</20/y/22/y/24/=/25/</26/y/27/y/28/y/29/</30/y/31/y/32/y/33/y/34/y/35/y/36/y/37/y/38/y/39/y/40/y/41/y/0
+>25
+-1
+813121806
+>52
+-1
+3000
+>1
+3
+#2
+>38
+-1
+59
+>5
+-1
+fooblee
+>42
+-1
+Wiz
+>50
+-1
+public;pub dbinfo;db log_gripe;lg *log_io;io *log_err;err *log_imp;imp *log_sens;sens *log_root;root warn_security;wsec
+>2
+3
+776100578
+>6
+-1
+The Wizard character.
+>30
+-1
+804624383
+<
+2
+6
+3
+0
+\
+&3
+Registered Character Parent
+3
+5
+3
+-1
+2
+-1
+2
+40961
+771619028
+766620780
+>52
+-1
+1
+>6
+-1
+you see someone special and unique.
+>129
+-1
+#2
+<
+1
+6
+1
+2
+/69
+3
+reg_phone
+/2117
+3
+regger
+/101
+3
+reg_date
+/69
+3
+reg_email
+/68
+3
+reg_name
+\
+&4
+Universal Functions
+4
+5
+4
+-1
+0
+-1
+2
+40961
+773642148
+0
+>0
+4
+[v(0)][spc(2)][v(1)]
+>1
+4
+[v(0)] [v(1)]
+>2
+4
+[ifelse(land(gt(wcount(v(0)),sub(v(1),1)),gt(v(1),0)),s({[extract(v(0),1,sub(v(1),1))] [first(v(2))] [extract(v(0),add(v(1),1),wcount(v(0)))]}),s({[v(0)]}))]
+>5
+4
+[num(strcat(*,v(0)))]
+>7
+4
+[lnot(scomp(v(0),v(1)))]
+>9
+4
+[name(v(0))]<[num(v(0))][flags(v(0))]>
+>32
+4
+[fsqrt(fadd(fadd(pow(fsub(v(0),v(3)),2),pow(fsub(v(1),v(4)),2)),pow(fsub(v(2),v(5)),2)))]
+>25
+4
+[fsqrt(fadd(pow(fsub(v(0),v(2)),2),pow(fsub(v(1),v(3)),2)))]
+>31
+4
+[mid(v(0),0,sub(v(2),1))][v(1)][mid(v(0),v(2),sub(strlen(v(0)),sub(v(2),1)))]
+>10
+4
+[time(D,v(0))]
+>27
+4
+[truth(pos(mid(v(1),0,1),flags(v(0))))]
+>29
+4
+[lnot(mod(v(0),2))]
+>52
+-1
+1
+>17
+4
+[ifelse(fcomp(fsub(v(0),v(1)),abs(fsub(v(0),v(1)))),0,ifelse(fsub(v(0),v(1)),1,0))]
+>18
+4
+[match(fcomp(v(0),v(1)),-1)]
+>30
+4
+[mod(v(0),2)]
+>11
+4
+[objlist(con(v(0)))]
+>12
+4
+[objlist(exit(v(0)))]
+>13
+4
+[ifelse(match(v(0),),rtime2(xtime()),rtime2(v(0)))]
+>14
+4
+[s(ifelse(match(mid(extract(time(D,v(0)),4,1),0,2),<12),ifelse(match(mid(extract(time(D,v(0)),4,1),0,2),<1),strcat(12,strcat(mid(extract(time(D,v(0)),4,1),2,6),% AM)),strcat(extract(time(D,v(0)),4,1),% AM)),strcat(ifelse(match(sub(mid(extract(time(D,v(0)),4,1),0,2),12),0),12,if(match(sub(mid(extract(time(D,v(0)),4,1),0,2),12),<10),0)),strcat(if(match(mid(extract(time(D,v(0)),4,1),0,2),>12),sub(mid(extract(time(D,v(0)),4,1),0,2),12)),strcat(mid(extract(time(D,v(0)),4,1),2,6),% PM)))))]
+>15
+4
+[simp2(fadd(v(0),0))]
+>16
+4
+[ifelse(mid(v(0),sub(strlen(v(0)),1),1),v(0),ifelse(mid(v(0),sub(strlen(v(0)),2),1),mid(v(0),0,sub(strlen(v(0)),1)),ifelse(mid(v(0),sub(strlen(v(0)),3),1),mid(v(0),0,sub(strlen(v(0)),2)),ifelse(mid(v(0),sub(strlen(v(0)),4),1),mid(v(0),0,sub(strlen(v(0)),3)),ifelse(mid(v(0),sub(strlen(v(0)),5),1),mid(v(0),0,sub(strlen(v(0)),4)),ifelse(mid(v(0),sub(strlen(v(0)),6),1),mid(v(0),0,sub(strlen(v(0)),5)),if(mid(v(0),sub(strlen(v(0)),7),1),mid(v(0),0,sub(strlen(v(0)),7)))))))))]
+>19
+4
+3.141593
+>20
+4
+[ifelse(match(type(loc(loc(loc(loc(loc(loc(loc(loc(loc(loc(v(0)))))))))))),Room),loc(loc(loc(loc(loc(loc(loc(loc(loc(loc(v(0))))))))))),#-1)]
+>21
+4
+[ifelse(match(mid(v(0),0,1),a),an,ifelse(match(mid(v(0),0,1),e),an,ifelse(match(mid(v(0),0,1),i),an,ifelse(match(mid(v(0),0,1),o),an,ifelse(match(mid(v(0),0,1),u),an,a)))))]
+>22
+4
+[if(lnot(match(v(0),1)),v(1))]
+>24
+4
+[ifelse(match(loc(v(0)),v(1)),1,ifelse(match(loc(v(1)),v(0)),1,ifelse(match(loc(v(0)),loc(v(1))),1,0)))]
+>23
+4
+[ifelse(match(loc(v(0)),#-1),#-1,ifelse(match(loc(v(1)),#-1),#-1,nearby2(num(v(0)),num(v(1)))))]
+>26
+4
+[ifelse(gt(strlen(v(0)),v(1)),mid(v(0),div(sub(strlen(v(0)),v(1)),2),v(1)),ljust(strcat(spc(div(sub(v(1),strlen(v(0))),2)),v(0)),v(1)))]
+>28
+4
+[controls(v(0),#2,v(1))]
+>8
+4
+uh oh... someone used brf instead of unparse on [unparse(v(0))]. use unparse.
+>6
+4
+[ifelse(streq(num(v(0)),#128),name(#128),ifelse(streq(name(v(0)),name(owner(v(0)))),name(v(0)),unparse(v(0))))]
+>3
+4
+[name(v(0))]<[num(v(0))]>
+<
+0
+1
+5
+/320
+4
+spstrcat2
+/320
+4
+spstrcat
+/320
+4
+wchange
+/320
+4
+nnum
+/64
+4
+logoutcmd
+/320
+4
+pnum
+/320
+4
+sname
+/320
+4
+streq
+/320
+4
+brf
+/320
+4
+unparse
+/320
+4
+stime
+/320
+4
+lcon
+/320
+4
+lexit
+/320
+4
+rtime
+/320
+4
+rtime2
+/320
+4
+simp
+/320
+4
+simp2
+/320
+4
+gt
+/320
+4
+lt
+/320
+4
+pi
+/320
+4
+room
+/320
+4
+art
+/320
+4
+plural
+/320
+4
+nearby
+/320
+4
+nearby2
+/320
+4
+dist2d
+/320
+4
+cjust
+/320
+4
+hasflag
+/320
+4
+haspow
+/320
+4
+even
+/320
+4
+odd
+/320
+4
+change
+/320
+4
+fdist3d
+\
+&5
+Universal Zone Object
+5
+-1
+5
+-1
+0
+-1
+2
+17342465
+804624168
+0
+>0
+5
+Dbtop Announce Boot Broadcast Chown Class Database Examine Free Who Hostnames Join Member Modify Money Newpassword Noslay Noquota Nuke Pcreate Queue Seeatr Setpow Shutdown Summon Slave Slay Spoof Stats Steal Teleport WizAttributes WizFlags Remote Security Backstage Functions Setquota Space Allquota Poor Exec Rwho
+>2
+5
+$+queuelag:@fo me=@pemit %#=difference of commands: %[tms(sub(xtime(),[xtime()]))] - [rtime()] & %[rtime()]
+>3
+5
+nihilis
+>108
+-1
+$@getalias *:@pe %#=[s_with({The alias for %[name(%0)] is: %[get(%0,alias)]},pnum(v(0))]
+>6
+5
+$@relink *:@swi v(0)={*=*},,{@fo %#=@unlink %0}
+>16
+5
+$@searchobj *=*:@fo %#=@pe me=Found %1 in: %[foreach(lattr(%0),{%[if(match(get(%0,v(0)),%1),v(0))%]})%]
+>113
+-1
+$@poof *:@swi controls(v(#),rmatch(v(#),v(0)),modify)=0,{@pemit %#=That's not yours to fiddle with.},#-1,{@pemit %#=I don't know what that is.},{@tel [rmatch(v(#),v(0))]=[rmatch(v(#),v(0))];@recycle [rmatch(v(#),v(0))];@npe %#=Okay, %[nnum([rmatch(v(#),v(0))])] has disappeared.}
+>9
+5
+[s_as(%o,v(0),v(!))]
+>10
+5
+[s_as(%p,v(0),v(!))]
+>12
+5
+$@who *:%# who =%0
+>138
+-1
+@remit #81=disconnect: %#
+>13
+5
+$'* *:%# :%%%%%%%[to %%%[ifelse(rmatch(v(#),v(0)),name(rmatch(v(#),v(0))),v(0))%%%]%%%%%%%]: %%%[s_as(v(1),v(#),v(#))%%%]
+>14
+5
+$to * *:%# :%%%%%%%[to %%%[ifelse(rmatch(v(#),v(0)),name(rmatch(v(#),v(0))),v(0))%%%]%%%%%%%]: %%%[s_as(v(1),v(#),v(#))%%%]
+>17
+5
+$@searchobj*:@swi v(0)={*=*},,@pe %#=Search what for what?
+>20
+5
+$@selfboot:@swi type(v(#))=Player,{@pemit v(#)=Okay, you will be booted three times in a row, in 5 seconds.;@wait 5={@boot [v(#)];@boot [v(#)]; @boot [v(#)]}; @wait 30=@pemit v(#)=Welcome back.},@pemit v(#)=Only players can be booted.
+>19
+5
+$@cpattr */*=*:%# @%%1 %%0=_%%2
+>119
+-1
+$@protect:@pemit %#=Protect what?
+>6
+-1
+Universal Zone Object
+>57
+-1
+-5:y
+>136
+-1
+@remit #81=connect: %#
+>52
+-1
+1
+>25
+5
+$!help:@pemit %#=You can use the !help command to send a message to Officials.;@pemit %#=To use the !help command, type: !help <message>
+>24
+5
+$!help *:@pemit %#=your whine has been heard.;%# +com public=:whines: %[v(0)]
+>21
+5
+$@_* *:@swi v(1)=*=*,{%# @@_%%%[v(0)%%%] %%%[v(1)%%%]},{%# @defattr strcat(%%%[v(1)%%%],strcat(/,%%%[v(0)%%%]))}
+>115
+-1
+$@poof:@pemit %#=What object do you want to get rid of?
+>101
+-1
+$&*:@remit loc(%#)=%[v(0)%] --%n.(%#)
+>120
+-1
+$@unprotect:@pemit %#=Unprotect what?
+>23
+5
+$date:%# @echo Your wrist communicator quietly says "The date is %[time()%]"
+>22
+5
+$@@_* *=*:%# @defattr strcat(v(1),strcat(/,v(0)))=inherit;%# @set v(1)=%[v(0)%]:%[v(2)%]
+>125
+-1
+#26
+>117
+-1
+$@protect *:@swi controls(v(#),rmatch(v(#),v(0)),modify)=0,{@pemit %#=That's not yours to fiddle with.},#-1,{@pemit %#=I don't know what that is.},{@doomsday rmatch(v(#),v(0))=-1;@pe %#=That object is now protected.}
+>118
+-1
+$@unprotect *:@swi controls(v(#),rmatch(v(#),v(0)),modify)=0,{@pemit %#=That's not yours to fiddle with.},#-1,{@pemit %#=I don't know what that is.},{@doomsday rmatch(v(#),v(0));@pe %#=That object is now unprotected.}
+>11
+5
+$@who:%# who
+>8
+5
+[s_as(%s,v(0),v(!))]
+>9
+4
+[name(v(0))] <[num(v(0))][flags(v(0))]>
+>18
+5
+$@relink *=*:@swi controls(v(#),rmatch(v(#),v(0)),modify)=0,{@pe %#=That's not yours to fiddle with.},#-1,{@pe %#=I don't know what that is.},{@swi lor(pos(flags(rmatch(v(#),v(1))),L),controls(v(#),rmatch(v(#),v(1)),modify))=1,{@fo %#={@unlink [rmatch(v(#),v(0))];@link [rmatch(v(#),v(0))]=[rmatch(v(#),v(1))]}},{@pe %#=Permission Denied.}
+>7
+5
+$@destroy *:%# @recycle %0
+>5
+5
+$@memory:@pemit v(#)=You are using up [playmem(v(#))] bytes.
+>4
+5
+$@memory *:@swi num(strcat(*,v(0)))=#-1,@pemit %#=who?,@pemit %#=[name(strcat(*,v(0)))] is using up [playmem(strcat(*,v(0)))] bytes.
+>100
+-1
+_$annoy-boot *:@boot Function(STRCAT) only expects 2 arguments
+>1
+5
+$+queuelag:[s({@pemit %#=Difference of commands: %[tms(sub(xtime(),[xtime()]))] - [rtime()] & %[rtime()]})]
+>11
+-1
+CYAN
+<
+3
+11
+12
+4
+0
+/320
+5
+powlist
+/0
+5
+queuelagcmd
+/64
+5
+queuelag
+/320
+5
+fork
+/0
+5
+omemorycmd
+/0
+5
+memorycmd
+/0
+5
+relink_cmd2
+/0
+5
+destroycmd
+/320
+5
+subj
+/320
+5
+objn
+/320
+5
+poss
+/64
+5
+who
+/64
+5
+whocmd
+/64
+5
+'cmd
+/64
+5
+tocmd
+/64
+5
+searchvar
+/64
+5
+searchcmd
+/64
+5
+searchcmd2
+/64
+5
+relink_cmd
+/64
+5
+cpattrcmd
+/64
+5
+selfboot
+/0
+5
+mkatrcmd
+/0
+5
+mkatrcmdint
+/0
+5
+timecmd
+/0
+5
+whinecmd
+/0
+5
+whinecmd2
+\
+&6
+nifty actions parent
+6
+5
+10
+-1
+0
+-1
+2
+135307265
+768846848
+766620780
+>52
+-1
+1
+<
+4
+10
+9
+8
+7
+2
+3
+2
+\
+&7
+shkoo's nifty actions
+7
+5
+7
+-1
+0
+-1
+2
+135307265
+769149478
+766786410
+>4
+7
+@tr_as me/naa_nuwanda=%#
+>3
+7
+[s(get(me,nav_nuwanda))]
+>5
+7
+[s(get(me,nao_nuwanda))]
+>14
+7
+yawns. it catches and
+>13
+7
+yawns too.
+>52
+-1
+1
+>17
+7
+is hugged.
+>18
+7
+hugs [sname(v(#))]!
+>19
+7
+happys.
+>20
+7
+happys, too.
+>15
+7
+invites [sname(v(#))] to [sname(loc(me))]!
+>8
+7
+overthrows governments with wild unadulterated foofiness!
+>6
+7
+nuwandas [sname(v(#))]!
+>16
+7
+[ifelse(streq(num(v(n)),v(#)),is already here. dolt.,feels special.)]
+>2
+7
+is hi5'd.
+>1
+7
+hi5's [sname(v(#))]!
+<
+0
+1
+6
+/65
+7
+naa_hi5
+/65
+7
+nav_hi5
+/65
+7
+nao_hi5
+/65
+7
+nav_nu
+/65
+7
+naa_nu
+/65
+7
+nao_nu
+/65
+7
+nav_nuwanda
+/65
+7
+naa_nuwanda
+/65
+7
+nao_nuwanda
+/65
+7
+naa_happy
+/65
+7
+naa_hug
+/65
+7
+naa_invite
+/65
+7
+naa_yawn
+/65
+7
+nao_yawn
+/65
+7
+nav_yawn
+/65
+7
+nav_invite
+/65
+7
+nao_invite
+/65
+7
+nao_hug
+/65
+7
+nav_hug
+/65
+7
+nav_happy
+/65
+7
+nao_happy
+\
+&8
+naddendum
+8
+5
+8
+-1
+0
+-1
+2
+1089537
+775782285
+766786406
+>7
+8
+rubs [sname(v(#))]'s fuzz!
+>8
+8
+gets kicked off MuseNet!
+>17
+8
+ducks [sname(v(#))]!
+>18
+8
+is attacked by loads of evil spammage!
+>19
+8
+attacks [sname(v(#))]!
+>132
+8
+throws a set of silverware at [sname(v(#))]!
+>22
+8
+replies "[switch(rand(8),0,Yummy! A nice tasty warm bucket of puke.,1,Hey! Straw is cheaper grass is free.,2,Get outta here ya scumbag!,switch(rand(4),0,Close only counts in horseshoes and hand grenades.,1,That sucks buttermilk.,2,It's the best thing since sliced bread!,switch(rand(2),0,I am the saintliest teacher alive. My students have no history book. They have a Barna book. They have no history tests. They have Barna tests. Deal with it.,1,You're a yahoo of the first magnitude!)))]"
+>21
+8
+pokes [sname(v(#))] in the [switch(rand(4),0,spleen,1,keppy,2,kidney,3,nose)]!
+>77
+8
+frolics in ecstasy around the entire MUSE!
+>79
+8
+is inundated with overused actions!
+>80
+8
+blitzkriegs actions at [sname(v(#))]!
+>82
+8
+Juliets [sname(v(#))]!
+>83
+8
+sends an ack attack back towards [v(n)]!
+>84
+8
+acks at [sname(v(#))]!
+>85
+8
+screams "DO NOT ABUSE THE FRITTER!!!"
+>86
+8
+fritters [sname(v(#))]!
+>87
+8
+says "I'm not an idle worhiper, I swear!"
+>88
+8
+idlebaps [sname(v(#))]!
+>89
+8
+IBM's [sname(v(#))]!
+>93
+8
+grins happily and says "I have Intel inside."
+>94
+8
+Intels [sname(v(#))]!
+>96
+8
+Macintoshes [sname(v(#))]!
+>97
+8
+is hrmed at!
+>98
+8
+hrms at [sname(v(#))]!
+>99
+8
+is completely absolved of all responsibility and forgiven.
+>100
+8
+forgives [sname(v(#))]!
+>104
+8
+gives [sname(v(#))] a gold star!
+>105
+8
+turns into a fairy godmother and says "Bippity boppity boo!"
+>108
+8
+bops [sname(v(#))]!
+>110
+8
+baps [sname(v(#))]!
+>113
+8
+is mummified in a large roll of toilet paper!
+>114
+8
+tp's [sname(v(#))]!
+>116
+8
+tickles [sname(v(#))]!
+>121
+8
+automagically implodes!
+>122
+8
+@poofs [sname(v(#))]!
+>206
+8
+waves goodbye at [sname(v(#))]!
+>125
+8
+is sincerely thanked.
+>126
+8
+thanks [sname(v(#))]!
+>127
+8
+yins!
+>128
+8
+yangs [sname(v(#))]!
+>129
+8
+yangs!
+>133
+8
+is smacked upside the head.
+>134
+8
+smacks [sname(v(#))]!
+>135
+8
+is slapped [rand(100)] times across the face.
+>136
+8
+slaps [sname(v(#))]!
+>137
+8
+is thwapped [rand(100)] times on the keppy.
+>139
+8
+blips off the radar screen into nothingness.
+>140
+8
+implodes [sname(v(#))]!
+>142
+8
+pounds [sname(v(#))]!
+>144
+8
+Muppets [sname(v(#))]!
+>143
+8
+sings "It's time to put on makeup, it's time to start the show..."
+>148
+8
+calvinballs [sname(v(#))]!
+>150
+8
+cheeses [sname(v(#))]!
+>152
+8
+loves [sname(v(#))]!
+>153
+8
+calls "Scooby Scooby-Doo, where are you?"
+>154
+8
+Shaggys [sname(v(#))]!
+>155
+8
+Einsteins [sname(v(#))]!
+>157
+8
+says "It's morphin, not morphine. sheesh."
+>160
+8
+boos [sname(v(#))]!
+>162
+8
+sneezes at [sname(v(#))]!
+>163
+8
+is ba-doinked right between the eyes!
+>164
+8
+ba-doinks [sname(v(#))]!
+>166
+8
+Mylantas [sname(v(#))]!
+>169
+8
+looks around for a finger or two to snack on.
+>172
+8
+rabbits [sname(v(#))]!
+>173
+8
+asks "Where am I?"
+>175
+8
+recites "One fish two fish red fish blue fish."
+>176
+8
+Seusses [sname(v(#))]!
+>178
+8
+buckets [sname(v(#))]!
+>179
+8
+bork bork borks!
+>180
+8
+borks [sname(v(#))]!
+>182
+8
+Quayles [sname(v(#))]!
+>185
+8
+sticks [s_as(%p,v(!),v(!))] tongue out at [v(n)].
+>186
+8
+pffts [sname(v(#))]!
+>187
+8
+loves what you do for [s_as(%o,v(!),v(!))].
+>188
+8
+Toyotas [sname(v(#))]!
+>189
+8
+smiles back at [v(n)] with a big toothy grin.
+>190
+8
+smiles at [sname(v(#))]!
+>195
+8
+is brushed with a part down the middle.
+>198
+8
+sillys [sname(v(#))]!
+>200
+8
+waves at [sname(v(#))]!
+>201
+8
+is covered with correctly spelled dessert topping! yum!
+>202
+8
+reddi-wips [sname(v(#))]!
+>204
+8
+Tommys [sname(v(#))]!
+>207
+8
+ouches.
+>210
+8
+is comforted.
+>211
+8
+comforts [sname(v(#))]!
+>212
+8
+turns into a silly fascist.
+>215
+8
+rows [sname(v(#))]!
+>216
+8
+whees up and down the street.
+>217
+8
+whees [sname(v(#))]!
+>218
+8
+kisses [v(n)] back.
+>221
+8
+yays!
+>52
+-1
+1
+>220
+8
+foofs [sname(v(#))]!
+>219
+8
+kisses [sname(v(#))]!
+>213
+8
+MicroMUSEs [sname(v(#))]!
+>209
+8
+canines [sname(v(#))]!
+>208
+8
+lopes off to look for a fire hydrant.
+>205
+8
+is waved goodbye at.
+>203
+8
+becomes a sensational Bally table king.
+>199
+8
+is waved at.
+>197
+8
+sillys sillily!
+>196
+8
+brushes [sname(v(#))]!
+>194
+8
+Caspers [sname(v(#))]!
+>193
+8
+turns into a friendly ghost.
+>192
+8
+shkoos [sname(v(#))]!
+>191
+8
+yawns.
+>184
+8
+Clintons [sname(v(#))]!
+>183
+8
+doesn't inhale!
+>181
+8
+says "Of course I know how to spell potatoe."
+>177
+8
+sings "There's a hole in the bucket..."
+>174
+8
+Waldos [sname(v(#))]!
+>171
+8
+says "Silly rabbit, Trix are for kids!"
+>170
+8
+Dahmers [sname(v(#))]!
+>168
+8
+stabs [sname(v(#))]!
+>167
+8
+croaks "Et tu Brute...then fall [s_as(%n,v(!),v(!))]."
+>165
+8
+hands [v(n)] [s_as(%p,v(!),v(!))] lanta.
+>161
+8
+hands [v(n)] a tissue.
+>159
+8
+jumps up and screams "AH! You scared me!"
+>158
+8
+Mighty Morphin' Power Rangers [sname(v(#))]!
+>156
+8
+musses [s_as(%p,v(!),v(!))] hair and says "E=mc2".
+>151
+8
+gazes lovingly at [v(n)].
+>147
+8
+says "Aha! But there IS no thirteenth base!"
+>141
+8
+is pounded into the ground with a large rubber mallet.
+>138
+8
+thwaps [sname(v(#))]!
+>131
+8
+looks down at [s_as(%p,v(!),v(!))] fork and spoon and says" hrm...fork, spoon...spork!".
+>130
+8
+yins [sname(v(#))]!
+>124
+8
+you're welcomes [sname(v(#))]!
+>123
+8
+is you're welcomed!
+>120
+8
+CLIX [sname(v(#))]!
+>119
+8
+says "Gee, I sure do wish my system ran the most archaic operating system there is."
+>118
+8
+aliens [sname(v(#))]!
+>117
+8
+is alienated!
+>115
+8
+giggles uncontrollably and runs for the bathroom.
+>112
+8
+ua's [sname(v(#))]!
+>111
+8
+says "dolt. no universal actions here. only nifty actions."
+>109
+8
+falls flat on [s_as(%p,v(!),v(!))] face.
+>107
+8
+is bopped on the noggin with a soft object!
+>106
+8
+bips [sname(v(#))]!
+>103
+8
+bounces happily and says "Oh boy oh boy! It's everything I dreamed it would be!"
+>102
+8
+apologizes to [sname(v(#))]!
+>101
+8
+looks haughtily down at [v(n)] and debates whether or not to accept the apology.
+>95
+8
+drones in a monotone "Click and drag, click and drag..."
+>92
+8
+National Dynamic Speed Tapes [sname(v(#))]!
+>90
+8
+says "I have Intel inside...oops, scratch that. I have Cyrix inside."
+>91
+8
+says "[switch(rand(3),0,S-O-C-K-S...eso si que es!,1,Stand on a chair see a loose light...sia luz!,2,I feel low so low I see into your toe...Lo siento!,3,I think I'm going to learn Spanish French German Italian or Japanese!)]"
+>214
+8
+rows, rows, rows [s_as(%p,v(!),v(!))] boat.
+>81
+8
+cries "What light through yonder window breaks? It is the East, and [v(n)] is the sun!"
+>78
+8
+watches [sname(v(#))] become extremely ecstatic!
+>76
+8
+unhappys [sname(v(#))].
+>75
+8
+sighs and wallows in [s_as(%p,v(!),v(!))] misery.
+>74
+8
+fans [sname(v(#))]!
+>73
+8
+thanks [v(n)] for the loverly breeze and wipes the sweat off [s_as(%p,v(!),v(!))] brow.
+>23
+8
+throws a Barnaism at [sname(v(#))]!
+>149
+8
+encheesifies the cheesy cheese.
+>16
+8
+deftly waddles away from [v(n)] and quacks.
+>13
+8
+turns [sname(v(#))] into a seal!
+>12
+8
+orks wildly and balances a large red rubber ball on [s_as(%p,v(!),v(!))] nose.
+>11
+8
+ews [sname(v(#))]!
+>10
+8
+is gross.
+>9
+8
+TimeMUSEs [sname(v(#))]!
+>6
+8
+grins back fuzzily at [sname(v(#))]!
+>5
+8
+pats [sname(v(#))] on the back.
+>4
+8
+is congratulated.
+>3
+8
+shurgs at [sname(v(#))]!
+>2
+8
+shurgs back at [v(n)] and notes that shurgging is highly preferable to mundane shrugging.
+>1
+8
+kicks [sname(v(#))]!
+>0
+8
+recoils in pain and whimpers in the corner of the room.
+<
+0
+1
+6
+/64
+8
+nao_kick
+/64
+8
+nav_kick
+/64
+8
+nao_shurg
+/64
+8
+nav_shurg
+/64
+8
+nao_pat
+/64
+8
+nav_pat
+/64
+8
+nao_rub
+/64
+8
+nav_rub
+/64
+8
+nao_timemuse
+/64
+8
+nav_timemuse
+/64
+8
+nao_ew
+/64
+8
+nav_ew
+/64
+8
+nao_seal
+/64
+8
+nav_seal
+/64
+8
+nav_baba
+/64
+8
+nao_baba
+/64
+8
+nao_duck
+/64
+8
+nav_duck
+/64
+8
+nao_attack
+/64
+8
+nav_attack
+/0
+8
+naa_foof
+/64
+8
+nav_poke
+/64
+8
+nao_barna
+/64
+8
+nav_barna
+/65
+8
+naa_
+/65
+8
+naa_stab
+/65
+8
+naa_mylanta
+/65
+8
+naa_ba-doink
+/65
+8
+naa_sneeze
+/65
+8
+naa_boo
+/65
+8
+naa_mmpr
+/65
+8
+naa_einstein
+/65
+8
+naa_shaggy
+/65
+8
+naa_love
+/65
+8
+naa_cheese
+/65
+8
+naa_calvinball
+/65
+8
+naa_caspian
+/65
+8
+naa_muppet
+/65
+8
+naa_pound
+/65
+8
+naa_implode
+/65
+8
+naa_thwap
+/65
+8
+naa_slap
+/65
+8
+naa_smack
+/65
+8
+naa_silverware
+/65
+8
+naa_yin
+/65
+8
+naa_yang
+/65
+8
+naa_thank
+/65
+8
+naa_welcome
+/65
+8
+naa_poof
+/65
+8
+naa_clix
+/65
+8
+naa_alien
+/65
+8
+naa_tickle
+/65
+8
+naa_tp
+/65
+8
+naa_ua
+/65
+8
+naa_bap
+/65
+8
+naa_bop
+/65
+8
+naa_bip
+/65
+8
+naa_goldstar
+/65
+8
+naa_apologize
+/65
+8
+naa_forgive
+/65
+8
+naa_hrm
+/65
+8
+naa_mac
+/65
+8
+naa_intel
+/65
+8
+naa_language
+/65
+8
+naa_ibm
+/65
+8
+naa_idlebap
+/65
+8
+naa_fritter
+/65
+8
+naa_ack
+/65
+8
+naa_juliet
+/65
+8
+naa_blitz
+/65
+8
+naa_ecstatic
+/65
+8
+naa_unhappy
+/65
+8
+naa_fan
+/64
+8
+nao_fan
+/64
+8
+nav_fan
+/64
+8
+nao_unhappy
+/64
+8
+nav_unhappy
+/64
+8
+nao_ecstatic
+/64
+8
+nav_ecstatic
+/64
+8
+nao_blitz
+/64
+8
+nav_blitz
+/64
+8
+nao_juliet
+/64
+8
+nav_juliet
+/64
+8
+nao_ack
+/64
+8
+nav_ack
+/64
+8
+nao_fritter
+/64
+8
+nav_fritter
+/64
+8
+nao_idlebap
+/64
+8
+nav_idlebap
+/64
+8
+nav_ibm
+/64
+8
+nao_ibm
+/64
+8
+nao_language
+/64
+8
+nav_language
+/64
+8
+nao_intel
+/64
+8
+nav_intel
+/64
+8
+nao_mac
+/64
+8
+nav_mac
+/64
+8
+nao_hrm
+/64
+8
+nav_hrm
+/64
+8
+nao_forgive
+/64
+8
+nav_forgive
+/64
+8
+nao_apologize
+/64
+8
+nav_apologize
+/64
+8
+nao_goldstar
+/64
+8
+nav_goldstar
+/64
+8
+nao_bip
+/64
+8
+nav_bip
+/64
+8
+nao_bop
+/64
+8
+nav_bop
+/64
+8
+nao_bap
+/64
+8
+nav_bap
+/64
+8
+nao_ua
+/64
+8
+nav_ua
+/64
+8
+nao_tp
+/64
+8
+nav_tp
+/64
+8
+nao_tickle
+/64
+8
+nav_tickle
+/64
+8
+nao_alien
+/64
+8
+nav_alien
+/64
+8
+nao_clix
+/64
+8
+nav_clix
+/64
+8
+nao_poof
+/64
+8
+nav_poof
+/64
+8
+nao_welcome
+/64
+8
+nav_welcome
+/64
+8
+nao_thank
+/64
+8
+nav_thank
+/64
+8
+nao_yang
+/64
+8
+nav_yang
+/64
+8
+nao_yin
+/64
+8
+nav_yin
+/64
+8
+nao_silverware
+/64
+8
+nav_silverware
+/64
+8
+nao_smack
+/64
+8
+nav_smack
+/64
+8
+nao_slap
+/64
+8
+nav_slap
+/64
+8
+nao_thwap
+/64
+8
+nav_thwap
+/64
+8
+nao_implode
+/64
+8
+nav_implode
+/64
+8
+nao_pound
+/64
+8
+nav_pound
+/64
+8
+nao_muppet
+/64
+8
+nav_muppet
+/64
+8
+nao_caspian
+/64
+8
+nav_caspian
+/64
+8
+nao_calvinball
+/64
+8
+nav_calvinball
+/64
+8
+nao_cheese
+/64
+8
+nav_cheese
+/64
+8
+nao_love
+/64
+8
+nav_love
+/64
+8
+nao_shaggy
+/64
+8
+nav_shaggy
+/64
+8
+nav_einstein
+/64
+8
+nao_einstein
+/64
+8
+nao_mmpr
+/64
+8
+nav_mmpr
+/64
+8
+nao_boo
+/64
+8
+nav_boo
+/64
+8
+nao_sneeze
+/64
+8
+nav_sneeze
+/64
+8
+nao_ba-doink
+/64
+8
+nav_ba-doink
+/64
+8
+nao_mylanta
+/64
+8
+nav_mylanta
+/64
+8
+nao_stab
+/64
+8
+nav_stab
+/64
+8
+nao_dahmer
+/64
+8
+nav_dahmer
+/64
+8
+nao_rabbit
+/64
+8
+nav_rabbit
+/64
+8
+nao_waldo
+/64
+8
+nav_waldo
+/64
+8
+nao_seuss
+/64
+8
+nav_seuss
+/64
+8
+nao_bucket
+/64
+8
+nav_bucket
+/64
+8
+nao_bork
+/64
+8
+nav_bork
+/64
+8
+nao_quayle
+/64
+8
+nav_quayle
+/64
+8
+nao_clinton
+/64
+8
+nav_clinton
+/64
+8
+nao_pfft
+/64
+8
+nav_pfft
+/65
+8
+nao_toyota
+/65
+8
+nav_toyota
+/65
+8
+nao_smileat
+/65
+8
+nav_smileat
+/65
+8
+nao_shkoo
+/65
+8
+nav_shkoo
+/65
+8
+nao_casper
+/65
+8
+nav_casper
+/65
+8
+nao_brush
+/65
+8
+nav_brush
+/65
+8
+nao_silly
+/65
+8
+nav_silly
+/65
+8
+nao_waveat
+/65
+8
+nav_waveat
+/65
+8
+nao_reddi-wip
+/65
+8
+nav_reddi-wip
+/65
+8
+nao_tommy
+/65
+8
+nav_tommy
+/65
+8
+nao_bye
+/65
+8
+nav_bye
+/65
+8
+nao_poke
+/65
+8
+nao_canine
+/65
+8
+nav_canine
+/65
+8
+nao_comfort
+/65
+8
+nav_comfort
+/65
+8
+nao_micromuse
+/65
+8
+nav_micromuse
+/65
+8
+nao_row
+/65
+8
+nav_row
+/65
+8
+nao_whee
+/65
+8
+nav_whee
+/65
+8
+nao_kiss
+/65
+8
+nav_kiss
+/65
+8
+nav_foof
+/65
+8
+nao_foof
+\
+&9
+Net's action addendum
+9
+5
+9
+-1
+0
+-1
+2
+1090561
+773445410
+768532194
+>2
+9
+that %p keppy is %p head.
+>6
+9
+bounces at [sname(v(#))]!
+>52
+-1
+1
+>5
+9
+bounces off the walls!
+>3
+9
+tells
+<
+0
+1
+6
+/65
+9
+naa_keppy
+/65
+9
+naa_rub
+/65
+9
+nao_keppy
+/65
+9
+nav_keppy
+/65
+9
+naa_bounce
+/65
+9
+nao_bounce
+/65
+9
+nav_bounce
+\
+&10
+Foof
+6
+5
+-1
+-1
+0
+6
+2
+135308289
+772565435
+770331053
+>2
+10
+plays frolicksome games with the penguin.
+>1
+10
+tosses a stuffed penguin to [sname(v(#))]!
+>6
+10
+checkpoints [sname(v(#))]!
+>8
+10
+screams "* shkoomuse checkpoint done!"
+>10
+10
+[s_with({[foreach(vowels(),[pos(v(0),v(1))])]},v(0),v(0))]
+>12
+10
+[ifelse(pos({_},LWord(v(0))),LastWord(mid(LWord(v(0)),pos({_},LWord(v(0))),sub(strlen(LWord(v(0))),pos({_},LWord(v(0)))))),LWord(v(0)))]
+>13
+10
+[delete(v(0),sub(strlen(v(0)),v(1)),v(1))][v(2)]
+>14
+10
+a e i o u
+>15
+10
+pets [sname(v(#))]!
+>17
+10
+purrs.
+>18
+10
+nullfuncs [sname(v(#))]!
+>20
+10
+says "%[if(1,ifelse(v(0),v(0),s({%[first(v(0))] %[extract(mid(rest(v(0)),0,strlen(rest(v(0)))),1,wcount(rest(v(0))))]})))]!"
+>24
+10
+wheeblams [sname(v(#))]!
+>26
+10
+stumbles and says "Do it again!"
+>27
+10
+wheeflops [sname(v(#))]!
+>29
+10
+giggles and says "Do it again!"
+>39
+10
+salutes [sname(v(#))]!
+>41
+10
+decides to join the army!
+>45
+10
+peaches [sname(v(#))]!
+>47
+10
+is the most huggable person on the MUSE!
+>52
+-1
+1
+>51
+10
+et ceteras [sname(v(#))]!
+>53
+10
+melts and savours [s_as(%p,v(!),v(!))] etc.
+>50
+10
+is swept off [s_as(%p,v(!),v(!))] feet and cuddled, snug as a bug in a rug.
+>48
+10
+cuddles [sname(v(#))]!
+>44
+10
+says "You are a cow! Give me some milk or else go home!"
+>42
+10
+wonkas [sname(v(#))]!
+>38
+10
+tries to smile like PowerPig! =8-)
+>36
+10
+powerpigs [sname(v(#))]!
+>35
+10
+[s(get(me,nao_powerpig))]
+>33
+10
+[s(get(me,nav_powerpig))]
+>32
+10
+stumbles but seems to recover.
+>30
+10
+wooblams [sname(v(#))]!
+>34
+10
+[ifelse(v(naa_powerpig),s({@tr_as me/naa_powerpig=%#}),@@)]
+>23
+10
+giggles but seems to recover.
+>21
+10
+wooflops [sname(v(#))]!
+>11
+10
+[extract(v(0),wcount(v(0)),1)]
+>5
+10
+has [s_as(%p,v(!),v(!))] surface raised into bosses!
+>3
+10
+embosses [sname(v(#))]!
+<
+0
+1
+6
+/65
+10
+naa_penguin
+/65
+10
+nav_penguin
+/65
+10
+nao_penguin
+/64
+10
+nav_emboss
+/64
+10
+naa_emboss
+/64
+10
+nao_emboss
+/64
+10
+nav_checkpoint
+/64
+10
+naa_checkpoint
+/64
+10
+nao_checkpoint
+/320
+10
+FindLowValue
+/320
+10
+VowelList
+/320
+10
+LWord
+/320
+10
+LastWord
+/320
+10
+EditSuffix
+/320
+10
+Vowels
+/64
+10
+nav_pet
+/64
+10
+naa_pet
+/64
+10
+nao_pet
+/64
+10
+nav_nullfunc
+/64
+10
+naa_nullfunc
+/64
+10
+nao_nullfunc
+/64
+10
+nav_wooflop
+/64
+10
+naa_wooflop
+/64
+10
+nao_wooflop
+/64
+10
+nav_wheeblam
+/64
+10
+naa_wheeblam
+/64
+10
+nao_wheeblam
+/64
+10
+nav_wheeflop
+/64
+10
+naa_wheeflop
+/64
+10
+nao_wheeflop
+/64
+10
+nav_wooblam
+/64
+10
+naa_wooblam
+/64
+10
+nao_wooblam
+/64
+10
+nav_pp
+/64
+10
+naa_pp
+/64
+10
+nao_pp
+/64
+10
+nav_powerpig
+/64
+10
+naa_powerpig
+/64
+10
+nao_powerpig
+/64
+10
+nav_salute
+/64
+10
+naa_salute
+/64
+10
+nao_salute
+/64
+10
+nav_wonka
+/64
+10
+naa_wonka
+/64
+10
+nao_wonka
+/64
+10
+nav_peach
+/64
+10
+naa_peach
+/64
+10
+nao_peach
+/64
+10
+nav_cuddle
+/64
+10
+naa_cuddle
+/64
+10
+nao_cuddle
+/65
+10
+nav_etc
+/65
+10
+naa_etc
+/65
+10
+nao_etc
+\
+&11
+shkoo's twenty parent
+11
+5
+11
+-1
+0
+-1
+2
+1090561
+767157054
+767157015
+>0
+11
+$think *:%# :. o 0 ( %%%[v(0)%%%] )
+>52
+-1
+1
+<
+0
+1
+5
+/64
+11
+thinkcmd
+\
+&12
+20-parent for nifty actions.
+12
+5
+12
+-1
+0
+-1
+2
+1090561
+768843577
+766647603
+>8
+12
+@swi 1=[streq(get(v(#),strcat(nav_,v(0))),NO MATCH)],{@pemit %#=what action?},[streq(get(v(1),strcat(nao_,v(0))),NO MATCH)],{@pemit %#=[unparse(v(1))] doesn't respond to that.},{[s(get(me,v(2)))];@wait 5=@tr_as strcat(%1,strcat(/,strcat(naa_,%0)))=%#,%0}
+>2
+12
+$nap * *:[s_with(get(me,na_internal),v(0),num(strcat(*,v(1))),na_do_page)]
+>3
+12
+$ua*:@pemit %#=dolt. no universal actions here. only nifty actions. see 'na help'.
+>4
+12
+$na help:@pemit %#={shkoo's nifty actions:};@pemit %#={ na <action> <player>};@pemit %#={ nac <action> <player> on <channel>};@pemit %#=;@pemit %#=for info on adding new actions, contact draco.
+>5
+12
+[v(#)] +com %3=:%[rest(na_make_message([v(#)],%0,%1))%]
+>9
+12
+$nac * * on *:[s_with(get(me,na_internal),v(0),num(strcat(*,v(1))),na_do_com,v(2))]
+>52
+-1
+1
+>10
+12
+$na * *:[s_with(get(me,na_internal),v(0),num(strcat(*,v(1))),na_do_room)]
+>7
+12
+@remit [loc(v(#))]=%%%[na_make_message([v(#)],%0,%1)%%%];@swi [loc(v(#))]=[loc(v(1))],,{@remit [loc(v(1))]=%%%%%%%[na_make_message([v(#)],%0,%1)%%%%%%%]}
+>6
+12
+[sname(v(0))] [s_as_with(get(v(0),strcat(nav_,v(1))),v(2),v(0))] [sname(v(2))] [s_as_with(get(v(2),strcat(nao_,v(1))),v(0),v(2))]
+>1
+12
+[v(#)] page %1=:%[rest(na_make_message([v(#)],%0,%1))%]
+<
+0
+1
+5
+/64
+12
+nawcmd
+/64
+12
+na_do_page
+/64
+12
+napcmd
+/64
+12
+uacmd
+/64
+12
+nahelpcmd
+/64
+12
+na_do_com
+/320
+12
+na_make_message
+/64
+12
+na_do_room
+/64
+12
+na_internal
+/64
+12
+naccmd
+/64
+12
+nacmd
+\
+***END OF DUMP***
