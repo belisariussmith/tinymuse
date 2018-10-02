@@ -16,6 +16,10 @@ Various files that should be in the run/msgs directory:
 
 <sup>Note that these are just blank if they don't exist. Server won't complain about it or anything.</sup>
 
+### God / Wizard Accounts
+
+The database has two player accounts by default, God and Wizard. Their passwords are mike &amp; fooblee, respectively.
+
 ## Admin Commands
 Here are some commands that would probably only be useful to someone running a MUSE.
 
