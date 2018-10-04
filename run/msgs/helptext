@@ -1,0 +1,3777 @@
+& help
+============================================================================
+             M U S E   O n l i n e   H e l p   F a c i l i t y
+----------------------------------------------------------------------------
+
+To get a list of topics:               To get a list of commands:
+     help topics                            help commands
+
+To get a list of @commands:            To get a list of attribute commands:
+     help @commands                         help attrcommands
+
+To get a list of official commands:    To get a list of functions:
+     help offcommands                       help functions
+
+To get a list of flags:	               To get a list of examples:
+     help flags  			    help examples
+
+To get syntax of help commands:        To register a character:
+     help syntax                            help register
+
+Please notify a director if any errors are found in the help text.
+----------------------------------------------------------------------------
+
+& cvs
+This is for cvs: $Id: helptext,v 1.3 1993/06/05 21:27:04 nils Exp $.
+
+& syntax
+
+Notes on help descriptions:
+    [text]        - Text enclosed in []'s is optional.  The []'s are
+                    never typed in as part of the command.
+    <parameter>   - Information about what you should type. The <>'s are
+                    never typed in as part of the command.
+
+Syntax of help command:
+    help [<topic>]
+
+Example:  Type
+	help look
+for help about the look command, and
+	help
+for general help information
+
+& commands
+Help available for TinyMUSE Commands:
+
+drop           enter          examine        get            give
+goto           home           inventory      leave          look
+money          move           news           page           pose
+QUIT           read           say            score          take
+throw          whisper        WHO            gripe          help!
+rlhelp
+
++away          +idle          +haven        +laston        +version
++channel       +com           +ctitle        +mail         +uptime
++stats         +queuelag      +cmdav
+
+For a list of building commands, type 'help @commands'.
+For a list of attribute commands, type 'help attrcommands'.
+
+& @commands
+Help available for MUSE @commands:
+
+@create		@dig		@whereis	@announce
+@destroy	@open		@getalias	@teleport
+@undestroy	@link		@stats		@password
+@poof		@relink		@sweep		@selfboot
+
+@foreach	@search		@switch		@decompile
+@foreachtr	@searchobj	@force		@chown
+@entrances	@find		@trigger	@cpattr
+
+@emit		@pemit          @halt           @unhide
+@nemit		@npemit         @hide           @robot
+@oemit		@apemit         @clone          @tz
+@remit		@echo           @bamf           @edit
+@zemit		@necho          @wait           @who
+
+@lookup         @email
+& attrcommands
+Help available for tinymuse attrcommands:
+
+@name	   @defattr	@addparent 	@protect	@zlink
+@alias	   @undefattr	@delparent	@unprotect	@unzlink
+	
+@set	   @who_flags	@aclone	  	@charges	@link
+@nset	   @who_names	@apage	 	@runout 	@unlink 
+@v*	   @columns	@awhisper 	@does   	@relink
+	
+@desc	   @listen	@pay     	@aconnect	@defown
+@adesc	   @ahear	@apay	 	@oconnect 	@users
+@odesc	   @aahear	@opay	   	@odisconnect    @doing
+@idesc	   @amhear	@cost	   	@adisconnect	@talent	
+
+@move      @drop  	@enter	   	@leave		@kill
+@amove	   @adrop	@aenter	   	@aleave		@akill
+@omove	   @odrop	@oenter	   	@oleave		@okill
+
+@succ	   @fail	@efail	   @ufail    @lfail	@sfail
+@asucc	   @afail	@aefail	   @aufail   @alfail	@asfail
+@osucc	   @ofail	@oefail	   @oufail   @olfail	@osfail
+
+@lock	   @ulock       @startup   @text  
+@unlock    @llock       @lhide 	
+@elock     @slock       @lpage
+
+& offcommands
+The following commands require powers to work correctly:
+
+join            slay            summon
+
+@allquota       @boot           @broadcast   @chownall 
+@class          @dbck           @dbtop       @doomsday    
+@dump           @empower        @giveto      @huhto
+@newpassword    @nuke           @pbreak      @pcreate 
+@poor           @powers         @ps          @quota
+@shutdown       @ulink          @wipeout     @upfront
+                
+& topics
+Help available on the following Topics:
+
+Attributes               Here                       Strings  
+Being killed             Homes                      Substitutions
+Bogus commands           Inheritance                Success   
+Costs                    It                         Timezones
+Currency                 Linking                    Types of objects   
+Control                  Locks                      Verbs
+Drop-to                  Me                         V-Register
+Enactor                  Officials                  Zones       
+Examples                 Privacy                    @ 
+Exits                    Pronouns                   $ events 
+Failure                  Puppets                    ! events 
+Gender                   Sacrificing                TinyTalk
+Getting started          Stack                      TinyFugue
+Group Ownership          Zone Bank                  Channels
+
+Action users parent      DIRECTORS
+Happy fun ball           ADMINISTRATORS (lists all guides...etc)
+ANSI
+
+& ANSI
+There is limited support for ANSI colour in this version.  To use it, simply
+insert a string into normal text consisting of |, a colour name, and another |.
+The colour name must be in capital letters.
+
+For example, "|blue|Hi.|normal|" would translate to "|BLUE|Hi.|NORMAL|" if the
+'blue' was in capital letters.  (to see the above example, you must be set 
+'ANSI'.)
+
+The WHO list is also coloured.  These colours are set by modifying the 'color'
+attribute on #0 and the Universal Zone Object.  (yes, this is kludgy - it will
+be fixed soon.)
+
+& functions
+Help available for TinyMUSE functions:
+
+add()   fadd()	land()	band()	sin()	arcsin()  log()  sgn()     lt()
+sub()	fsub()	lor()	bor()	cos()	arccos()  exp()  truth()   gt()
+mul()	fmul()	lxor()	bxor()	tan()	arctan()  ln()	 even()    lteq()
+div()	fdiv()	lnot()	bnot()  if()    ifelse()  pow()  odd()     gteq()
+madd()  abs()   mod()   rand()  int()   roman()   base() eq()      comma()
+
+first()   remove()   scomp()    hasstr()  flip()      dist2d()     v()  s()
+rest()    pos()      comp()     rank()    stringeq()  dist3d()     replace()
+delete()  match()    strlen()   ljust()   art()       plural()     poss()
+next()    wmatch()   wcount()   rjust()   space()     subj()       fill()
+strcat()  mid()      extract()  cjust()   zwho()      justify()    objn()
+time()    type()     get()      loc()     zone()      quota()      con()
+xtime()   class()    flags()    owner()   inzone()    quota_left() exit()
+stime()   name()     lnum()     link()    objlist()   credits()    lcon()
+objmem()  children() lwho()     num()     controls()  entrances()  lexits()
+playmem() parents()  nspc()     room()    hasflag()   nearby()     lattr()
+rtime()   date()     wdate()    rdate()   fdate()     dayofyear()  haspow()
+tml()     tmf()      tms()      change()  wchange()   mudname()    parseobj()
+simp()    foreach()  between()  switch()  isattr()    isdigit()    dbtop()
+
+*** Ex: to get help on rand() type 'help rand function'.
+& register
+TinyMUSE player registration information.
+Head of TinyMUSE Registrations: Acme (Tony Konzal)
+
+A. If you are a guest and wish to register a new character on TinyMUSE,
+   please send E-Mail to: micromuse-registration@michael.ai.mit.edu
+
+Please Include:
+    1) Your Real Name
+    2) Your E-Mail address (In the TEXT of your letter)
+    3) Character Name (See below for Guidelines)
+    4) Password
+
+ *** Make sure your character is not allready in use on the MUSE. You can
+     do this by typing, '@whereis <character name>'. If it says thatthe
+     character is not found or something, you are alrigt. You character 
+     name MUST not have spaces in it. You can use these symbols, (_ or .) 
+     to fill a space. Also, it cannot be any longer than 16 characters. 
+
+ *** Please allow 1-10 days for processing ***
+
+NOTE: If you do not have E-Mail, type 'help register Snail-mail'.
+
+Once your registration has been processed, you will see, "Status: Citizen" when
+you examine yourself. We thank you for your cooperation in making TinyMUSE
+more efficient for your enjoyment. If you have any questions, please ask
+Acme when you see him on-line.                                       
+& register snail-mail
+B. If you do not have a way to send E-mail, you can register with regular
+   old US mail.  Send a letter to:
+ 
+	     TinyMUSE Registration
+	     c/o draco
+	     2207 Sterrett Ave.
+	     Covington, KY 41014
+
+Please include:
+
+1) Your real name
+2) Your US Mailing address
+3) Your area code and phone number
+4) The character name you would like 
+   NOTE: It can not be longer than 16 characters and CANNOT have spaces, 
+         please use the  '_' (underscore) or the '.' (period) key to take 
+         the place of spaces. Also, make sure that character is not 
+         already being used on TinyMUSE.
+5) The password you wish to use.
+6) Specify if this is your first character. If not, please state the other
+   characters names.
+
+**** Please allow 1-10 Days for your registration to be processed. ****
+
+Once your registration has been processed, you will see, "Status: Citizen" when
+you examine yourself. We thank you for your cooperation in making TinyMUSE
+more efficient for your enjoyment. If you have any questions, please ask
+Acme when you see him on-line.
+& drop 
+drop <object>. Drops <object>. A dropped thing is relocated to the current
+room, unless its STICKY flag is set (See STICKY), or the room  has a drop-to
+(See Drop-to).  See also: throw, STICKY, Drop-to
+
+& enter
+enter <object>.  Go inside of an object.  You must either own the object,
+or both it must be set enter_ok, and you match its @elock.
+
+See also: leave, enter_ok, @elock
+
+& examine
+
+examine [<object>]. Displays all available information about <object>.
+if <object> isn't given, it defaults to 'here'.  You must control the
+object to examine it fully, if it is set !visible. examine may be
+abbreviated 'ex'.
+
+examine <object>/<attribute>. Displays the value of <attribute> on
+<object>.
+
+& get
+
+get <object>. Picks up <object>. <object> must be a thing, and you
+must match its @lock. See also: take, @lock
+
+& give
+give <player>=<object>. Gives  <player> the specified object. <player>
+must be set ENTER_OK, and <object> must match its @elock.
+See also: @elock, ENTER_OK
+
+give <player>=<credits>. gives <player> the specified number of
+credits.
+
+& goto
+go[to] <direction>; go[to] home. Goes in the specified direction. 'go home'
+is a special command that returns you to your home room. The word
+'go' may be omitted. See also: move
+
+& gripe
+gripe <message>.  Leaves <message> in the Official Gripe Log.  This
+log should be read by the MUSE administration frequently.
+
+& home
+home.     This command will send you back to your place of origin as
+contained in your 'HOME' attribute.  See 'goto'. See also: @link
+
+& inventory
+inventory. Lists what you are carrying. Can be abbreviated to 'i'. 
+
+& leave
+leave.  Leave the object you are currently inside of.
+
+& look
+look <object>. Displays the description of <object>, or the room you're in.
+The 'read' command is the same as  'look'.  The 'look' command may be
+abbreviated 'l'. You may also look at an object some one or something is
+carrying by typing "look <object>'s <object>". The apostrophe and s ('s) must
+be appended to the name of the object carrying the object you wish to see. 
+
+& money
+money.    This command will give you your current credits as well as the
+total value of all of your assest. Thus, your total worth.
+
+& move
+Alias for 'goto'. See: goto
+
+& news
+
+Shows you the current news for MUSE. It is highly recommended that you
+check the news regularly for new information.
+
+& dictionary
+dictionary <word>
+
+Displays a definition.  Example: dictionary virtual reality will display a
+definition of virtual reality.  As a base, the dictionary command looks
+words up in the "Hacker's Dictionary." This dictionary contains the
+definitions of many internet-related terms.  Thanks to your help, the
+dictionary is constantly expanding.  If you don't find a term you want in
+our dictionary, write up a definition and send it to:
+arthropod@pc2.pc.maricopa.edu 
+
+& page
+page <player> [=<message>]. This tells a player that you are looking for
+them.  They will get a message telling them your name and and location if
+you omit the message. This costs 1 Credit.  If you include the '=<message>',
+it will tell the player your name and your message, but not your location. 
+If you do not match a player's @lpage, you cannot page them, and they will
+not be notified that you tried.  You may also page-pose, using ':'
+before the message.
+
+Examples: 
+
+page boss
+You notified Boss of you location.
+
+page boss=hi
+You paged Boss with "hi".
+
+page boss=:waves.
+You page-posed Boss with "draco waves.".
+
+See also: @lpage
+
+& pose
+pose <action pose>. Displays your name followed by the statement you
+posed.  May be abbreviated by the ':' symbol. Example: If you are player
+Bob, and you type in ':laughs out loud.' everybody in the room will see:
+Bob laughs out loud. There is also the ';' pose, used like the ':', only
+it will append a 's to your name. Example: ';funny bone hurts.' everyone
+will see: Bob's funny bone hurts.
+
+& QUIT    
+QUIT. Log out and leave the muse. Must be in all capitals.  
+
+& read 
+Alias for 'look'.
+See: look
+
+& say
+say <message>. Says <message> out loud. You can also use '"<message>'.
+Another command is ':<message>'. This is used for actions. Example: If
+your name was Igor, and you typed ':falls down.', everyone would see
+"Igor falls down." See also 'whisper' and 'pose'. 
+
+& take
+See 'get'.  
+
+& throw
+See 'drop'.
+
+& whisper
+whisper <player>=<message>. Whispers the message to the named person,
+if they are in the same room as you. No one else can see the message.
+'whisper' can be abbreviated by just 'w'.  
+
+& @who
+Syntax: @who
+        @who <player> [<player> ... ]
+
+The first form lists all of the currently-connected players, along with
+the amount of time they've been connected, the amount of time they've
+been idle, and their present location on WindsMuse.
+
+The second form, in which a list of player names is given, shows information
+for just those players.  For any listed players that are not connected,
+we show the last login time instead of the connect/idle times.
+
+If you don't want your location to be seen on the @who, set yourself Dark.
+
+& @who_flags
+@who_flags <object>=<flags>
+
+	Example: @who_flags me=NafoiT
+
+The WHO command output can be adjusted by using one or more of these flags;
+uppercase for full output, lowercase for a short, truncated output:
+
+	N,n -- Name (Generally WHO won't be of much use without this flag)
+	A,a -- Alias
+	F,f -- Flags ('h' if hidden, 'H' if haven, 'N' if NO_WALLS
+                      'n' if set newbie.)
+        O,o -- On-time (how long a player has been connected)
+	I,i -- Idle-time (how long a player has been inactive)
+	C,c -- Class (requires POW_WHO)
+        H,h -- Hostname (long form is bracketed -- requires POW_HOSTNAMES)
+        T,t -- Talent
+        D,d -- Doing   
+The default output corresponds to the flags Naoitd.
+
+See also: WHO, @who_names, @columns
+
+& WHO
+WHO [<flags>] [=<namelist>]
+
+WHO   Displays a list of players currently connected to this muse.  Hidden
+players (see @hide) are not listed, but the number of hidden players is shown.
+When there is sufficient space on the line, WHO will use multi-column output.
+
+If a list of flags is entered, you can adjust your WHO output by selecting
+whether or not you want to see their Names, Aliases, Flags, On-time, Idle-
+time, Class, or Hostnames (Directors Only). See '@who_flags'.
+
+If an = sign and list of names is typed, information will be displayed only
+for those players, and only if they are connected (and not hidden).
+
+You may set your own default flags or default list of names by setting your
+@who_flags and @who_names registers.  E.g. @who_flags me=NafoiC, will add the
+alias field to the output you see from WHO.  You can still override your
+defaults at any time by including flags or names when typing the WHO command.
+
+See also: @who_flags, @who_names, @columns
+
+& !help
+!help <Message>    sends <Message> to a channel telling any on-line 
+administrators, officials, or directors that you are in need of assistance 
+
+& away
+See +away.
+
+& +away
+Message sent to players who page you when you are not connected.
++away <Message>                 Set your away message.
++away ?                         View your away message.
++away                           Remove your away message.
+
+& +ctitle
++ctitle  Set your title for channels.  This title will be used on -all-
+channels. 
+
+Usage:
+  +ctitle <title>
+
+& +channel
++channel  Select or lists channels for the online communicator system.
+The new +com communicator system supports an arbitrary number of named
+channels.  Players who are working as a group can make up a channel name
+for their group and add it to the list of channels which their +com is
+listening to.
+
+Usage:
+  +channel +<channel-name>;<alias>
+
+  Aliases are -mandatory-.
+
+  e.g.:
+
+     +ch +public;pub		Adds you to channel 'public' with alias 'pub'.
+  
+  +channel -<channel-name>    Deletes the named channel from the list.
+  +channel <channel-name>     Sets your default channel (used with '=')
+  +channel                    Lists the current channels on your +com.
+
+For a general chatting channel, turn to channel 'public'.
+You can listen to as many simultanous channels as you wish.
+See help on +com.
+
+& cmdav
+See +cmdav
+
+& +cmdav
++cmdav
+This command will show you the average number of commands per second
+over the last 5 seconds, 30 seconds, and 5 minutes.  There are
+three catagories: player commands, queue commands, and total
+commands.  Player commands are commands that come directly through
+the network.  Queue commands are things that are triggered, such
+as by @trigger, @ahear, etc.  Total commands is just a sum of
+these two.
+
+& +com
+The +com system works like Citizen's Band radio.
+
+Usage:
+  +com <channel-name> = <message>   Transmit <message> on the named channel.
+  +com <channel-name> = who         Find out who is listening on the channel.
+
+Shortcut:
+   To broadcast over your default channel, which is defined as the last
+   channel you added with the +channel command, use the '=' symbol.
+   For most people who have not added additional channels, 'public' is
+   the default channel.  If you later add an additional channel and you
+   wish to keep 'public' as your default, you may remove it and add it back.
+
+Example:
+
+=hello          Transmits 'hello' over the default channel
+=who            Find out who is listening on the default channel
+
+See help on +channel for selecting the channels on your personal +com.
+To leave a message with someone who is not online, use the +mail command.
+Sending a +com message costs 1C.
+
+& +haven
+Message set to players who page you when you are set haven.
++haven <Message>                Set your haven message.
++haven ?                        View your haven message.
++haven                          Remove your haven message.
+
+& idle
+See +idle.
+
+& +idle
+Message sent to players who page you when you are connected.
++idle <Message>                 Set your idle message.
++idle ?                         View your idle message.
++idle                           Remove your idle message.
+
+& laston
+See +laston.
+
+& +laston
++laston <player>                Find out the last time <player> was connected.
+
+& mail
+See +mail.
+
+& +mail
++mail...The online mail system.
+
+tinymuse has an online mail system. The commands are as follows:
+
++mail                           Check your mailbox for messages.
++mail <player> = <Message>      Send a message to another player.
++mail <n>                       Read message <n>.
++mail delete                    Mark all messages from your mailbox 
+                                for deletion.
++mail delete = <n>              Mark message <n> for deletion.
++mail undelete                  Unmark all messages
++mail undelete = <n>            Unmark message <n>
++mail purge                     Removes all messages that were marked for 
+                                deletion.
+Messages that are marked for deletion will have a 'd' next to them.
+
+& stats
+See +stats
+
+& +stats
++stats
+
+This command will show you the logon stats of how many people have logged
+onto this muse each day within the past two weeks.
+
+& uptime
+See +uptime
+
+& +uptime
++uptime         This command gives you current runtime statistics.
+
+& version
+See +version.
+
+& +version
++version        This command gives you the current version number for
+the code being run on this muse. It also tells you when the last code
+update was done.
+
+& -3-------------------- @commands ------------------------------------
+
+& @who_names
+@who_names <list of names>
+
+Sets a default list of names that are the ONLY names you wish to look up
+when you type WHO.
+
+See also: WHO, @who_flags, @columns
+
+& @columns
+@columns <number of columns>
+
+Sets a default number of columns that you want the WHO list to print in.
+This is the number of columns of screen text that WHO will use to determine
+when to break the list into multiple columns of names.  The default value
+for this attribute is 80.
+
+See also: WHO, @who_flags, @who_names
+
+& @adescribe
+@adesc <object> = <actions>. Sets the actions to be taken when <object> is
+looked at. Actions are lists of commands seperated by semicolons and these
+commands are executed by the object (see puppet). Things can execute almost
+any command but rooms and exits are restricted to forcing objects/puppets
+to do things. Gender substitutions are applied to the commands before they
+are executed, allowing the use of %s and %o and %p. <object> can be specified
+as <name> or #<number>, or as 'me' or 'here'. May be abbreviated @adesc. See
+also @describe, @idescribe and @odescribe.
+& @afail
+@afail <object> = <actions>. Sets the actions to be taken on failure to use
+<object>. Actions are lists of commands seperated by semicolons and these
+commands are executed by the object (see puppet). Things can execute almost
+any command but rooms and exits are restricted to forcing objects/puppets to
+do things. Gender substitutions are applied to the commands before they are
+executed, allowing the use of %s and %o and %p. <object> can be specified as
+<name> or #<number>, or as 'me' or 'here'. See also @fail and @ofail.
+& @ahear
+@ahear <object> = <actions>. Sets the actions to be taken after a string
+set in the @listen (See @listen) is matched. Actions are lists of commands
+seperated by semicolons and these commands are executed by the object (see
+puppet). Objects can execute almost any command. Gender substitutions are
+applied to the commands before they are executed, allowing the use of %s and
+%o and %p.
+& @akill
+@akill <object> = <actions>. Sets the actions to be taken after killing
+<player>. Actions are lists of commands seperated by semicolons and these
+commands are executed by the object (see puppet). Objects can execute almost
+any command. Gender substitutions are applied to the commands before they
+are executed, allowing the use of %s and %o and %p. See also @kill and @kill.
+& @alias
+@alias <player>=<alias>. <player> is usually yourself. It sets a player's
+alias.  This alias can be used in referencing the player. For instance,
+page <alias> = <message>.
+& @apay
+@apay <object> = <actions>. Sets the actions to be taken after a player
+gives object Credits (see @cost). Actions are lists of commands seperated
+by semicolons, and these commands are executed by the object (see puppet).
+Objects can execute almost any command. Gender substitutions are applied
+to the commands before they are executed. This allows use %s and %o and %p.
+See also @pay and @opay.
+& @asuccess
+@asuccess <object> = <actions>. Sets the actions to be taken on successful
+usage of <object>. Actions are lists of commands seperated by semicolons and
+these commands are executed by the object (see puppet). Objects can execute
+almost any command. Gender substitutions are applied to the commands before
+they are executed, allowing the use of %s and %o and %p.  It can be
+abbreviated @asucc. <object> can be specified as <name> or #<number>, or
+as 'me' or 'here'. See also @success and @osuccess.
+& @bamf
+@bamf <musename> <machine_name> <internet_address> <port>
+The command allows users of TinyFugue, and other clients that support
+Cyberports, to portal to other Muses via their "bamf" functionality.
+The portal is text sent by @bamf is of the form:
+ #### Please reconnect to <name>@<IP addr> (<normal addr>) port <port> ####
+For example:
+	@bamf Rhostshyl stealth.cit.cornell.edu 128.253.180.15 4201
+results in:
+	#### Please reconnect to Rhostshyl@128.253.180.15 4201
+	(stealth.cit.cornell.edu) port 4201 ####
+If "bamf" is enabled in your client, this will cause the client to open a
+socket to the new world. If "bamf" is off or the client does not support
+Cyberports, the lines in this format have no effect.
+
+& @charges
+@charges <object> = <integer>. Allows you to limit the # of times an action
+can be used. If there is a charges attribute it is decremented each time a
+register on the object is triggered.  Once it reaches zero actions are
+disabled.  See also @runout.
+& @chown
+@chown <object>=<player>. Changes the ownership of <object> to <player>.
+Objects may be things, rooms or exits. To chown things, you have to be
+carrying the thing. For rooms or exits, you have to be in the room. Objects
+must have the chown_ok flag set before it can be @chowned (See FLAGS).
+Any chowned object is automatically set Haven and !Inherit for security.
+
+Players can't be @chowned; they always own themselves. 
+& @clone
+@clone <object> [= <newname>]
+Creates an exact duplicate of object and puts it in the
+current room. If <newname> is specified, it is used as the name
+of the new object, instead of copying the name of the old object.
+
+@clone uses inheritence (see 'help inheritence') to accomplish the
+apparent duplication.
+
+& @cost
+@cost <object> = <amount> Number of Credits that need to be given to an
+object to trigger @pay,@opay and @apay. Example: 
+@cost exit-machine=10
+@apay exit-machine=@open %N-exit 
+@pay exit-machine=Your exit has been created.  
+
+& @create
+@create <name> [=<cost>]. Creates a thing with the specified name. Creation
+costs either <cost> Credits or 10 Credits, whichever is greater. The value
+of a thing is proportional to its cost. To be exact, value=(cost/5)-1.
+
+& @describe
+@describe <object> [=<description>]. <object> can be a thing, player, exit,
+or room, specified as <name> or #<number> or 'me' or 'here'. This sets the 
+description a player sees when they use the command 'look <object>'. Without
+a description argument, it clears the message. It can be abbreviated @desc.
+& @destroy
+
+@destroy <object>. This allows the recycling of objects and returns the
+player's investment in the object when used. The Destroy_OK flag set on
+an objects allows any one in possession of that object to @destroy it.
+@destroy has a delayed effect, taking place approximately 10-15 minutes
+after the command is issued. During that time you may use @undestroy to
+stop the destruction process.  Objects that are protected may not be
+destroyed.  See also @protect, @unprotect.
+
+& @dig
+@dig <name> [= Exits [, Return-Exits]]. Creates a new room with the specified
+name and displays its number. This costs 10 Credits. If the [= Exits] option
+is used, the exit will be opened and linked for you. You will have to link
+back out from the room manually unless you use the [, Return-Exits] option.
+Example: @dig Kitchen = Kitchen;k;north;n, Out;south;s will dig a room called
+Kitchen, and open an exit called 'Kitchen' in your current room. The ; symbol
+means that you may enter the exit by typing 'k','north' or 'n' also.  Only
+the first Exit name is displayed. (See also 'help example @dig'.)
+
+& @drop
+@drop <object> [=<message>]. <object> can be a thing, player, exit, or room, 
+specified as <name> or #<number> or 'me' or 'here'. Sets the drop message for
+<object>. The message is displayed when a player drops <object>. Without  a
+message argument, it clears the message. See also @odrop and @adrop.
+& @emit
+@emit <message>. Emits the message to everyone on the room. The message
+may be anything with one exception. The message cannot start with the
+name of any player. Sorry, no spoofing. :)
+& @fail
+@fail <object> [=<message>]. <object> can be a thing, player, exit, or room, 
+specified as <name> or #<number> or 'me' or 'here'. Sets the fail message
+for <object>. The message is displayed when a player fails to use <object>.
+Without a message argument, it clears the message.
+See also @afail and @ofail. 
+& @find
+@find [name]. Displays the name and number of every room, thing, or player
+that you control whose name matches <name>.  Find costs 10 credits.
+& @force
+@force <player/object>=<command>. Forces the muse to act as though
+<player/object> had entered <command>.  In general, objects you own
+can @force you if you set them 'inherit'.  Only Administrators may 
+@force other players.
+& @hide [<person>]
+This command hides your name from the MUSE.  Only people so empowered will
+be able to see you.  When someone pages you, you will see the page, but they
+won't know you're online.  This is useful when you're trying to get work 
+done and can't be distracted. 
+
+The option parameter <person> will add <person> to the list of people you
+are hiding from.  
+
+See: @unhide
+& @kill
+@kill <player> [=<message>]. <player> can be specified as <name> or #<number>
+or 'me' or 'here'. Sets the kill message for <player>. The message is
+displayed when <player> is killed.  See also @akill and @okill.
+& @okill
+@okill <object> [=<message>]. Message shown to other players when you
+get killed.  See also @kill and @akill.
+& @idescribe
+@idescribe <object> = <description>. For objects which are ENTER_OK,
+the inside description can be set to be different from the regular
+(outside) description.
+& @link
+@link <object>=<number>; @link <object>=here; @link <exit>|<room>=home. Links
+<object> to room specified by <number>. For things and players, sets the home
+room (See Homes). For rooms, sets the drop-to room (See Drop-to). For exits,
+sets the target room; the exit must be unlinked, and you must own/control the
+target room unless its LINK_OK flag is set. Linking an exit costs 1 Credit. If
+the exit was owned by someone else, the former owner is reimbursed 1 Credit. 
+& @listen
+@listen <object> = <string>. A wildcard pattern for an object to listen for.
+If/when <string> is heard, the object's ahear, amhear, and/or aahear is
+triggered. (see @ahear, @amhear, @aahear) Note: if @listen is matched the
+object's contents will also hear the message.  The @listen is often set
+to * to allow everything inside an object to hear things that happen
+outside.
+
+Note that the listen pattern must be exactly what the object hears in order
+for the @ahear, etc., to be triggered. For instance, if your object is
+listening for 'foo' (@listen obj=foo) and you say "foo", the @ahear will not
+be triggered, because the object hears 'Yourname says "foo"' rather than just
+'foo'.  You need to set '@listen obj=* says "foo"' for the object to trigger
+anytime anybody says 'foo'.  Or if you want the object to react anytime the
+word foo is used in any context including a pose or emit, you might want to
+specify @listen obj=*foo*.
+
+See also '! events' for another way of making objects listen.
+
+& @lock
+@lock <object> = <lock>.  Sets the lock for an object.  Only players or
+things satisfying the lock will be able to SUCCEED with the object (to
+pick up an object, go through an exit, and trigger @succ, @osucc, @asucc
+registers.  Anything else will fail, triggering the @fail, @ofail, @afail.
+See help for 'locks' for complete help on locks.
+See also @elock, @llock and @ulock.
+
+
+& -?-------------------- official commands ---------------------------
+
+& join
+join <player>   An official command that teleports you directly to the
+                location of <player>. 
+
+& summon
+summon <player>  An official command that teleports <player> to the
+                 location where the official is. 
+
+& slay
+slay <player/object> This is an Official command that 'kills' players (see
+the help on topic 'being killed'.  It is used in such areas as Outer Space
+and in oceans.
+
+& @allquota
+@allquota.   This lists the total quota for the enitire Muse. 
+
+& @boot
+@boot <player>. Disconnects the player from the muse. Only Directors can use
+this command. 
+& @announce
+@announce <message>. Broadcasts <message> to every player connected. May be
+abbreviated to @ann. Costs 1000 Credits per announcement. Players may block
+out all announcements by setting themselves NO_WALLS (See FLAGS).
+
+& @broadcast
+@broadcast <message>  This is an Official command that allows a Director to
+broadcast a message throughout the entire Muse. It is similar to @announce,
+but @broadcast cannot be blocked out as can @announce. Therefore, it should
+only be used for emergencies, or urgent announcements. 
+
+& @chownall
+@chownall <player> = <newowner>.  Only a Director can issue this command.
+All the possessions of <player> are @chowned to <newowner>. 
+
+& @class
+@class <player> = <class>. Reclassifies <player> to <class>, which must be
+one of: Director, Admin, Constructor, Official, Junior Official, Citizen, or
+Visitor. Only Directors may use the @class command. 
+
+& @dbck
+@dbck.  This lists disconnected rooms and clears the free list.
+
+& @dbtop
+@dbtop <item>. This will give you to top list for <item> in the database.
+Do '@dbtop' to see what <items> are available to list. This is a db
+search.
+
+& @doomsday
+The @doomsday attribute is set by @destroy, @undestroy, @protect, and
+@unprotect.  In general, it is a time in xtime() format, specifying
+the system time before which an object should not be destroyed.  Objects
+with the GOING flag set will be destroyed during the first @dbck after
+the time given.  If @doomsday is set to -1, the object is protected.
+If an object winds up with a @doomsday value but no GOING flag, it cannot
+be destroyed and must be @unprotected first.  Only Administrators may
+set the doomsday attribute directly.
+
+& @dump
+@dump.  This command will dump the database for storage. It is vital to the
+continued survial to the Muse. An object is usually set up to do this
+automaticly every few minutes. 
+
+& @empower
+@empower <object/player>=<powername>:{Yes,No,YesEQ,YesLT}.  Only Directors
+may invoke this command, which alters the authorized powers of <object> or
+<player>.  Yes and No unconditionally enable/disable the named power. YesEQ
+and YesLT enable the named power to be used on objects or players of equal
+or lesser status than <object/player>, respectively. Powers adjusted in this
+way may not be elevated above the maximum allowed powers for each class of
+player or object. See also @powers and @class. 
+
+& @giveto
+@giveto <player> = <amount>.  Quietly gives <amount> of credits to <player>
+without generating the usual messages associated with the regular 'give'
+command.  See also 'give'. 
+
+& @huhto
+@huhto <player> [=<E-Mail-Address>].  This command may only be issued by
+a Director.  It initiates or terminates the automatic logging of failed
+commands attempted by players in rooms owned by <player>.  The log is
+periodically mailed to the specified E-Mail-Address.  The use of HuhLogs
+enables a Builder to improve the choice of exit-names and trigger verbs
+in the Builder's realm to better respond to commands most frequently
+attempted by visitors. 
+
+& @newpassword
+@newpassword <player> =<password>. Only Admins may use this command. Changes
+<player>'s password, informing <player> that you changed it. Must be typed in
+full. If you forget your password, log on as guest (password = guest) and
+talk to an Administrator.
+
+& @nuke
+@nuke <player>. Only Directors may use this command. Recycles a player's
+character, after which it no longer exists. Must be typed in full.
+Cannot be used if the player owns any objects; see @wipeout and @chownall. 
+
+& @pbreak
+@pbreak.   This will give a list of the player broken-down into classes.
+It is currently an Administrator command only.
+
+& @poor
+@poor.    This resests all players credits to 0.  Be careful.
+
+& @powers
+@powers <player/thing>.  Lists the authorized powers of <player> or <thing>.
+See all @empower.
+
+& @ps
+@ps      The @ps command lists queued commands which have not yet been
+executed.  See also @wait, @trigger, and @force, all three of which push
+commands onto the queue.
+
+& @quota
+@quota <me>.  This will give you your current and remaining quota.
+@quota *<player>=<value>.  Will reset <players> quota to <value>. This is
+a director command only.
+
+& @shutdown
+@shutdown. Only Directors may use this command. Shuts down the muse. Must be
+typed in full. 
+
+& @ulink
+@ulink <object>
+This is a GOD-only command that changes the Universal Zone object to
+<object>.  it affects the zones of all rooms currently in the Universal
+Zone, or with no Zone set.  See Zones, @zlink, @unzlink 
+
+& @wipeout
+@wipeout <player>.   This command will destroy all possessions of <player>.
+Use with caution.
+
+& @name
+@name <object>=<new name> [<password>]. Changes the name of <object>.
+<object> can be a thing, player, exit, or room, specified as <name> or
+#<number> or 'me' or 'here'. For a player, it requires the player's password.  
+
+& @odescribe
+@odescribe <object> [=<message>]. The odescribe message, prefixed by the
+player's name, is shown to others when the player looks at <object>. Without
+a message argument, it clears the message. <object> can be specified as <name>
+or #<number>, or as 'me' or 'here'. May be abbreviated @odesc.
+See also @describe, @adescribe and @idescribe.
+& @odrop
+@odrop <object> [=<message>]. The @odrop message, prefixed by the player's
+name, is shown to others when the player drops <object>. Without a message
+argument, it clears the message. <object> can be specified as <name> or 
+#<number>, or as 'me' or 'here'.  When set on an exit, the message is sent
+to all players in the room being entered. See also @drop and @adrop.
+& @ofail
+@ofail <object> [=<message>]. The @ofail message, prefixed by the player's
+name, is shown to others when the player fails to use <object>. Without a
+message argument, it clears the message. <object> can be specified as <name>
+or #<number>, or as 'me' or 'here'. See also @afail and @fail.
+& @opay
+@opay <object> [=<message>]. The opay message, prefixed by the enactor's
+name, is shown to other players in the room . Without a message argument, it
+clears the message. <player> can be specified as <name> or  #<number>, or as
+'me' or 'here'. See also @apay and @pay.
+& @open
+@open <direction>[;<other direction>]* [=<number>]. Creates an exit in the
+specified direction(s). If <number> is specified, it is linked to that room.
+Otherwise, it is created unlinked. You or anyone else may use the '@link'
+command to specify where the unlinked exit leads. Opening an exit costs 1
+Credit. If you specify <number>, linking costs 1 more Credit. See also @link
+and @dig.
+& @osuccess
+@osuccess <object> [=<message>]. The @osuccess message, prefixed by the
+player's name, is shown to others when the player successfully uses <object>.
+Without a message argument, it clears the @osuccess message. It can be
+abbreviated @osucc. <object> can be specified as <name> or #<number>, or as 
+'me' or 'here'. See also @success and @asuccess. 
+& @password
+@password <old password>=<new password>. This changes your password.
+It can be abbreviated @pass.
+& @pay
+@pay <object> [=<message>]. The pay messages is triggered and shown to the
+player who paid the object. Without a message argument, it clears the
+message.  <player> can be specified as <name> or #<number>, or as 'me'
+or 'here'. See also @apay and @opay.
+
+& @pemit
+@pemit <player> = <message>. Emits the message to <player>. The message
+may be anything with one exception. The message cannot start with the name
+of a player, or of an object present int the room. Sorry, no spoofing. :)
+
+Note: to emit messages to everybody in a room (or in an object), or to
+every room in a zone, use @remit or @zemit.  The use of @pemit to send
+a message to everyone in a room is obsolete, although it will work for now.
+
+& @robot
+
+Note: This command has been disabled due to abuse.
+
+@robot <name>=<password>. Costs 1000 Credits to create a robot; the robot
+comes with the robot attribute set and is slightly different than normal
+players.  A robot is owned by its creator and not by itself. Robots can be
+@forced and set to be puppets by their creator (useful for debugging).
+The principal use for @robots is to run robot code, available by anonymous
+ftp from various sites.  You must be an accomplished C programmer to port,
+compile, and run robot code.  Among the robots you may see online at
+times are Caspian and Eliza.  You may also use a Robot as a test character
+for yourself, but it is usually easier to request and use a second real
+character, as Robots do not behave identically.  A third use of Robot
+characters is for joint projects, since a Robot owns the same things as
+its creator.
+
+& @runout 
+@runout <object> = <actions>. This is an action to be taken when charges
+reach 0 (See '@charges'). Actions are lists of commands seperated by
+semicolons, and these commands are executed by the object (see puppet).
+Things can execute almost any command but rooms and exits are restricted
+to forcing puppets to do things. Gender substitutions are applied to the
+commands before they are executed, allowing the use of %s and %o and %p.
+& @search
+@search [<player>] [<class>=<restriction>]. This command searches the database
+and lists objects which meet user specified search criteria. If a <player>
+argument is supplied, only objects owned by that player will be listed. If a
+<class> argument is supplied only objects of a certain class will be listed.
+Possible <class>es include (TYPE, NAME, EXIT, OBJECT, ROOM, PLAYER, and FLAG).
+If <class>=TYPE, possible <restriction>s include (OBJECT, ROOM, EXIT, PLAYER).
+If <class>=NAME, only objects whose name begin with the string <restriction>
+will be listed. If <class>=EXIT, OBJECT, ROOM, or PLAYER, only objects of that
+type and whose name begin with the string <restriction> will be listed.
+Finally if <class>=FLAG, only objects with the list of flags specified by
+<restriction> will be listed. For the the class TYPE=PLAYER, and for
+PLAYER=<player-name>, anyone  may obtain information on any player.  In all
+other cases, only Officials may obtain information about other players.
+Costs 10 Credits.
+
+Examples:
+   @search flags=RHD     <-- search for rooms set Haven and Dark.
+   @search type=rooms    <-- list all rooms owned by me.
+& @set
+@set can be used both to set flags and to set attribute values.
+
+To set a flag:
+	@set <object>=<flag>
+To unset the flag:
+	@set <object>=!<flag>;
+
+To set an attribute value:
+	@set <object>=<attribute>:<value>
+
+A shorthand may also be used:
+	@<attribute> <object>=<value>
+
+To copy attributes from one object to another, you can use:
+	@<newattribute> <newobject>=_<oldobject>/<oldattribute>
+
+See help on FLAGS, Attributes
+& @sex
+@sex <player> = <gender>  Used for pronoun substitution, normally male or
+female. Visible to all.  The first letter, 'm' or 'f', determines the sex.
+Example:
+@sex me = Male
+
+& @startup
+@startup = <action list>. In event that the muse crashes and gets rebooted,
+@startup will be triggered. Thus, you can retrigger objects that need to be
+running continuously.
+
+& @talent
+@talent <player> = <talent>  Used to set your talent on the WHO list. Your
+talent should reflect what you can do. 
+	Example: @talent me=Muse code
+
+& @text
+Usage: @text <text bundle>=<topic>
+  @text retrieves the given topic from the given text bundle, and
+displays it on the user's screen. 'help' and 'news' are a subset of
+this; 'help foo' is equivalent to '@text help=foo'.
+
+  To make your own text bundle, see help for 'text bundles'.
+& text bundles
+
+Internally, a text bundle is just a normal text file. The file is arranged
+like this:
+
+| & <topic name>
+| <topic text>
+| & <another topic name>
+| <topic text for that other topic name>
+
+for instance, here is an exerpt from the helptext bundle, with | prefixed 
+before each line:
+
+| & @find
+| @find [name]. Displays the name and number of every room, thing, or player
+| that you control whose name matches <name>.  Find costs 10 credits.
+| & @force
+| @force <player/object>=<command>. Forces the game to act as though
+
+Text files must be installed on chezmoto.ai.mit.edu. If you would like one,
+please email Zephyr at zephyr@chezmoto.ai.mit.edu with a bundle name that has
+'text' suffixed to the end. for example, the text bundle for the 'help' command
+it 'helptext'. Once the file has been installed you can read it by using
+@text <bundle name>=<topic> (without the 'text' in the <bundle name>)
+ 
+& @stats
+@stats. Display the number of objects in the muse broken down by object types.
+Administrators can supply a player name to count only objects owned by that
+player.
+& @success
+@success <object> [=<message>]. Sets the success message for <object>.
+The message is displayed when a player successfully uses <object>.  Without
+a message argument, it clears the message. It can be abbreviated @succ.
+<object> can be specified as <name> or #<number>, or as 'me' or 'here'.
+See also @osuccess and @asuccess. 
+& @teleport
+@teleport [<thing>=] <room|object>. Teleports <thing> to <room> or <object>.
+The destination room must be set JUMP_OK (see 'help JUMP_OK flag') or it must
+have the same owner as <thing>. Any object or player can be @teleported home
+or to #0 by the owner of the room it is in. Exits can be moved to other rooms
+by @teleporting them but the room they are being sent to must be owned by the
+same person as the exit.
+
+Examples:
+
+@teleport blee=#0      - Sends object 'blee' to #0
+@teleport foo=home     - Sends the object 'foo' home.
+@teleport out=#48029   - Moves the exit 'out' to room #48029 
+@teleport #2000        - Sends yourself to #2000
+
+@teleport may be abbreviated as @tel
+
+& @tzone
+@tz <player>=<# of hours>:<y|n>. Sets an object's time zone. <# of hours>
+is a numerical value representing the number of hours the <player>'s time is
+ahead of or behind Greenwich Mean Time (GMT) (also referred to as Universal
+Coordinated Time (UTC), or London Time. <y|n> refers to whether or not U.S.
+style Daylight Savings Time is used in your area. For example, a player in
+the Eastern Time Zone, where U.S. style Daylight Savings Time was used,
+would type "@tz me=-5:y" since Eastern Standard time is 5 hours behind
+GMT.  A player in the Pacific Time Zone would type "@tz me=-8:y", and a
+player in Copenhagen would type "@tz me=1:n" since Denmark is one hour
+ahead of GMT.
+
+If a @tz is set on a Player, then any of that players' objects that do
+not have a @tz set on them will use their owner's @tz.  However, a
+player may set the @tz register on any object individually.  If neither
+the object nor the object's owner has a @tz set, the muse will default
+to the local time in Arizona, which is U.S. Mountain Standard time
+(equivalent to -7:N).
+
+See also Timezones.
+& @unhide [<person>]
+Restores your status to unhidden.  The optional parameter <person> removes
+<person> from the list of people you're hiding from.
+
+See: @hide
+& @unlink
+@unlink <exit>; @unlink here. Removes the link on the specified exit,
+or removes the drop-to on the room. Be careful, anyone can relink an
+unlinked exit, becoming its new owner (but you will be reimbursed your 1
+Credit). See @link.
+& @unlock
+@unlock <object>. Removes the lock on <object>. See @lock.
+
+& @annouunce
+@announce <message>. Broadcasts <message> to every player connected. May be
+abbreviated to @ann. Costs 250 Credits per announcement. Players may block
+out all announcements by setting themselves NO_WALLS (See FLAGS).
+& @wall
+@wall    See @announce.
+& @wait
+@wait n = <command>.  <command> is placed on the queue and will be executed
+no earlier than n seconds from the time it is queued.  <command> may be a
+list of commands in curly braces: {command1; command2; command3}
+See also @ps.
+& @whereis
+@whereis <player>. Tells you the location of the player. If you wish to
+remain unlocatable, set your DARK flag. (See FLAGS). The person being
+located will get a message to inform them that you have successfully or
+unsuccessfully located them.  Ex: @whereis Jin
+
+& Flags
+FLAGS     @set <object> = <Flags> to set, @set <object> = !<Flag> to reset.
+Everything in the universe of muse (Rooms, Exits, Objects, Players,
+etc...) are represented in the same way at the program level.  A room merely
+has the room flags set and a player has the player flags set.  In addition,
+flags also give objects abilities or qualities. For specific information on
+a particular flag, request help on a flag title.  Example: help ROOM flag
+
+  Flag  Title           Flag  Title           Flag  Title
+------------------------------------------------------------------
+  A - AUDITORIUM flag   h - HIDE flag         p - PUPPET flag
+  b - BEARING flag      I - INHERIT flag      q - QUIET flag
+  C - CHOWN_OK flag     J - JUMP_OK flag      R - ROOM flag
+  c - CONNECTED flag    K - KEY flag          s - SLAVE flag
+  D - DARK flag         l - LIGHT flag        S - STICKY flag
+  d - DESTROY_OK flag   L - LINK_OK flag      t - TERSE flag
+  e - ENTER_OK flag     m - MORTAL flag       T - TRANSPARENT flag
+  E - EXIT flag         n - NEWBIE flag       v - VISIBLE flag
+  f - FLOATING flag     N - NO_WALLS flag     Z - ZEROG flag
+  G - GOING flag        o - OPAQUE flag       z - ZONED flag
+  H - HAVEN flag        P - PLAYER flag
+------------------------------------------------------------------
+
+& BEARING flag
+BEARING.    When set on any MUSE object, allows people to @addparent or
+@delparent objects they control to or from the object with the BEARING flag
+set.  If BEARING is not set, the object can neither bear new children nor
+lose old ones.  See @addparent, @delparent.
+
+& CHOWN_OK flag
+CHOWN_OK   This flag, when set, allows you to transfer ownership to
+another player. To set it, you must be carrying the object. You also
+have to be in the room if you want to set this flag on rooms or exits.
+After this flag is set, the new player may gain ownership of the object
+by using the @chown command (See @chown).
+
+& CONNECTED flag
+CONNECTED  This flag applies only to players and it shows if the player
+is connected or not. Thus, each time you are connected to the muse, you
+should see the 'c' flag set, otherwise, you are not here! You cannot reset
+this flag, and it is used internally by the code for things like
+tabulating players for the WHO list, etc.
+
+& DARK flag
+DARK      If a room is DARK, then anyone who looks there sees only the
+room description, no objects. If a thing is DARK, then 'look' does not list 
+that object in the room's contents. Players who do not wish to have their
+location found with the @whereis commands may set themselves DARK. Puppets 
+cannot be DARK, but an object set puppet and DARK enters 'debug' mode, and
+relays to its owner everything it does as well as everything it hears.
+
+& DESTROY_OK flag
+DESTROY_OK   When set on an object, it allows any player to destroy it
+as long as the object is not locked against them. This is good for
+things like notes, whereby the recipient can destroy the note after reading 
+it, instead of having to look for you to destroy it.
+
+& ENTER_OK flag
+ENTER_OK   If an object or person is ENTER_OK, other players may enter
+the object or person by using 'enter <object/person>. Players must also
+have the ENTER_OK set if they wish to be able to receive things given to
+them by other players via the 'give <player> = <object>'.
+
+& EXIT flag
+EXIT     This flag is automatically set on exits when you @dig, @open or
+otherwise create an exit. It cannot be changed.
+
+& FLOATING flag
+FLOATING   When set on a disconnected room or *one* room of a group
+of disconnected rooms it will supress the 'disconnected room' message.
+This flag should be used only by experienced builders. Your 'floating'
+rooms could easily be forgotten and/or misplaced.
+
+& GOING flag
+GOING     Used internally for the @destroy command, it is set on objects
+that are set to be destroyed. If you change your mind about destroying an
+object, use @undestroy to unset it.  
+
+& HAVEN flag
+HAVEN     This flag when used on a player will enable you to ignore all
+messages from all other Citizens. When people page you, they will receive
+your +haven message.  An object set HAVEN will be halted, and commands on
+its registers will not be triggered.
+See also: +haven
+
+& HIDE flag
+HIDE     A flag used to mark players who do not want their names to show
+up on the WHO list. Set by @hide, and reset by @unhide. Administrators may
+set a player's HIDE flag by using @set <player> = (!)HIDE
+
+& INHERIT flag
+INHERIT   If the INHERIT flag is set on an object, it inherits any special
+powers of the player who owns the object.  Otherwise, the object has no
+special powers.  An object set INHERIT retains the powers of the player who
+owns it even when the player is temporarily set MORTAL.
+
+& JUMP_OK flag
+JUMP_OK     If a room is set JUMP_OK players can freely teleport to that
+room.  (See also LINK_OK).
+
+& KEY flag
+KEY       When set on an object prevents puppets from picking it up.  This
+flag also causes objects to return to their home when the person holding them
+teleports away (except that the owner of the object can teleport with it).
+
+& LIGHT flag
+LIGHT     When set on an object, it enables the object to be seen in a
+room set DARK.
+
+& LINK_OK flag
+LINK_OK   If a room or object is LINK_OK, anyone can link exits to it
+(but still not from it).  Anyone can also set that room or object as their
+home room. (See Homes).
+
+& MORTAL flag
+MORTAL     When set on a player, it inhibits the use of any special
+powers associated with that player's Status.  A wizard can set him/herself
+mortal for testing purposes, and then unset the flag again.
+
+& AUDITORIUM flag
+AUDITORIUM   When set on a room, it allows speech-locks (@slock) to be used.
+This flag has no affect on players, objects, or exits.
+
+See also : help @slock, @osfail, @asfail
+
+& NEWBIE flag
+NEWBIE   When set on a player, it inhibits ability to see dbrf number and
+alerts other users that the player is new and may be in need of some
+asistance. Players may set themselves not newbie (@set me=!newbie).
+
+& NO_WALLS flag
+NO_WALLS   When set on a player, it prevents the player from hearing any
+announcements from Officials or from the Announcement Office. This does not
+block out broadcasts, which are only used by Officials for emergencies.
+
+& OPAQUE flag
+OPAQUE   When set on a player, it prevents other players from seeing
+what you are carrying in your inventory.  Players can still see objects
+you are carrying that they own.
+
+& PLAYER flag
+PLAYER   The PLAYER flag identifies you as a player. This flag cannot be
+reset by any player, not even a Director (not, yet, anyway *grin*). It is
+used mainly by the Muse code to identify your commands, check for
+validity of commands or locks etc.
+
+& PUPPET flag
+PUPPET    @set <object> = puppet. Causes an object to grow eyes and ears,
+and relay all it sees and hears to its owner.
+
+& QUIET flag
+QUIET    When you set this flag on yourself, it will block out all the
+'Set' and 'triggered' messages that you get when your objects are set ot
+triggered. This is useful if you have a lot of machines running continuously.
+It will also keep you from hearing 'shake and crumble' and 'deposit back'
+messages when you destroy your objects.
+
+& ROOM flag
+ROOM     This flag is automatically set on rooms when you @dig a new
+room. It cannot be changed. 
+
+& STICKY flag
+STICKY    If a thing is STICKY, it goes home when dropped (See Homes). If a
+room is STICKY, its drop-to is delayed until the last person leaves (See
+DROP-TOs). Only meaningful for things and rooms.  
+
+& TERSE flag
+TERSE     If a player has the TERSE flag set, room descriptions will not
+be displayed when they enter a new room. Contents and Exits will still
+be displayed. This is good when you wish to move about quickly, or do
+not bother to read room descriptions. Beware: You might miss some
+important information in some room descriptions.  If an object is set terse,
+it will not 'shake and crumble' when it is destroyed.
+
+& TRANSPARENT flag
+TRANSPARENT	If an exit is TRANSPARENT, then when you look at it you
+will see first its description; then you will look through it and see the
+description and contents of the room on the other side.
+
+& VISIBLE flag
+VISIBLE   When set on your object, it allows other players to examine it and
+see all the object's attributes as if they owned the object. They cannot make
+any changes to the object.
+
+& ZEROG flag
+ZEROG   When set on a room the space() process will look for this flag
+upon booting and put all the contents into a Zero-Gravity environment.
+This is part of the MUSE-Space code and is restricted to the Space power.
+
+& ZONED flag
+ZONED   When set on an object that is also a zone (see zones) it will
+effectively 'seal off' the zone. You cannot @zlink or @unzlink any
+rooms in the zone, nor can you open any exits out of the zone.
+Once the ZONED flag is set you cannot change any of the flags on
+the zone object (ex: if the ENTER_OK flag is not set it effectively
+blocks all @teleports). If the OPAQUE flag is set on the zone object
+it will bestricted to the WizFlags power.
+
+& -?--------------------- TOPICS -------------------------------------
+
+& Attributes
+Attributes are registers, attached to MUSE objects, in which you can store
+data or commands.  There are built-in attributes, such as 'succ', 'osucc',
+'fail', 'ofail', etc.  These can be set on any muse object.  The @defattr
+command can be used to define additional attributes on particular objects.
+(See the help on @defattr for more information on creating attributes).
+Those attributes can be set only on the object on which they are defined,
+or on descendants of that object. (See Inheritance).  User-defined attributes
+can be set and unset the same way built-in attributes are set: with the
+@set command, or with the @<attribute> shorthand (see the help on @set).
+
+If an attribute is defined on an object obj1, then you can also set that
+attribute on children of obj1.  You do not need to (and in general should not)
+use @defattr to define the attribute on the children as well.
+
+If two attributes defined on different objects have the same name, they are
+different attributes (much like local variables in all standard programming
+languages).  If one object is a child of another with a similarly-named
+attribute there is an overlap.  In such a case, the variables are considered
+lexically scoped and an object can reference only the most local version.
+(See Inheritance for more information on this topic).
+
+& Bogus commands
+Bogus commands.    Bogus commands can be made using exits. For example, to
+make a 'sit' command,  one could "@open sit", then "@link sit=here" (because
+unlinked exits can be  stolen), "@lock sit=me&!me" (impossible to be both at
+once, therefore always fails), and "@fail sit=You sit on the chair."; "@ofail
+sit=sits on the chair.".  Since nobody can go through it, it always fails.
+The @fail message is displayed to the player, and the @ofail message
+(preceded by the player's name) to everyone else.  Another way to create
+commands is with v-registers on an object.  See V-Registers, and ask people
+online for assistance.
+
+& Costs
+Only the following commands cost any credits:
+        page: 1C
+        +com: 1C
+
+        @dig: 10C deposit on the room; 1C deposit per exit.
+        @link: 1C (if you  didn't already own it, +1 to the previous owner).
+        @open: 1C (2C if linked at  the same time)
+        @create: 10C (or  more, up to 505C), sacrifice value=(cost/5)-1.
+           These amounts are deposits, refunded when the object is @destroyed.
+        @find: 10C
+        @search: 10C
+        @announce: 250C.  Use +com public for general discussion.
+
+Note: queued commands (@wait, @trigger, @force) cost 1/16th credit on average.
+There is also a 10-credit deposit for any commands waiting on the queue. The
+deposit will be returned when the command is executed. 
+
+& Currency
+Currency.    tinymuse works on a Credit and Debit system, meaning there is
+no tangible forms of currency. Building and some actions cost money.
+
+How to get money: You receive a daily allowance of 3000 credits on days
+ you connect.  You may also borrow money from the bank, or request loans
+ or gifts from other players, or you may sell objects you create. Directors
+ and Administrators may also be approached regarding subsidies for useful
+ building projects. 
+
+See Costs and Sacrificing.
+
+& Control
+Control.     In general, you can examine, modify, or otherwise user or
+abuse an object if you control it.  You control everything you own. Unless
+you are an Official, you do not control anything else.  Officials and
+Administrators have various degrees of control over objects and players
+they do not own.
+
+There is one exception to this rule: anybody controls an unlinked exit, and
+can link to it. The exit is automatically @chown'ed to the player who links
+it. Unlinked exits can thus be stolen; all builders should be aware of
+this. 
+
+& Drop-to
+Drop-tos  When the @link command is used on a room, it sets a drop-to
+location.  Any object dropped in the room (if it isn't STICKY) will go to
+that location.  If the room is STICKY, the drop-to will be delayed until
+the last person in the room has left.
+
+& Enactor
+The enactor is the thing that is doing something.  If one of your Objects
+does something (through a @force or @trigger) it is the enactor.  If one of
+your links or rooms does something (through a @ASucc, @AFail or @AEnter) then
+YOU are the enactor and the action happens as if you typed it in directly.
+To determine the enactor create an object to listen for the action with
+@ahear = :[v(N)].
+
+& Exits
+Exits.    Exits may be linked from rooms or objects into other rooms or
+objects.  Thus you may take an exit and find yourself inside an object; if
+there are no obvious exits where you are, try 'leave' before giving up.
+
+& Failure
+Failure.  You fail to use a thing when you cannot take it (because its lock
+fails). You fail to use an exit when you cannot go through it (because it's
+unlinked or locked). You fail to use a room when you fail to look around
+(because it's locked). See Strings, @fail and @ofail.
+
+& Gender
+Gender.   @sex me=unassigned|male|female|neuter. Default unassigned. If a
+player's gender is set, %-substitutions will use the appropriate pronoun for
+that player. Only  meaningful for players. See Substitutions.
+
+& Getting started
+Some commands to start with:
+
+   QUIT - quit and leave muse
+   WHO  - print list of users currently on this muse
+   help - access online help
+   news - access online news about this muse's events and topics
+
+   say <something> - make your character 'say' <something>
+        Example: say Hi Everyone! 
+   page <player>=<message> - send a <message> to a <player> on the muse
+        Example: page Jin=Hello, Can you help me?
+   look  - look at the room you're in, or at a person or object in it.
+        Examples: look
+                  look Tourbot
+   go <exit> - go through one of the obvious exits in the room.
+        Example: go out
+
+Please see: +channel, channels, register, syntax
+
+& Here
+Here.     The word 'here' refers to the room you are in. For example, to
+rename the room  you're in (if you control it), you could enter
+"@name here=<new name>".
+
+& Homes
+Homes.    Every thing or player has a home. This is where things go when
+sacrificed, players when they go home, or things with the STICKY flag set go
+when dropped (See STICKY). Homes are set with the @link command. You may set
+your home to any room that has the LINK_OK flag set.  A thing's home
+defaults to the room where it was created, if you control that room, or
+your home. You can link an exit to send players home (with their inventory)
+by "@link <exit-name>=home".  Drop-tos can also be set to 'home'.
+See also DROP-TO and @link.
+
+& --- inheritance and sub topics
+
+& Inheritance
+Inheritance Topic: Introduction.
+
+Objects in the muse can be assigned a list of 'parents' with the @reparent
+command.  The purpose of making one object a child of another is so that the
+child object can inherit (1) attribute definitions, and (2) attribute values,
+from its parent(s).  For this help section, examples will be crucial. Let
+us therefore assume the existence of objects A, B, and C, and say that
+object C has both A and B as parents.
+
+Type 'help inheritance definitions' for topic (1).
+Type 'help inheritance values' for topic (2).
+
+See also help on @reparent, @defattr, and Attributes.
+
+& Inheritance definitions
+
+(1) Inheritance of attribute definitions:  If object A has on it a user-
+defined attribute 'foo', then you can set a value for 'foo' on C with
+the usual syntax, @foo C=value.  If both A and B define attributes
+named 'foo', these are different attributes, and you can set either or
+both of them on C separately.  By default, @foo C=value will reference
+the attribute on whichever parent is defined first in C's parent list.
+If C also defines an attribute 'foo', this is also a different attribute
+from the one defined on A, and @foo C=value will set the local 'foo'
+attribute.  In cases such as this, where one attribute shadows another with
+the same name, you can refer to one of the other attributes by giving
+its full name, which includes the number of the object on which it is
+defined.  If A's number is #11 and C's is #22, you can type @set C=foo:val1
+to set C's local 'foo' attribute, and @set C=#11.foo:val2 to set a value,
+on object C, for the 'foo' attribute defined on A.
+
+See 'help inheritance' for the intro and other topics.
+
+& Inheritance values
+
+(2)  Inheritance of attribute values:  If object A has a value on any
+inheritable attribute, whether built-in or user-defined, then object C
+will inherit that value.  When you examine 'C' you will notice, for each
+inherited attribute, that its name and value is preceded by a + sign.
+An object can inherit values from grandparents or other ancestors as well,
+and the number of + signs before the attribute name indicates how many
+generations up the tree the value is coming from.  Attribute values inherited
+in this manner behave exactly as do non-inherited values.  All $ and !
+events, @listens, triggered commands, etc., work as expected.
+
+An inherited value can be superseded in a child by simply setting a local
+value for the attribute. (If the attribute was originally defined with
+the wizard option set, or is a built-in wizard-only attribute, you will
+not be able to set it unless you control not only the child but also the
+object on which the attribute was defined).  Inherited values can thus be
+used to create generic parents that can produce identical children, and said
+children can then be modified slightly by overwriting selected registers.
+
+See 'help inheritance' for the intro and other topics.
+
+& ----------------
+
+& It
+It.        The last object matched is remembered in the 'IT' attribute.
+The next command may refer to IT or may use get(<object>/It) to retrieve
+the value of 'IT' from another object
+
+& Linking
+Linking.  You can link to a room if you control it, or if it is set LINK_OK.
+Being able to link means you can set the homes of objects or yourself to that
+room (if it is LINK_OK). See LINK_OK, Homes, and @link.  
+
+& ---------- locks and sub topics
+
+& Locks
+A lock is an attribute that determines who may take, use, enter, or otherwise
+control an object.  Currently in MicroMuse 4 locks are defined: the regular
+lock (@lock), the enter-lock (@elock), the leave-lock (@llock), and the
+use-lock (@ulock). Help is available on each of those.  In this discussion
+we will refer to the @lock, but the same options are available for all the
+other locks.
+
+All of the following lock types are available:
+        Ordinary locks (that work as in previous versions of MUSE)
+        Is locks
+        Carry locks
+        Indirect locks
+        Object Attribute Locks
+        Register Locks
+Help is available on each of the above topics.
+
+Any lock of any type may be combined with any other in a boolean expression,
+using '&' (and), '|' (or), '!' (not), and parentheses ('(' and ')') to group.
+The lock is satisfied if the boolean expression evaluates to true.
+& register locks
+A register lock is a mechanism for locking a specific $ or ! event, unlike
+the @ulock which locks all of the $ and ! events on an object.  The syntax
+for seting individual register locks is:
+        @<attr> <object>=$<verb-pattern>:/<lock>/<action-list>
+
+Example:
+        @va object=$blee:/#1/"foo
+
+If Jin types 'blee' in the presence of the object, the object will say 'foo',
+but the pattern 'blee' will not match this register for anyone else.  That is,
+anyone else typing 'blee' will receive the standard 'Huh?' error message.
+
+& ordinary locks
+An ordinary lock is checked against the player (or object) trying to pick
+up the locked object (or trying to walk through an exit).  It is also
+checked against any object the enactor is carrying, and against the zone
+the enactor (and hence the object) is currently in.  It can be specified
+as a <name> or a #<dbref>, or as 'me' or 'here'.  To lock to a specific
+player, prefix their name with '*' (ex. '*Jin').
+ 
+Examples: @lock purse = #123            Can be picked up by player #123,
+                                        or by anyone carrying object #123,
+                                        or by anyone currently in zone #123.
+
+          @lock purse = *Jin            Can be picked up by Jin, or by anyone
+                                        carrying Jin.
+
+Objects can also be locked to the value of an attribute on the enactor
+(attributes on ordinary locks are not also checked on objects carried by 
+the enactor).
+
+Examples:  @lock thing=sex:m*           Object may be taken by anyone whose
+                                        sex starts with an 'm'.
+
+           @lock thing=last:>612345678  will lock thing to anyone whose 'last'
+                                        attribute is greater than 612345678.
+
+The value for the attribute may also be specified as a function, which is
+evaluated each time an attempt is made to take the object.
+ 
+Example:   @lock thing=sex:[add(3,4)]   will allow people whose sex is '7'
+                                        to take the object.
+
+& is locks
+An Is-lock is checked against the enacting object only, and not against any
+objects the enactor is carrying, nor against the zone the enactor is in.
+
+Syntax: @lock <thing>==<object>  (Notice the double = sign).
+
+Example: @lock thing==*Jin    Only Jin may take 'thing'. People carrying
+                              Jin cannot.
+& carry locks
+A carry-lock is checked only against objects carried by the enactor, and not
+against the enactor itself, nor against the zone the enactor is in.
+
+Syntax: @lock <thing>=+<object>
+
+Example: @lock thing=+*Jin      Only someone carrying Jin can take 'thing'.
+                                Jin himself cannot.
+& indirect locks 
+An indirect lock checks the lock on some other object.  Since locks are not
+inherited (see inheritance), using indirect locks is one way to simulate
+such inheritance.
+
+Syntax: @lock <thing>=@<object>
+
+Example: @lock foo=@#123        Anyone who can pick up #123 can also pick up
+                                foo.  Foo must control #123 or it will not be
+                                able to read the lock and the lock will fail. 
+
+& object attribute locks
+An object attribute lock checks the value of an attribute on any specific
+object all (rather than on the enactor).
+
+Syntax: @lock <thing>=@(<object>=<attr>:<value>)
+                The parentheses are important.
+
+Example:  @lock foo=@(*Jin=race:human)
+                Anyone at all can pick up the object, just so long as Jin's
+                race is 'human'.  Foo must be able to read the 'race'
+                attribute on Jin, or the lock will fail. 
+& Me
+Me.   The word 'me' refers to yourself. Some things to do when starting out:
+1) give yourself a description with "@describe me=<description>", then look
+at yourself with "look me". 2) set your gender, if you wish it known, with
+"@set me=sex:male" or "@set me=sex:female" (or "@set me=sex:neuter" to be
+ an 'it').  
+
+& Officials
+OFFICIALS  Players who are OFFICIALS have additional powers which enable
+them to manage the MUSE. See also @class.
+
+& Pronouns
+You may use special pronoun-substitution characters inside messages you
+create on @osucc, @ofail (etc.) registers, as well as on commands you
+program on @v*-registers. The following character combinations will provide
+substitution when the object triggering the message or command has its sex
+set to male or female:
+
+	%s - 'he' or 'she'   (subjective pronoun)
+	%S - 'He' or 'She'
+	%o - 'him' or 'her'  (objective pronoun)
+	%O - 'Him' or 'Her'
+	%p - 'his' or 'her'  (possessive pronoun)
+	%P - 'His' or 'Her'
+
+If the object has no sex set, the object's name will be used instead. In the
+case of the possessive pronoun, the object's name will be used and a trailing
+apostrophe + s will be added.
+
+	%n or %N will substitute the player's or object's exact name.
+	%# will substitute the player's or objects' dbref number.
+
+The other pronouns (you, I ,we, etc.) are not currently available.  If you
+have a use for them, speak with a Director.  See also Substitutions.
+
+& Puppets
+Puppets.  An object is made into a puppet by doing @set [object]=puppet,
+once an object is a puppet it will relay all that it sees and hears to its
+master.  All objects created by a puppet are owned by its master, when
+puppets spend or earn Credits they are also taken from and given to its
+master. In order to prevent puppets from screwing up puzzles, objects may
+have the key flag set, this will prevent puppets from picking the object up.
+A puppet may be commanded by its master by:  @force [object]=command
+or shorthand version:
+[name/# of puppet] command
+Example:       
+@force fred="hi there. or     
+fred "hi there. or       
+#4342 "hi there.  
+
+& Arguments
+V(0) through V(9) are the ten items on the argument list.
+Arguments can be set by either parameters after an @trigger
+or asterisk substition in pattern
+
+matching.
+Example: @listen item=* foo *; @ahear item=: [v(1)] bar [v(0)].
+
+& Strings
+Strings.  Objects can have many strings stored on them, in various
+registers.  The seven most important are: 1) A Name. 2) A Description.
+3) A Success message (seen by the player). 4) A Fail message (seen by the
+player). 5) An OSuccess message (seen by others). 6) An OFail message (seen
+by others).   7) An Odesc message (seen by others).
+
+& Substitutions
+Substitutions.  Apart from Pronoun substitutions (see 'Pronouns'), the
+following %-substitutions are available:
+
+%N or %n	the enactor's name.
+%# 		the enactor's dbref.
+%va - %vz	the value of register va (etc.), like [get(me/va)]
+%/attr/		the value of arbitrary register <attr>, like [get(me/attr)]
+%/thing/attr/	the value of register <attr> on object <thing>, where <thing>
+	        is a db number.
+
+& Success
+Success.  You successfully use an object when you take it. You use an exit
+successfully  when you go through it. You successfully use a room when you
+look around. See  STRINGS, @SUCCESS and @OSUCCESS. 
+
+& Timezones
+Timezones         This feature coverts Muse Standard Time to your preferred
+                  Time Zone.  All times are now stored internally as a single
+                  integer representing the exact number of seconds since a
+                  fixed long-ago date.  When you run a command that involves
+                  time, such as +laston, +uptime, or the time() and xtime()
+                  functions, the Muse checks your @tz setting to determine
+                  what time to print out to you.  See @tz for more details.
+                  The Default timezone for this muse is U.S. Mountain
+                  Standard time.
+
+& Types of objects
+Types of objects.   There are 4 types of objects: things, players, exits, and
+rooms. The first  letter following an object's ID number indicates the type:
+P(layer), E(xit),  R(oom), otherwise, thing. Things are inanimate objects that
+can be carried.  Players are animate objects that can move and carry. Exits
+are the means by which objects move. Rooms are locations that contain objects
+and linked exits. Things can be programmed using V-Registers so that they
+perform useful and interesting behaviors.
+
+& Verbs
+For most verbs there are three forms: Verb (what the Enactor sees), OVerb
+(what others in the area see) and AVerb (the action to be taken when the
+event happens). Example: @Drop, @ODrop and @ADrop
+
+& V-Registers
+V Registers are the main technology for programming Muse objects.  Each object
+has 26 V Registers, named VA, VB, ..., VZ.  Each V Register can hold a number,
+a character string, or an executable command.  See the help entry for @v* for
+more details on programming the V Registers.
+
+     Example: @vw chair=$sit:@force me=@emit After considering the others
+places to sit %n has a seat in the chair.
+
+& Zones
+
+Every room in tinymuse is in a Zone.  The Zone of a room (returned by the
+zone() function and also visible when a room you own is examined) is an
+object, referred to hereafter as the zone object or ZO.  Any object may
+be used as a zone object, although (as will become clear later) it is unwise
+for the zone of a room to be an object that is being used for any purpose
+other that simply as a ZO.  A room's zone is changed with the @zlink and
+@unzlink commands (see the help pages on those commands) and referenced with
+the zone function (help is available for that as well).  All rooms whose zone
+has not been set are in the Universal Zone (UZ), defined by a UZ object
+(often called Universal Zone).
+
+The zone object of a room affects access to the room, commands available in
+the room, and messages heard in the room.
+
+Access to a room:  If Zone1 and Zone2 are zone objects, and Room1 is in Zone1
+and Room2 is in Zone2, then players may walk from Room1 into Room2 (assuming
+the exit is not locked against them) only if Zone2 is not locked against the
+player, and also not locked against Zone1.  A player may teleport from    
+Room1 to Room2 (assuming Room2 is set Abode) only if object Zone2 is enter_ok.
+Zone objects do not affect walking or teleporting between rooms in the same
+zone.  When access is permitted or denied, the @succ, @osucc, @asucc, @fail,
+@ofail, @afail (for walking attempts) or @enter, @oenter, @aenter, @efail,
+@oefail, @aefail (for teleportation attempts) on the ZO are triggered.
+
+Since a zone object must be unlocked to permit access, it is wise to keep
+zone objects safe inside a locked box or room to which others have no access.
+
+Commands in a room:  V-register commands on a zone object are accessible from
+any room in the zone, as if a separate copy of the zone object were present
+in each room.  However, any actions performed by the ZO are performed from
+its actual location.  Thus, for instance, @emit's will not be heard in the
+room in which the command is typed; @remit-to-the-room should be used instead.
+Zone Objects can also listen if the listen is set, and the @ahear will be
+triggered if the listen pattern is matched.
+
+Messages heard:  Apart from the usual ways of sending messages to a room,
+a message may also be sent to every room in a zone by @zemit-ting a message
+to the Zone Object.  See @zemit.
+
+& $ events
+
+$ events
+
+New verbs can be defined on any register with $ events.  Store
+a string on the register with the following format:
+        $verb pattern:action1;action2;....
+
+The verb pattern may include wilcards (* to match strings of any length,
+and ? to match a single character).  If the verb pattern is matched by    
+ 
+a typed command by any player in the room with the object or carrying the
+object, the actions will be executed.  If the verb pattern includes
+wildcards, then the strings matching them may be referenced in the action
+part of the command by %0 or v(0) for the first, %1 or v(1) for the second,
+and so forth.
+
+Events are matched only on objects in the room, if any match (although events
+on players can be matched only by the player, not by other objects in the
+room).  If no objects in the room match the event, matches are then performed
+on objects carried by the enactor or, if no such object can match, matches
+are then performed on the zone object and on the universal zone.
+
+For examples, type: help event examples.
+
+& ! events
+
+! events
+ 
+Analagous to $ events, ! events match what they hear rather than typed
+commands.  Store a string on any register with the following format:
+        !listen pattern:action1;action2;....
+
+The listen pattern may include wildcards (* to match strings of any length,
+and ? to match a single character).  If the listen pattern is heard by the
+object, the actions will be executed.  If the listen pattern includes
+wildcards, then the strings matching them may be referenced in the action
+part of the command by %0 or v(0) for the first, %1 or v(1) for the second,
+and so forth.
+
+Events are matched only on objects in the room, if any match.  Since ! events
+are analagous to 'ahear', they cannot be matched on the player itself, nor
+will they be matched on other player characters in the room.  If no objects
+in the room match the event, matches are then performed on objects carried
+by the enactor or, if no such object can match, matches are then performed
+on the zone object and on the universal zone.
+
+For examples, type: help event examples.
+
+& event examples
+Examples of $ and ! events:
+
+ (1) @va obj=$foo:say hi
+        If you type 'foo', the object will say 'hi'.
+  
+ (2) @va obj=$foo *:say %0
+        If you type 'foo abcde', the object will say 'abcde'.  If you type
+        just 'foo', nothing will happen, as the pattern you have specified,
+        'foo *', requires at least one additional space (and therefore one
+        additional word) after the word 'foo'.
+
+ (3) @va obj=!* says "foo":say hi
+        If someone says foo and the object hears, it will say 'hi'.  Notice
+        that the entire pattern, '* says "foo"', is necessary.  Compare with
+        example (4).
+
+ (4) @va obj=!foo:say hi
+        Your object will say 'hi' if it hears exactly the line 'foo'.  But
+        if you say foo, or pose foo, the object will not hear 'foo' but will
+        hear 'Yourname says "foo"' or "Yourname foo".  The object will hear
+        'foo' only if you @emit or @pemit just that one word.
+
+
+& @switch
+@switch string={pattern1},{yes-cmds},{pattern2},{yes-cmds}...,{no-cmds}
+
+@switch is a general condition-testing function.  It tests to see if
+one string matches another. For instance,
+@switch Hello=*a*,{"an a!},*ll*,{"a double l!"},{"oh well.}
+will display 'a double l'. Try substituting different
+values for 'Hello'.
+
+Another popular use for the @switch function is in combination with the
+rand function. (see 'help rand function'):
+  @switch rand(2)=0,{do something},1,{do something else}
+
+& @trigger 
+@trigger can pass control and data (as arguments) between or within items.
+Example: 
+@va item=@trigger me/vb=[v(0)]
+@vb item = :[v(0)];
+@trigger item/va=foo.
+
+& @sweep
+@sweep gives you alist of all objects/players that are listening in the
+room you are currently in, as well as the objects you are carrying.
+Most objects only listen for a particular string or phrase, so they
+normally do not pose a problem if you need privacy. You will have to be
+careful of players and puppets since they will hear everything you say
+and do.
+
+& @aahear
+@aahear <object> = <actions>.  @aahear works the same as @ahear (q.v.),
+but the <actions> will be trigger if the @listn (q.v.) is matched by a
+pose or utterance enacted by either the object itself or by another player
+or object.  See also @amhear.
+& @aclone
+@aclone <object> = <actions>.  Sets the actions to be taken when <object>
+is cloned (see @clone).  The actions are performed by the newly cloned
+copy, not by the original.
+& @adrop
+@adrop <object> = <actions>.  Sets the actions to be taken by <object> when
+it is dropped.
+& @aenter
+@aenter <room/object/player> = <actions>.  Sets the actions to be taken by
+<room>, <object> or <player> when it is entered (see enter) by another
+player or object.
+& @aleave
+@aleave <room/object> = <actions>.  Sets the actions to be taken by <room>
+or <object> when a player or other object leaves.
+& @amhear
+@amhear <object> = <actions>.  @amhear works the same as @ahear (q.v.),
+but the actions will be trigger only if the @listen (q.v.) is matched by
+a pose or utterance enacted by the object itself.  See also @aahear.
+& @edit
+@edit <object>/<attr> = {oldstring},{newstring}.  <Object> can be a thing,
+player, exit, or room; <attr> can be any attribute on <object> that holds
+a string value (e.g. desc, succ, adrop, listen, ahear, va, vb, etc.).  The
+first occurrence of oldstring is replaced by newstring.  If the strings
+contain only alphabetic characters, the curly braces may be omitted.
+& @enter
+@enter <object> [=<message].  Sets the message which a player sees upon
+entering <object>.  See 'enter'.
+& @leave
+@leave <object> [=<message>].  Sets the message which a player sees upon
+leaving an object.  See also leave, @oleave and @aleave.
+& @oenter
+@oenter <object> [=<message>].  The @oenter message, prefixed by the
+player's name, is shown to others when a player enters <object>.  See
+also enter, @enter, and @aenter.
+& @oleave
+@oleave <object> [=<message>].  The @oleave message, prefixed by the player's
+name, is shown to others when the player leaves <object>.  See also leave,
+@leave, and @aleave.
+
+& @does
+@does <object>=<actions>.  The @does atrribute works like a v-register,
+however, it will remove a charge on the object (if any) when triggered.
+& @v*
+@v<a-z> <object>=<actions>.  This command sets any v-register on an object
+as specified. There are 26 registers VA-VZ.   Anything may be stored on a
+v-register.  If a @v-register contains a semicolon-separated list of
+actions, e.g. @va object = action1;action2;action3, then these actions will
+be executed in order when @va is triggered (see @trigger).
+
+V-Registers are built in, but users may define additional attributes with
+arbitrary names.  See @defattr.
+
+V-Registers may also be used to create new commands and to listen for strings.
+See help under '$ events' and '! events' for details.
+
+See 'V-Registers', 'V function' and @trigger, and see the courses in the
+University (Section 1, Arc 0) or the MUSE manual for more information on
+programming objects.
+
+& @halt
+Usage: @halt [=<command>]
+Description: @halt halts all commands waiting to be executed by the
+invoking object, or by all objects owned by the invoking player.
+Optionally, <command> will be run afterwards.
+& @zlink
+@zlink <room>=<object>.  This command will link the <room> into the zone
+represented by the <object>. See Zones.
+& @unzlink
+@unzlink <room>.  This command resets the zone of the specified <room> to
+the Universal Zone, removing any previously defined zone. See Zones, @zlink. 
+&HuhLog
+To obtain a list of the unrecognized commands players type in your rooms,
+contact your local administrator or director.  These logs can be used to
+fix misleading or incomplete descriptions in your rooms.
+
+& -------- math functions---------
+
+& mid function
+mid(str,startchar,howmany)
+                returns 'howmany' characters from str starting at the
+                startchar'th character.  (i.e. mid(hithere,2,3) returns the)
+                characters are numbered starting at 0.
+& add function
+add(a,b)        a+b
+& mul function 
+mul(a,b)        a*b
+& div function
+div(a,b)        a div b  (Integer division with no remainder)
+& mod function
+mod(a,b)        a mod b  (The remainder after integer division)
+& tan function
+tan(num)        Returns the tangent of num.
+& arcsin function
+arcsin(num)     Returns the arcsine of num.
+& arccos function
+arccos(num)     Returns the arccosine of num.
+& arctan function
+arctan(num)     Returns the arctangent of num.
+& sub function
+sub(n1,n2)      Returns n1-n2 where n1 and n2 are integers.
+& log function
+log(num)        Returns the logarithm base 10 of num.
+& ln function
+ln(num)         Returns the natural log of num.
+& exp function
+exp(num)        Returns num raised to the power of 'e' (reverse ln).
+& pow function
+pow(n1,n2)      Returns n1 raised to the n2'th power, where n1 and n2 are 
+& fadd function
+fadd(n1,n2)     Returns n1+n2 where n1 and n2 are floating point numbers.
+& fsub function
+fsub(n1,n2)     Returns n1-n2, where n1 and n2 are floating point numbers.
+& fmul function
+fmul(n1,n2)     Returns n1*n2 where n1 and n2 are floating point numbers.
+& fdiv function
+fdiv(n1,n2)     Returns n1/n2, where n1 and n2 are floating point numbers.
+& sin function
+sin(num)        Returns the sine of num.
+& cos function
+cos(num)        Returns the cosine of num. 
+& land function
+land(a,b)       Logical AND of a,b
+returns 1 if both 'a' and 'b' are true. (see truth function)
+& lor function
+lor(a,b)        Logical OR of a,b
+returns 1 if one or more of 'a' and 'b' are true. (see truth function)
+& lxor function
+lxor(a,b)       Logical XOR of a,b
+returns 1 if one of 'a' and 'b' is true, but not both. (see truth function)
+& lnot function
+lnot(a)         Logical NOT of a
+if truth(a) returns 1, this function returns 0. if truth(a) returns 0,
+this function returns 1. see truth function.
+& band function
+band(a,b)       Bitwise AND of a,b (signed decimal integers) 
+& bor function
+bor(a,b)        Bitwise OR of a,b (signed decimal integers)
+& bxor function
+bxor(a,b)       Bitwise XOR of a,b (signed decimal integers)
+& bnot function
+bnot(a)         Bitwise NOT of a (signed decimal integers)
+& sgn function
+sgn(a)          1 if a>0, -1 if a<0, 0 if a=0.
+& truth function
+truth(a)        Returns 0 on the empty string, the number 0, and dbref #-1.
+                Returns 1 otherwise.
+& abs function
+abs(a)          Absolute value of a.
+& base function
+base(num,oldbase,newbase)
+                Converts 'num' from oldbase to newbase.  Bases must be
+                between 2 and 36.  Digits in 'num' must be in range of 
+                the oldbase.  Digits above 9 are 'a'(=10) through 'z'(=35),
+                or 'A' through 'Z'.
+
+        Examples:
+                base(14,10,2) = 1110
+                base(aa,16,10) = 170 
+& sqrt function
+sqrt(number)    Returns the square root of 'number', rounded down to the
+                nearest integer.  If number is negative, returns the square
+                root of its absolute value. 
+& pi function
+pi()                    Returns 'pi', which is approximately 3.1415927
+
+& gt function
+gt(num1,num2)           Returns 1 if num1 is greater than num2, 0 otherwise.
+
+& lt function
+lt(num1,num2)           Returns 1 if num1 is less than num2, 0 otherwise.
+
+& fsqrt function
+fsqrt(num)              Returns the floating-point square root for 'num'.
+                        If 'num' is negative, returns 0.  
+& lnum function
+lnum(num)       Returns a list of numbers from 0 to (num-1).  The maximum
+                legal value for num is 250. 
+ 
+        Example: lnum(5) returns '0 1 2 3 4'.
+& simp function
+simp(<floating-point number>)     Returns the simplifacation of a floating-
+                                  point number. For example, 027.603100 would
+                                  return 27.6031.  
+& dist2d function
+dist2d(x1,y1,x2,y2)     Returns the distance between x1,y1 and x2,y2 as if
+                        on a 2-dimensional graph.
+
+& dist3d function
+dist3d(x1,y1,z1,x2,y2,z2)     Returns the distance between x1,y1,z1 and
+                              x2,y2,z2 as if on a 3-dimensional graph.
+& comp function
+comp(n,m)       returns 0 if n = m, -1 if n < m, 1 if n > m.  The
+                comparison is numeric only. Alphabetic strings are
+                treated as equal to 0.
+& scomp function
+scomp(str1,str2)
+                returns 0 if str1 = str2, -1 if str1 < str2, 1 if
+                str1 > str2.  For the purposes of comparison ascii
+                values of characters are used, and str1 is less than
+                str2 if it occurs earlier alphabetically.
+ 
+        Examples:
+
+                scomp(a,b) = -1
+                scomp(abc,aba) = 1
+                scomp(abc,abcd) = -1
+                scomp(A,a) = -1
+                scomp(a,A) = 1 
+
+
+&rand function
+rand(num)   	a number between 0 and num-1
+& -------end math functions---------
+& xtime function
+
+Given an ASCII time string, returns a timezone-independent x-value.
+This function is the inverse of the time() function.
+
+xtime() --     xtime() returns the timezone independent X-value
+               for the current time.  This X-value may later be converted to
+               any timezone using the time() function.  For a discussion of
+               X-values, see the help entry above for the time() function.
+
+
+xtime(s) --    xtime(s) converts an ascii string `s' (without the
+               quotes) into an X-value.  Xtime() has been written to analyze
+               and interpret a variety of string representations of the time.
+               If it won't recognize a particular specification, please advise
+               nils@geom.umn.edu and we will try to increase its flexibility.
+
+               It is important to realize that an ascii string representation
+               of the time must be in `some' timezone.  This timezone must be
+               known during the time of conversion in order to calculate the
+               timezone independent X-value.  The following rules will be used
+               to determine the best guess at the timezone for the string `s'.
+
+               A) If the string `s' contains a timezone specification such
+	        as `gmt', `edt', `est', `cdt', `cst', `mdt', `mst',
+	        `pdt', or `pst', that timezone will be assumed during
+	         conversion.
+	       B) If A) fails, and the calling object has a TZ value set,
+	          that value will specify the timezone.
+	       C) If A) and B) fail, and the owner of the calling object has
+	          a TZ value set, it will specify the timezone.
+	       D) if A), B) and C) all fail, then the muse default timezone
+	          will be used.
+
+xtime(s,tz) -- Same as above, but with the timezone set explicitly as 'tz'.
+
+See also time(), @tz, Timezones.
+
+& time function
+time()		Returns the current system time and date, in an alphanumeric
+                format; the exact value returned depends on your @tz
+                setting.  The default is U.S. Mountain Standard Time.
+                time() first checks the @tz value on the object calling
+                time(), and if none is present it next checks the @tz value 
+                of the object's owner.
+
+time(tz)        Returns the current system time and date, using 'tz' as the
+                timezone value. 'tz' should represent a number of hours before
+                or after GMT and can include an optional ':Y' or ':N' suffix
+		which indicates if U.S. style daylights savings time is to
+		be taken into consideration.  'tz' can also be the special
+                value 'D' which means that the object's default timezone is
+                to be used. time(D) returns the same value as time().
+
+time(tz,x)      Returns the time and date represented by the long integer 'x'
+                in timezone 'tz', where 'tz' is as above and 'x' is the
+                timezone-independent internal representation of the time,
+                expressed as the exact number of seconds since Midnight
+                Greenwich Mean Time in the morning of Jan 1, 1970.
+                time(D,x) returns the time represented by 'x'
+                while using the object's default timezone.
+
+		See also xtime(), @tz, Timezones.
+
+&get function
+get(obj,attr)
+get(obj/attr)	These two formats are equivalent and each returns the
+		value of the 'attr' attribute on object 'obj'.
+
+	Examples:
+
+		@sex me = neuter
+		get(me/sex) then returns the string 'neuter'.
+
+		get(#123,va) returns the value of 'va' on object #123.
+
+& strlen function
+strlen(str)	number of characters in str
+&quota function
+quota(player)	returns the quota of player
+&quota_left function
+quota_left(p)	returns the balance of unused quota for player p.
+&credits function
+credits(player)	returns the number of credits belonging to player
+&V Function
+The V function has many forms: v(N) {The enactor}, v(#) {the number of the
+enactor}, v(vq) {@VQ of the current object}, v(0) {The first item in the
+argument list} etc. Example, try: :[v(n)]
+
+v(s)		
+		v(i) (i in 0..9) returns %i  (i.e. v(0) == %0) 
+		v(va) returns me/va (the object's va field.)
+		v(#) returns the object # of whoever caused this action.
+		v(n) returns the object name of whoever caused this action.
+		v(!) returns the object # of the object calling v().
+		v(attr) returns the value of the attr attribute (me/attr).
+		Play around with this function.  It's quite powerful.
+
+See also Pronouns, Substitutions.
+
+&s function
+s(str)		does pronoun substitution on str.
+&num function
+num(obj)    	obj. # of obj.
+&con function
+con(obj)    	first thing in the contents list of obj. 
+                See also 'next function'.
+&exit function
+exit(obj)   	first exit in a room. (i.e. exit(here) -> first exit )
+		exit() on a thing returns its home. See also 'next function'.
+&next function
+next(obj)   	next thing in a list. (i.e. next(exit(here)) -> second exit)
+&link function
+link(obj)	destination of an exit; home of a player or object; dropto
+		of a room.
+&loc function
+loc(obj)    	location of obj. (Room #)
+&owner function
+owner(obj)    	number of the owner of obj.
+&name function
+name(obj)	name of obj. (obj is probably #<obj. num.>)
+&match function
+match(s1,s2)	returns 1 if s1 matches s2, 0 otherwise.  s1 is a character
+		string, and s2 is a string which may contain wildcards.
+
+&pos function
+pos(str1,str2)	returns the position in str2 where str1 first appears.
+&extract function
+extract(str,wordnum,howmany)
+    	    	returns the string from str starting at word number wordnum
+		and containing 'howmany' words.
+		(i.e. extract(four score and seven years,2,3) returns
+		score and seven.)  extract(str,1,1) == first(str).
+		Words are numbered starting at 1.
+&remove function
+remove(str,wordnum,howmany)
+		return the remainder of string 'str' after removing 'howmany'
+		words starting at wordnum.
+		(i.e. remove(four score and seven years,2,3) returns
+		'four years'.) Words are numbered starting at 1.
+&delete function
+delete(str,charnum,howmany)
+		returns the remainder of string 'str' after deleting 'howmamy'
+		characters starting at charnum. Characters are numbered
+		starting at 0.  (i.e. delete(abcdef,2,3) returns 'abf'.)
+&flags function
+flags(obj)  	Returns a string consisting of the current flags on obj.
+&class function
+class(player)   Returns the class of a player.
+&zone function
+zone(obj)       If obj is a room, returns the db # of the room's zone. If
+                obj is an exit, thing, or player, returns the db # of the
+                room the obj is in.  The function checks for objects inside
+                other objects and traces all the way back to a room before
+                returning a zone #.
+&wmatch function
+wmatch(str,arg)  Takes a string of words/numbers (str) separated by spaces,
+                 and locates the position of the argument (arg). The function
+                 returns a value of '0' if the argument is not in the string.
+                 For example: "wmatch(blee foo garb fargle,foo)" will return a
+                 value of '2'.  The wmatch() function is not case sensitive.
+&@efail
+A fail message shown to a player who fails to enter an object.
+&@oefail
+A fail message shown to others in the room if a player fails to enter an
+object.
+&@aefail
+A list of actions performed when someone fails to enter an object.
+&Privacy
+
+This help topic attempts to explain to what extent your communications
+with other users on the Muse are kept private.  Reading this section
+will give you a better understanding of how 'safe' your privacy is.
+
+  1) When you speak normally, using the 'say' command, you are heard by
+     every object in the room that is 'listening'.  To determine who and
+     what is listening, the user may use the @sweep command.  You may
+     see objects 'listening' that listen only for a particular command,
+     but unless you own the object you cannot know for certain whether an
+     object in the @sweep list is listening to everything you say.
+
+  2) This Muse does not record ordinary speech, pages, or whispers within
+     its log files or any other fashion. If nobody in the room is listening, 
+     there is no way for anybody outside the room to know what you are doing.
+     The only exception to this rule is that, for debugging purposes, we
+     may occasionally log the last few commands executed just before a system
+     crash, but never more than that.  Even in such cases, commands executed
+     more than one minute before the crash will never be logged.
+
+  3) Things said with the 'whisper' and 'page' command, when these are used
+     correctly, are heard only by the player to whom they are addressed. No
+     other user or object can hear them.
+
+  4) Things broadcast over the +com channels are heard by everyone on the
+     channel. Read the online help to learn how to tell who is on the channel.
+
+  5) Any user may use the @whereis command to determine the location
+     of another user.  If you do not wish to be located, you may use
+     the command '@set me=dark' to prevent other users from locating you.
+     When you use the @whereis command, the other user receives a message
+     to the effect that you are finding out where they are.
+
+  6) Any user may use the @hide command to remove their name from the WHO
+     listing.  There is a charge for this each time you use it.  To restore
+     your name on the list, use the @unhide command. You are also unhidden
+     automatically each time you reconnect to the Muse.
+
+  7) Users may use the command '@set me=Haven' if they do not wish to
+     receive pages, and '@set me=No' if they do not wish to hear public
+     announcements.
+
+This topic is long. If you missed any of it and do not have a scrollback
+option, try setting '/more on' in tinyfugue and reading it page by page.
+
+& @foreach
+
+Syntax: @foreach <list>=<command>
+
+Executes <command> (which may be a semicolon-separated list of commands)
+once for each item in <list> (whose elements are separated by spaces).
+If a %0 occurs in the command, @foreach will substitute for %0 each element
+of the list, in order, while iterating.
+
+Example: typing
+	@foreach m i c r o m u s e="gimmie a %0!
+will case you to say "gimmie a m", "gimmie a i", etc.
+
+Since the '%0' is evaluated each time the command passes through the command
+queue, you will need several %'s if the %0 is embedded in function calls.
+If you're having trouble, ask other folks for help.
+
+& @foreachtr
+
+@foreachtr <list>=<attribute>
+Goes through space-seperated <list>, and triggers <attribute> on the
+calling attribute for each item.
+Example:
+  >@vz me=@echo << %0 >>
+  Set.
+  >@foreach c o o l n e s s=vz
+  << c >> 
+  << o >> 
+  << o >> 
+  << l >> 
+  << n >> 
+  << e >> 
+  << s >> 
+  << s >> 
+
+& @foreachtr#
+
+@foreachtr#<chunksize> <list>=<attribute>
+Same idea as @foreach, but does <chunksize> elements of list at a time,
+and triggers <attribute> on the invoker.
+Example:
+   >@va me=@echo << %0 >>
+   Set.
+   >@foreachtr#3 c o o l n e s s=va
+   << c o o >>
+   << l n e >>
+   << s s >>
+
+& @echo
+
+@echo <message>. This command displays <message> to you only.
+See also: @necho
+
+
+& @necho
+
+@necho <message>. This command displays <message> to you only, but also
+allows n-phrasing, so you could type multiple spaces and other characters that
+wouldn't normally come out with @echo. If this command is used in an
+attribute, it still must be @nset.
+See also: @echo, @nset
+
+& @entrances
+
+@entrances <obj>
+will show you a list of all the entrances into a room or object.  You
+must control the room or object to use the command.
+
+& entrances function
+
+entrances(<object>) is a function analogous to @entrances, (actually,
+@entrances uses entrances(), and was implemented as a command on the
+universal zone object). It returns a list of exits leading into <object>,
+in a format suitable for use by @foreach (that is, space-separated dbrefs).
+
+& objlist function
+
+objlist(<object>) returns a list of space-separated dbrefs of the list
+of objects beginning with <object>.  It is analagous to using the 'next'
+function repeatedly on an object and return the list of results.
+
+The two most common ways to use this function are in conjunction with con()
+or exit().  Here are some examples:
+
+	@foreach objlist(con(here))=say %0 is here!
+
+this will cause you to tell about all objects that are in the current room
+
+	@foreach objlist(exit(here))=say %0 is a way out!
+
+this will go through all exits leading out of the current room, and cause
+you to tell people that they can get out through them.
+
+& @undestroy
+
+@undestroy <object>
+
+If an object is scheduled for destruction, this stops the process. It
+unsets the GOING flag and removes the @doomsday attribute.  See also
+@destroy, @protect, @unprotect.
+
+& @protect
+
+@protect <object>
+
+Sets the @doomsday attribute on the object to -1, keeping the object
+from being destroyed with @destroy.  To destroy the object, it must first
+be @unprotected.
+
+If you @protect an object that is scheduled for destruction, it will be
+spared, but the GOING flag will take a few minutes to go away.
+
+& @unprotect
+
+Removes the @doomsday attribute on the object, allowing it to be destroyed
+with @destroy.
+
+& @remit
+
+@remit <object> = <message>
+
+Emits <message> to the contents of <object>.  <object> is generally a room.
+This command supersedes @pemit <room> = <message>, which is now obsolete,
+although it will continue to work for a while.  See @pemit, @zemit.
+
+& @zemit
+ 
+@zemit <object> = <message>
+
+Emits <message> to every object in every room in the zone <object>.  If
+<object> is not a zone object, nothing will happen.  This command
+supersedes @pemit <zone object> = message, which will emit only to
+the zone object and not to the rooms in the zone.  See @pemit, @remit.
+
+& truth function
+truth(a)	Returns 0 on the empty string, the number 0, and dbref #-1.
+		Returns 1 otherwise.
+
+& inzone function
+inzone(zone)	Returns the list of rooms @zlinked to 'zone'.
+
+& @poof
+@poof object
+The @poof command teleports the object into itself, and then destroys it (if
+possible).  Has the effect of making an object disappear from the scene
+immediately, even though it is not in fact destroyed for several more minutes.
+& @getalias
+@getalias User
+Tells you the user's alias, if any.
+
+& parents function
+parents(object)		Returns a space-separated list of the parents of
+			object, in a format suitable for @foreach.
+& children function
+children(object)	Returns a space-separated list of the children of
+			object, in a format suitable for @foreach.
+
+& objmem function
+objmem(object)		Returns the number of bytes used by the object.
+
+& playmem function
+playmem(player)		Returns the total number of bytes used by all the
+			objects owned by the player.
+& @defattr
+@defattr <object>/<attr> [=option1 option2 ...]
+
+The @defattr command allows you to create user-defined attributes on objects,
+and to specify with options how the attribute will behave.
+
+This command creates a new attribute with name <attr> on <object>, with
+options 'option1', 'option2', etc., if any are specified.  The attribute
+can be set using @set <object>=<attr>:value, or with the usual shorthand
+@<attr> <object>=value.  (See @set).  See the help on Attributes and on
+Inheritance for a detailed discussion of this topic. See 'help option list'
+for a list of options that an attribute may have.
+
+Example:  @defattr Book/title=osee
+          @title Book=Muse Tutorial
+
+[get(book/title)] now returns "Muse Tutorial", and anybody examining
+the book will see the 'title' attribute because it was defined 'osee'.
+
+@defattr can also be used to change the options on a previously defined
+attribute. Simply use the same syntax as above, but with the new list
+of options, and the options will be changed. @undefattr removes an attribute.
+
+See also: Option List, Attributes, @undefattr
+
+& @undefattr
+@undefattr <object>/<attr>
+
+The @undefattr command removes an attribute definition from an object,
+if it was set with @defattr.  the object has descendents that use the
+attribute, they will lose the definition and any stored values, so use
+this command with great caution on any object that has children.
+
+See also: @defattr
+
+& @reparent
+The reparent command has been replaced by @addparent and @delparent.
+Help is available for both of those.
+
+& @addparent
+
+Syntax: @addparent <object>=<parent>
+
+The @addparent command gives an object a new parent.  Objects may have
+any number of parents.  In order to make <parent>  a parent of <object>,
+<parent> either must be controlled by you, or must have the BEARING flag
+set.  In any case, you must control <object>.
+
+An object inherits attribute definitions from its parents. It also inherits
+attribute values, if the attribute has the 'inherit' option set.  See
+'help Inheritance' for more information on this topic. See also @delparent.
+
+& @delparent
+
+Syntax: @delparent <object>=<parent>
+
+The @delparent command removes a parent from an object.  In order to remove
+<parent> from <object>'s list of parents, <parent> either must be controlled
+by you, or must have the BEARING flag set.  In any case, you must control
+the <object>.  See also Inheritance, @addparent.
+
+& Option List
+User-Defined Attribute Option List:
+
+  inherit
+  wizard
+  dark
+  osee
+  unsaved
+  date
+  lock
+  function
+
+You may get help for each one. For example, to get help on the inherit
+option, type 'help inherit option'.
+
+See also: @defattr
+
+& function option
+Attribute option: function
+An attribute with the function option set can create a user-defined function
+for the object. You may place any text, or simply another function in the
+attribute, and will be activated whenever anyone tries the function. The
+function must be defined on the object for the object to recall it. It
+cannot be defined on another object in the room for it to work. However, if
+a function is on a zone and has the inherit option set, all items within
+that zone will be able to do that function.
+
+Examples: @defattr blee/test=function inherit
+	  @test blee=[mul(60,v(0))]
+	  say [test(3)]  -would produce 180
+
+	  @defattr blee/foo=function inherit
+	  @foo blee=Everyone with [v(0)]: go to the [v(1)]!
+	  say [foo(coats,closet)]  --'Everyone with coats: go to the closet!'
+
+& wizard option
+Attribute option: wizard
+An attribute with the wizard option set can be @set only by the owner of the
+object on which the attribute is defined, or by an Adminstrator. If <parent>
+defines an attribute with an inheritable wizard option set, and <child> is a
+child of parent, you may give <child> away -- even allowing a player to
+@chown it -- and the new owner will not be able to reset the attribute. Some
+built-in attributes, such as @race, have the wizard option set.
+
+& inherit option
+Attribute option: inherit
+An attribute set 'inherit'able will pass its value down from parent to child.
+The child may overwrite the value (unless the attribute has the wizard option
+set as well) but if the child erases its value, the parent's value will
+reappear.  
+
+Most built-in attributes (succ, osucc, va, etc.) have the inherit option set.
+
+& dark option
+Attribute option: dark
+A dark attribute is not visible in an 'examine' except on the object on
+which the attribute is defined (not on its children) and only if you own
+the object.  In any case, its value cannot be retrieved by the 'get' command.
+This option has limited utility for most non-internal operations.
+
+& osee option
+Attribute option: osee
+An attribute with the 'osee' option can be seen by anyone who examines
+an object on which the attribute has a value, even if the object is not
+set visible.  
+
+Built-in osee attributes: last, sex, race.
+
+& lock option
+An attribute with the 'lock' option set is treated as a lock for the purposes
+of 'examine';  all dbrefs are expanded to show names, and the value must
+conform to lock syntax.  There is currently no meaning to a user-defined
+lock attribute, except as a place to store values that can be copied into
+built-in locks.
+
+Built-in lock attributes: lock, elock, ulock.
+
+& date option
+Attribute option: date
+A 'date' attribute acts like the 'last' field.  If a number in the style of
+xtime() is stored in it, then anyone examining the object will see a date
+and time, the exact date and time shown depending on the timezone
+of the person examining the object.
+
+Built-in 'date' attributes: last.
+
+& unsaved option
+Attribute option: unsaved
+An 'unsaved' attribute, used for temporary data storage, will not keep 
+its value when the muse is rebooted.  The value will disappear.  Internally,
+the 'It' attribute is of this type.
+
+& @decompile
+@decompile
+
+Outputs a series of commands that can be fed back into tinyMUSE 1.4 to
+redefine and reset all of an objects' registers and flags. Can be used to
+save an object to disk, edit it, and read it back in via the tinyfugue
+/quote macro.  When using @decompile for this purpose, be sure also to
+set /wrap off so that lines are not broken every 80 characters.
+
+The commands @decompile issues include @set to set flags, @defattr to
+define attributes, and @nset to set attribute values.
+
+& @move
+@move <object> [=<message>]. Sets the move message for <object>. The
+message is displayed to an object when it moves by any means including
+teleportation.  See also @omove, @amove.
+
+& @omove
+@omove <object> [=<message>]. Sets the omove message for <object>. The
+message is displayed to all other things in the room when <object> moves
+by any means including teleportation.  See also @move, @amove.
+
+& @amove
+@amove <object> [=<message>]. Sets the amove register for <object>. The
+register contains a semicolon separated list of actions that are taken
+after the object moves by any means including teleportation.
+See also @move, @amove.
+
+& @oemit
+@oemit <object>=<string>.  This command emits <string> to everything in the
+room *except* <object>.  See also @emit, @pemit.
+
+& if function
+if(test,act)		This function checks the test, and returns act1
+			if the test is true, otherwise it returns nothing.
+			The test is false if it evaluates to 0, to #-1, or
+			to the null string. Otherwise it is true.  See also
+			ifelse(), truth().
+
+& ifelse function
+ifelse(test,act1,act2)	This function checks the test, and returns act1
+			if the test is true, act2 if the test is false.
+			The test is false if it evaluates to 0, to #-1, or
+			to the null string. Otherwise it is true.  See also
+			if(), truth().
+
+& wcount function
+wcount(string)		Returns the number of words in the string.
+
+& @ulock
+@ulock <object> = <lock>.  Sets the use-lock for an object.  Only players
+or things satisfying the lock will be able to trigger $ and ! events on the
+object. See help for 'locks' for complete help on locks.
+
+& @elock
+@elock <object> = <lock>.  Sets the enter-lock for an object. Only players
+or things satisfying the lock will be able to enter the object.
+See help for 'locks' for complete help on locks.  See also @lock, @ulock.
+
+&@ufail
+A fail message shown to a player who fails to use an object (because of
+the @ulock).
+&@oufail
+A fail message shown to others in the room if a player fails to use an
+object (because of the @ulock).
+&@aufail
+A list of actions performed when someone fails to use an object (because
+of the @ulock).
+& strcat function
+strcat(str1,str2)
+		Returns the concatenation of the two strings, str1
+		and str2.  Example: strcat(abc,def) returns abcdef.
+
+& @nemit
+@nemit <string>
+	Works just like @emit except does not parse its argument.  May be
+used for emitting strings with spaces in them, or with brackets and
+parentheses, without worrying about functions being evaluated or spaces
+being removed.
+
+See also @npemit, @nset.
+
+& @npemit
+@npemit obj=<string>
+	Works just like @pemit except does not parse its argument.  May be
+used for pemitting strings with spaces in them, or with brackets and
+parentheses, without worrying about functions being evaluated or spaces
+being removed.
+
+See also @nemit, @nset.
+
+& @nset
+@nset <obj>=<attr>:<commands>
+	Works just like @set does for setting attribute values, except does
+not parse its argument.  May be used for setting attribute values with
+leading or embedded spaces, or with brackets or parentheses, without
+worrying about functions being evaluated or spaces being removed.
+
+See also @set, @nemit, @npemit.
+
+& lwho function
+lwho()		Returns a list of dbrefs of connected users.  If an object
+		uses this function it is charged 50 credits.
+
+& idle function
+idle(user)	Returns the idle time, in seconds, of the given user.  If
+		the user is not connected, nonexistant, or hidden, the
+		function returns #-1.
+
+& onfor function
+onfor(user)	Returns the connect time, in seconds, of the given user.
+		If the user is not connected, nonexistant, or hidden, the
+		function returns #-1.
+
+& host function
+host(user)	Returns the hostname of the given user.  If the user is not
+		connected, nonexistant, or hidden, or if you are not
+		authorized to see the user's hostname, returns #-1.
+
+& type function
+type(object)	Returns the type of the object, where type is one of Player,
+		Room, Exit, or Thing.
+
+& lattr function
+lattr(obj)	Returns a list of the attributes on object 'obj' that have
+		a non-null value.  See also lattrdef().
+
+& lattrdef function
+lattrdef(obj)	Returns a list of the attributes defined (with @defattr) on
+		object 'obj'.  See also @defattr, lattr().
+
+& tms function
+tms(num)	Takes a number of seconds, and returns the time represented
+		by the given number of seconds, in the format of the idle
+		column in the WHO list, showing 's' for some number of
+		seconds, 'm' for some number of minutes (dropping any
+		fraction), 'h' for some number of complete hours, or 'd' for
+		some number of complete days.
+
+	Examples: tms(33) returns '33s'.
+		  tms(121) returns '2m'.
+		  tms(86401) returns '1d'.
+
+& tml function
+tml(num)	Takes a number of seconds, and returns the time represented
+		by the given number of seconds, in the format of the 'On For'
+		column in the WHO list, showing hh:mm for times less than one
+		day, and dd hh:mm for periods longer than one day.
+
+	Examples: tml(33) returns '0:33'.
+		  tml(121) returns '02:01'.
+		  tml(86401) returns '1d 00:01'.
+
+& flip function
+flip(string)	Returns the character-reversal of the argument string.
+
+	Example: flip(abcd efg) returns 'gfe dcba'.
+
+& string function
+string(char,num)	Returns a string of 'num' occurences of 'char'.
+	Example: string(*,6) returns '******'.
+
+& matchplay function
+matchplay(player)   Returns the dbref number of player.  This is different
+from the num function in that it only works on players, and the player
+need not be in the same room as you.
+
+& ljust function
+ljust(string,num)	Returns the string, left-justified in a field of
+			width 'num'.
+
+& rjust function
+rjust(string,num)	returns the string, right-justified in a field of
+			width 'num'.
+
+& cjust function
+cjust(string,num)       Returns the string, center-justified in a field of
+			width 'num'.
+
+& spc function
+spc(n)			Returns a string consisting of n spaces.
+
+& plural function
+plural(num,suffix)      Returns the 'suffix' text if 'num' does not equal 1.
+			This returns a null string otherwise.
+
+& art function
+art(word)               Returns an article of a word; basically 'a' if the
+			first letter of the word is a constanant, 'an' if
+			it's a vowel.  This function may be improved later.
+
+& subj function
+subj(<object>)          Returns the subject form of <object> (he, she, it),
+			depending on its sex. Similar to %s, but returns 'it'
+			instead of the subject's name if the sex is neither
+			male nor female.  See objn(), poss().
+
+& objn function
+objn(<object>)          Returns the object form of <object> (him, her, it),
+			depending on its sex. Similar to %o, but returns 'it'
+			instead of the object's name if the sex is neither
+			male nor female.  See subj(), poss().
+
+& poss function
+poss(<object>)          Returns the possesive form of <object> (his, her,
+			its), depending on its sex. Similar to %p, but
+			returns 'its' instead of the apostrophe-S version
+			of the object's name, if the sex is neither male
+			nor female.  See also subj(), objn().
+
+& lcon function
+lcon(<object>)          Returns a space-separated list of items in <object>.
+
+& lexit function
+lexit(<object>)         Returns a space-separated list of exits in <object>.
+
+
+& rtime function
+rtime([<seconds>])                Returns a short time readout in hours,
+				  seconds, minutes, and AM or PM. <seconds>
+				  may state the number of seconds starting
+				  at a fixed point of time. <seconds> can
+				  be added together with 'xtime()' to in-
+				  crease or decrease the current 'rtime'
+				  by seconds, minutes, or hours. If <seconds>
+				  is omitted, the current time will be
+				  displayed.
+
+& stime function
+stime(<seconds>)                  Returns the string-readout of the time in
+				  <seconds> after a fixed point of time.
+
+& nearby function
+nearby(obj1,obj2)	Checks to see whether obj1 is 'nearby' obj2.  Two
+			objects are near each other if they are in the same
+			room, or if one is inside the other.  Returns 1 if
+			the objects are nearby, 0 if not, and #-1 if either
+			object cannot be identified or if you cannot find the
+			location of either object.  You must control both
+			objects to get a precise outcome.
+
+& room function
+room(<object>)          Traces all the way back to the actual room that
+			<object> is in, and returns that room number.
+			This works no matter how deep inside boxes an object
+			might be.
+
+& controls function
+controls(p1,p2,power)   Returns 1 if player1 has a specific 'power' over
+			player2, else 0. An example of a 'power' is Join.
+
+& @aconnect
+@aconnect <object>=<commands>
+
+These commands will get activated when someone connects to the
+muse. When set on a zone, this will get activated whenever anyone
+connects within the zone. This will also get executed if set on a room
+or another object in the room when a person connects.
+
+Example: @aconnect here=@emit Welcome back to the muse, %n.
+
+See also: @oconnect, @adisconnect, @odisconnect
+
+& @oconnect
+@oconnect <object>=<message>
+
+This message will be shown to everyone else except <object>, when a person
+connects to the muse.
+
+See also: @aconnect, @adisconnect, @odisconnect
+
+& @adisconnect
+@adisconnect <object>=<commands>
+
+These commands will get activated when someone disconnects from the
+muse.  When set on a zone, this will get activated whenever anyone
+disconnects within the zone. This will also get executed if set on a
+room or another object in the room when a person disconnects.
+
+See also: @aconnect, @oconnect, @odisconnect
+
+& @odisconnect
+@odisconnect <object>=<message>
+
+This message will be shown to everyone else except <object>, when a person
+disconnects from the muse.
+
+See also: @aconnect, @oconnect, @adisconnect
+
+& hasflag function
+hasflag(<object>,flag)  This will return 1 if <object> has the specified
+                        flag, and 0 if not.
+
+    Example: say [hasflag(*Jin,c)]  -see if Jin is connected
+
+& haspow function
+haspow(<object>,power)  This will return 1 if <object> has the desired power,
+                        and 0 if not. An example of 'power' is Join.
+
+& @relink
+@relink <exit>=<room#>
+
+This command can be used to @relink an exit to a different room#.
+
+See also: @link, @unlink
+
+& @apage
+@apage <player>=<commands>
+
+These set of commands will be activated whenever you are online and receive
+a page.
+
+See also: @awhisper, @apemit
+
+& @npage
+@npage <player>=<message>
+
+Pages a player without parsing the message. For example.. using @npage, you
+can type '@npage player=()*{}    []' and it will come out exactly that way.
+
+See also: page
+
+& @awhisper
+@awhisper <object>=<commands>
+
+These set of commands will be activated whenever <object> receives a
+whisper.
+
+See also: @apage, @apemit
+
+& @apemit
+@apemit <object>=<commands>
+
+These set of commands will be activated whenever <object> gets a @pemit.
+
+See also: @apage, @awhisper
+
+& @searchobj
+@searchobj <object>=<text>
+
+This command will search an entire object and it's attributes for the
+specified <text>. It will then list out each matching attribute. You
+may include wildcard characters.
+
+Examples: @searchobj me=I*    -Lists all attributes beginning with 'I'.
+
+          @searchobj me=*foo* -Lists all attributes with the word 'foo' found
+                               inside
+
+          @searchobj me=*     -Lists every attribute.
+
+
+& @selfboot
+@selfboot
+
+This command will automatically @boot you 3 times, to clear up double
+logins into the muse. This means that you and your doubles will be
+disconnected only. You may relogin afterwards.
+
+& @cpattr
+@cpattr <newobj>/<newattr>=<oldobj>/<oldattr>
+
+This command will copy an attribute from the old object to the new object. It
+does not have to be the same attribute that you wish to copy.
+
+Examples: @cpattr foo/vb=me/va
+
+& change function
+change(str1, str2, n)           This function will change the 'n'th character
+                                in str1 to str2. If there is more than one
+                                character in str2, they will be inserted.
+                                Characters are numbered starting at 1.
+
+      Examples:  [change(abcdefg, x, 3)] = abxdefg
+
+                 [change(abcdhijkl, defg, 4)] = abcdefghijkl
+& Examples
+  We are currently adding new examples to our file. The only existing
+examples at this time are Puppet, and @dig... type 'help example puppet', or
+'help example @dig'.
+
+& example puppet
+
+  The folowing is an example of how to build a basic puppet. To make you
+own puppet feel free to copy this one, or change the name, commands,
+costimize your puppets.
+
+Type:
+
+@create My new puppet
+
+<this will create the object you wish to have as a puppet, feel free to
+create any puppet, the name 'My new puppet' is just used as an example>
+
+Type:
+
+@create My new puppet controler
+
+<this is the object that you must have on your player, or in the same room
+with you if you want to controle your puppet>
+
+<note the number of both puppet and controler, you will need them later>
+
+Type:
+
+@set my new puppet=puppet
+
+<this sets your puppet so that he/she/it will hear everything that happens
+in the room that it is in. That is unless you are in the room with the
+puppet. Tokeep from haveing repetitive messages puppets will not listen
+when they are in the same room with there owners>
+
+& example @dig
+        
+  Syntax:  @dig <name> [= Exits [, Return-Exits]]        
+        
+  By typing: 
+ 
+  @dig Living Room=Living Room <LR>;lr;living,Out <O>;o;out 
+               
+  you will dig a Living Room off of the room you are in. Note: you 
+  must own the room to dig a new room.
+        
+        @dig Living Room   <-- Names the room
+        =Living Room <LR>  <-- Names the entrance 
+        ;lr;living         <-- Allows access to room by typing
+                               'living' or 'lr'
+        , (the comma)      <-- Separates the name of the room's
+                               entrance and the name of the 
+                               room's exit.
+        Out <O>            <-- Names the exit
+        ;o;out             <-- Allows exit from room by typing
+                               'o' or 'out'         
+
+& ------- new stuff-----
+
+& RWHO
+RWHO [mud = <mudname>] or [user = <username>]. This command gets a
+remote-who list of Mu*s connected to the rwho server for this muse.
+It can be typed in upper or lower case. If you use the 'mud' or 'user'
+args you must specify a name for either. This command costs 50C.
+
+& doing
+see help @doing
+& @doing
+@doing <player>=<message>
+
+Message put in the 'Doing' column on the WHO list.
+
+Ex: @doing me=Reading the help.
+
+& zwho function
+zwho(object)            Returns a list of dbref numbers of players in the
+                        zone associated with 'object'.  
+
+& linkup function
+linkup(object)          Returns a list of dbref numbers of objects @linked
+                        to 'object'.
+
+& @slock
+@slock <room>=<arguments>
+
+This command is a speech lock. Only the person(s) in <arguments> may speak in
+the room. The owner may talk in the room, and those with pow.spoof, even if
+they are not on the list. This command only affects rooms, and does nothing
+when set on objects, players, exits, etc. The room that the @slock is on
+must be set "Auditorium" (@set <room>=A).
+
+See also: @osfail, @asfail, @sfail, and locks
+
+& @llock
+@llock <object> = <lock>. Sets the leave-lock for an object. Only players
+or things satisfying the lock will be able to leave the object.
+See help for 'locks' for complete help on locks.
+See also @lock, @ulock and @elock.
+
+& @osfail
+@osfail <room>=<message>
+
+This command sets a message displayed to everyone in the room, except the
+enactor, when they fail to use a @slock. For example, if the @slock on a 
+room was set like this - "@slock here=Zephyr", only Zephyr can talk. If
+someone else tried to, the <message> would be prefixed to there name. If 
+the @osfail was "@osfail here=tries to speak, but can't" everyone would 
+see "shkoo tries to speak, but can't" if he tried to talk in a room @slocked 
+to Zephyr.
+
+See also: @slock, @asfail, @sfail, and locks
+
+& @asfail
+@asfail <room>=<actions>
+
+This command performs <action> when someone fails to use a @slock. For
+example, if the room was @slocked to Zephyr, and shkoo tried to talk, you
+could set the @asfail on a room to say "someone tried to talk!" by typing
+'@asfail here=say someone tried to talk!". You may set a list of commands
+to be activated by seperating each command with a ; mark.
+
+See also: @slock, @osfail, @sfail, and locks
+
+& @sfail
+
+This command displays <message> to someone who failed to use an @slock. Unlike
+@osfail, The message is not shown to everyone in the room; only to the player.
+Also, the persons name is not prefixed to the msg. Example : If a room was
+@slocked to shkoo, and Zephyr tried to talk, you could type "@sfail here=Shh!
+This is a library!!" and if Zephyr tried to talk, he would see "Shh! This
+is a library!!"
+
+See also : @slock, @oslock, @aslock, and locks 
+
+& @lfail
+A fail message shown to a player who fails to leave an object.
+
+& @alfail
+A list of actions performed when someone fails to leave an object.
+
+& @olfail
+A fail message show to others in the room if a player fails to leave an
+object.
+
+& spivak
+
+spivak is a set of gender pronouns, 'e', 'em', 'eir'. these pronouns
+are the equivalent to 'ms.' in reference to a female of unknown
+marital status. when one uses spivak, one doesn't need to worry about
+figuring out whether the subject is male or female. this is especially
+useful in programming objects.
+
+instead of 'he/she', use 'e'. instead of 'him/her', use 'em'. instead
+of 'his/her', use 'eir'.
+
+spivak was originally used in a TeX manual.
+& +queuelag
++queuelag. This command tells the time between typing the command and when the
+actions are performed. For example, If You typed +queuelag and recieved
+"Difference of commands: 2s - 07:50:04 PM & 07:50:06" that means it would take
+2 seconds between the time you typed a command until its execution.
+& inventory
+inventory. Lists what you are carrying. Can be abbreviated to 'i'. 
+& kill
+The kill command has been disabled in TinyMUSE.  See also 'slay'.
+& score
+score. Displays how many Credits you are carrying.  See 'money'.
+& help!
+help! <message>
+
+Broadcasts <message> to all connected Guides & Officials.
+
+& indirect locks
+An indirect lock checks the lock on some other object.  Since locks are not
+inherited (see inheritance), using indirect locks is one way to simulate
+such inheritance.
+
+Syntax:	@lock <thing>=@<object>
+
+Example: @lock foo=@#123	Anyone who can pick up #123 can also pick up
+				foo.  Foo must control #123 or it will not be
+				able to read the lock and the lock will fail.
+& action users parent
+actions users' parent commands include:
+
+thank          ping           ack            moon            wheeflop       
+wooblam        tickle         poke           hi5             bonk
+foof           hug            wave at        whop            comfort
+bamboozle      thwap          smile at       wink at         whoopidywhoop
+idlebap
+
+To use a command, type '<command> <person>'
+
+Example, if draco typed "foof Zephyr" everyone in the same room as draco or
+Zephyr would see something like "draco foofs Zephyr! Zephyr yays!"  You can use
+action commands on anyone in the muse, in the same room as you or not.
+ 
+Another new way that the commands can be used is over the +com channels.
+To do this, type 'com<command> <person>=<channel>'
+ 
+Example, if Zephyr typed "comfoof draco=public", everyone of the public channel
+would see [public] Zephyr foofs draco! draco yays!
+
+NOTE: To use the action users parent, you must have #4000 as your parent. To do
+this, type "@addparent me=#4000"
+
+See also: "help action user messages"
+
+& action user messages
+You can change the msgs received when you use a command by changing the
+o<action> attribute on your character. Exmaple, if Zephyr typed
+"@ofoof me=rolls on the floor laughing!" then when draco foofs him everyone
+would see "draco foofs Zephyr! Zephyr rolls on the floor laughing!" NOTE: You
+do *NOT* include your character name in the @ofoof msg; this is automatically
+set. In this case Zephyr's @ofoof was set to 'rolls on the floor laughing!'
+
+This works on any actions users command, there are @odingle, @oping, @oack,
+@omoon, @owheeflop, @owooblam, @otickle, @opoke, @ohi5, @obonk, @ohug, and
+@owaveat.and all the other actions listed in "help action users parent".
+Defaults for all of these are already set so you don't have to change all of
+them to use the parent.
+
+There is also an @a<action> command so you can set your character to perform
+actions when someone uses a command on you. Here are a few examples:
+
+@ahug me=hug %0
+
+This command will force your character to hug %0, the person who
+hugged you. You can also set your @a<action> to perform non-action user
+commands. Example:
+
+@awooblam me=say ouch! that hurt!
+
+That would force your character to say "ouch! that hurt!" whenever someone
+wooblams you.
+
+& zone bank
+                        Zone Bank Help                        
+
+             ZDeposit <Amount> -- Deposit Credits into the Bank.
+            ZWithdraw <Amount> -- Withdraw Credits from the Bank.
+   ZTransfer <Amount>=<Player> -- Transfer Credits to a Player.
+                      ZBalance -- See your Balance.
+                ZStart Account -- Start an account.
+
+& happy fun ball
+
+happy fun ball commands include :
+
+toss to <player>  - toss happy fun ball to <player> (this only works if the
+                    happy fun ball is in the same room as YOU)
+
+where is hfb?     - gives the current location of the happy fun ball.
+
+gimmie the ball   - sends the ball to you no matter where it is.
+
+NOTE: The happy fun ball only works if the person receiving the ball has #4000 
+as one of it's parents. (for help on #4000, the action users parent, type
+"help action users parent") Also, if you don't want the ball tossed to you,
+type "@cancatch me=no" or "@cancatch me=yes" if you want to play catch. (agian,
+for @cancatch to work you must have #4000 as a parent.)
+& Being killed
+Being killed.   Getting killed is no big deal. If you are killed, you return
+to your home, and all things you carry return to their homes.
+You cannot be killed by other players on MicroMuse; only by running afoul
+of the laws of nature (for instance, by venturing into space without a suit).
+& moving around
+--== BASIC NAVIGATION ==--
+
+Much of the time you will see navigational prompts that contain the
+4 commands listed below under the "Obvious exits:" prompt.  To move
+in an antispinward direction on the TinyMUSE type the letter A.
+To Move to toward Port type the letter P.  Or you may type the
+whole word (without typing the brackets).
+ 
+It is common practice of the TinyMUSE (but not always standard)
+to have exits listed as shown below.  If you see an exit with one
+or more of its letter in brackets then you can type that (those)
+letters and you will go that way (or enter that place).
+ 
+Obvious exits:
+<S>pin   <A>ntispin   <P>ort   Star<B>oard   <Li>brary
+ 
+If you want to go to the 'Library' you can either type the word
+'Library' or the letters 'Li'.
+
+Type 'help moving around 2' for the second screen on moving around.
+& moving around 2 
+
+The next example is similar to the one above.  The "Cyberion
+Telephone" company can be entered bt either typing
+'cyberion telephone' or the letters in the brackets which, in this
+case are CT.
+ 
+Obvious exits:
+Cyberion Telephone <CT>  <P>ort  Star<B>oard  <S>pin  <A>ntispin  
+ 
+Some 'Obvious exits:' will not follow the standard format.  The
+ones below are good examples.
+ 
+Obvious exits:
+Out  Device Shop  Phone Control Room  Upstairs  
+ 
+To leave this room you must completely type: Out
+ 
+If you wanted to go into the 'Phone Control Room' you would need
+to type:   Phone Control Room
+& X_OK
+X_OK   If an object is X_OK, it can be sacrificed. Warning: if
+an object is sacrificed, it is destroyed. See sacrificing.
+& officials
+Please see 'help administrators'.
+& Goals
+Goals.  There is no ultimate goal to this game, any more than there is in
+life. This is a virtual society, and, just as in any other small society,
+there is a wide range of opportunities.  There are objects and places
+to examine, puzzles to solve, scenery to visit, and people to meet. You may
+build private or public additions to the world.  There are no winners or
+losers, only fellow players. Enjoy.  
+& Sacrificing
+Sacrificing an object gives you the value of an object. You can't sacrifice
+something you own. If you have >= 10000 Credits, all sacrifices are worth
+only 1 Credit. The sacrifice value of a thing is set at creation by
+"@create frob=cost", by the formula value=(cost/5)-1. Only a Director can
+change the value of an object, once created.  There is currently no temple
+on MicroMuse, so there is nowhere to sacrifice objects.
+& ADMINISTRATORS
+<place the MUSE's administration, minus directors, here...>
+
+& wizards
+The term 'wizard' is a holdover from the past, and refers to those people
+known here as Directors, Administrators, Constructors, and Officials.
+
+& Stack
+V(0) through V(9) are the ten items on the stack.  Stack values can be set by
+either parameters after an @trigger or asterisk substition in pattern matching.
+Example: @listen item=* foo *; @ahear item=: [v(1)] bar [v(0)].
+& TinyTalk
+                 TinyTalk, V1.1.7 by Anton Rang
+
+  TinyTalk is an interface to the TinyMUD/MUSE system.  It replaces telnet,
+and adds many new features.  Its features include:
+
+  * TinyTalk can wrap words at the end of a line.
+  * TinyTalk can automatically log into your characters.
+  * TinyTalk can record a TinyMUD session to a file.
+  * TinyTalk keeps your typing and TinyMUD output from being
+    intermingled.
+  * TinyTalk allows input lines to be up to 512 characters long.
+    This allows long descriptions to be entered.
+  * TinyTalk supports simple macros.
+  * TinyTalk supports "portals", special exits which connect between
+    the various TinyMUD systems.  There are also commands which allow
+    manually switching systems.
+  * TinyTalk can hilite pages and whispers, on terminals which support
+    boldface or inverse characters.
+
+Tinytalk may be ftped from:
+
+jaguar.cs.wisc.edu (128.105.1.202) in ~/ftp/pub/tinytalk
+michael.ai.mit.edu (18.43.0.177) in ~/tinymuse
+groan.berkeley.edu (?) in /pub/mud_clients
+Power users may prefer the more elaborate client, TinyFugue.
+& inventory
+inventory. Lists what you are carrying. Can be abbreviated by just 'i'. 
+& @rwho
+@rwho <status>, <stop> or <start>. This will stop/start the transmission
+to the RWHO server. When stopped the RWHO command will not operate.
+&fcomp function
+fcomp(n,m)      returns 0 if n = m, -1 if n < m, 1 if n > m.
+		Where n and m are floating-point numbers, the 
+		comparision is numeric only. Alphabetic strings
+		are treated as equal to 0.
+& justify function
+justify(text,line#,char-length)	This function fully-justifies a line of
+				words and prints them out accordingly, up
+				to the maximum character-length specified,
+				or until the end of the <text> is reached.
+				It will display the specified <line#> of
+				the text, filled with spaces necessary to
+				fill up the last <char-length>-th column.
+
+Example: justify(ab cd ef gh. ij kl mn op,1,10) equals..
+	     ab  cd  ef
+whereas: justify(ab cd ef gh. ij kl mn op,2,10) equals..
+             gh.  ij kl
+and:     justify(ab cd ef gh. ij kl mn op,3,10) equals..
+	     mn op
+
+& replace function
+replace(string,word,replacement)  This function will replace the 'word' in
+                                  'string' with 'replacement'
+
+                       Example:   replace(foo bar blee,bar,bonk) would return
+                                  'foo bonk blee' because it replaced 'bar' in
+                                  the string 'foo bar blee' with 'bonk'.
+& rank function
+rank(player)    This function would return one of the following numbers 
+                according to the player's class:
+
+Guest: 1       Guide: 5            Administrator: 9
+Visitor: 2     Official: 6         Director: 10
+Robot: 3       Constructor: 7
+Citizen: 4     Corporation: 8
+
+These number can then be used in boolean expressions.
+
+Example: @switch [rank(v(N))]=>5,{say HELLO!},{say Sorry, Officials only.}
+
+In this example, it would say 'HELLO!' if you where of a rank higher than 5,
+wich would be a Guide, and say 'Sorry, Officials only.' if you where a Guide or
+lower.
+
+& dayofyear function
+dayofyear(time()) or		This function will return the actual day of
+  dayofyear(wtime())..		the year, from 1-366.
+
+& insert function
+insert(string,wordnum,word)   This function will insert 'word' after the
+                              specified word in 'wordnum' inside 'string'
+
+                              Example: insert(blee foo bar,2,wooblam)
+
+                              This would return 'blee foo wooblam bar' because
+                              the example says to insert the word 'wooblam'
+                              after the 2nd word in the string 'blee foo bar'
+& switch function
+switch(<str>[,<pat1>,<res1>]...[,<dflt>])
+
+  The switch function compares <str> against <pat1>, <pat2>, etc (allowing *
+  to match any number of characters and ? to match any 1 character), and
+  returns the corresponding <resN> parameter for the first <patN> pattern
+  that matches.  If none match, then the default result <dflt> is returned.
+  Example:
+    > say switch(c,*a*,A,*b*,B,*c*,C,*d*,D,E)
+    You say "C"
+    > say switch(f,*a*,A,*b*,B,*c*,C,*d*,D,E)
+    You say "E"
+    > say switch(cab,*a*,A,*b*,B,*c*,C,*d*,D,E)
+    You say "A"
+    > say switch(f,*a*,A,*b*,B,*c*,C,*d*,D)  
+    You say ""
+  See also: @switch, match().
+
+& foreach function
+foreach(list,action)  analagous to @foreach command, but a function.
+
+example:
+  [foreach(a b c,x[name(v(0))]x)] -> xax xbx xcx
+
+& stringeq function
+stringeq(arg1,arg2)           This function returns 1 if arg1 matches arg2
+                              exactly. 0 is returned if it does not. This
+                              function does not accept wildcards like match()
+                              does.
+                             
+& round function
+round(number)                 This function will round 'number' to the nearest
+                              ones place.
+
+                              Example: round(6.789) would return 7
+
+& comma function
+comma(number)                 This function inserts commas in 'number' to
+                              divide the number into it's proper places.
+
+                              Example: comma(10000000000) would return
+                              10,000,000,000
+
+& hasstr function
+hasstr(string1,string2)       This function checks to see if string1 is located
+                              in string2. If it is, a 1 is returned, and if it
+                              is not a 0 is given.
+
+                              Example: hasstr(blee foo bar,foo) would return 1
+                              because string2 'foo' is found in string1
+
+& nspc function
+nspc(string)                  This function removes the spaces around a string.
+                              For example, nspc(    foo bar blee        ) would
+                              return 'foo bar blee' with no spaces around it.
+
+& is_are function
+is_are(string)                Returns 'is' if string is 1 and returns 'are' if
+                              string is 0.
+
+& andf function
+andf(string)                  This function inserts 'and' before the last word
+                              in a string.
+
+                              Example: andf(boo blee foo) would return
+                              'boo blee and foo'
+
+& lrest function
+lrest(string)                 This function returns all of the words in string
+                              except for the last one.
+
+                              Example: lrest(blee foo bar) would return
+                              'blee foo'
+
+& llast function
+llast(string)                 Returns the last word in string.
+
+                              Example: llast(draco Acme Zephyr) would return
+                              'Zephyr'
+
+& pnum function
+pnum(player)                  Returns the dbref number of 'player'
+
+                              Example: pnum(Zephyr) would return #40043
+
+& fdate function
+fdate(time())                 This function will return the date in time() in
+                              a word form.
+
+                              Example: fdate(time()) would return
+                              'Saturday, May 29, 1993' if you happen to use
+                              fdate() on that day.
+
+& eq function
+eq(n1,n2)			Returns 1 if n1 and n2 are equal, else 0.
+
+& roman function
+roman(number)			Returns the roman numeral for <number>.
+
+& fill function
+fill(number, zeroes)		This function will fill up the remaining
+				digits on the left side of the number with
+				zeroes. Example: fill(45,6) = 000045
+
+& between function
+between(number,n1,n2)		Returns 1 if <number> is equal to n1, equal
+				to n2, or between n1 and n2. 0 otherwise.
+
+& isattr function
+isattr(obj/attr)		Returns 1 if obj/attr is a valid attribute,
+				0 otherwise.
+
+& wchange function
+wchange(sentence,word#,newword)	This function replaces word# with <newword> in
+				<sentence>. Example:
+
+wchange(ab cd ef gh,2,blee) = ab blee ef gh
+
+
+& mudname function
+mudname()                       Returns the name of the MUSE. This is usually
+				the name that appears in various mud lists,
+				and is the name that the mud is listed under
+				in reports from RWHO servers (that is, if
+				the mud sends its WHO information to an
+				RWHO server).
+
+& parseobj function
+parseobj(player, obj#)		This function will parse out the name of
+				the object# that you specify, along with
+				its actual number and flags (depending if
+				<player> can see it), and its ansi colors
+				(again, if the player is set ansi) all in
+				a string. obj# must be a valid name, or
+				could be #<number, ranging from -4 to the
+				last object in the database>.
+
+& madd function
+madd(n1,n2,...,n10)		Multiple addition. There can be up to 10
+				args.
+
+& lteq function
+lteq(arg1,arg2)      Returns 1 if arg1 is lower than or equal to arg2. It
+                        returns 0 is it is not.
+
+& gteq function
+gteq(arg1,arg2)      Returns 1 if arg1 is greater than or equal to arg2. It
+                        returns 0 if it is not.
+
+& date function
+date()               Returns the date
+
+& is_a function
+is_a(object,parent)  Returns 1 if 'object' has 'parent' as a parent.
+
+                     Example: is_a(#40043,#4000) would return 1 because #40043
+                     is a child of #4000
+		
+&isdigit function
+
+This function gives a 1 if its argument is a digit, and 0 if it is a
+letter, or symbol.
+
+&even function
+
+This function gives 1 if its argument is an even number, and 0 if it is
+odd.
+
+&odd function
+
+This function gives 1 if its argument is an odd number, and 0 if it is
+even.
+
+&tinyfugue
+
+TinyFugue is a client program you can use to connect to TinyMUSE.
+You can get it via anonymous ftp to michael.ai.mit.edu, in the
+directory muse/clients. It's abbreviated tf.  TinyFugue only runs
+under the UNIX operating system.
+
+After you compile TinyFugue, you can use it to connect up to
+the following address:
+  chezmoto.ai.mit.edu 4201
+& @users
+@users <PLAYER>=<player#> <player#> <player#> ... 
+
+This command is used in the group ownership feature. This attribute is set
+on the group character to list all the people who are in the group. when
+this is set, all players whose objectnumbers are in the list can modify
+anything that the group character owns. 
+
+EXAMPLE: @users #4450=#45 #764 #8960  (everything that #4550 owns
+                                      can be modified or controlled by
+                                      players numbered #45,#764, and #8960
+ At the present time, only group characters can utilize this attribute.
+
+
+SEE ALSO: @defown, group ownership
+
+& @defown
+@defown <PLAYER>=<# of PLAYER2>  (default is PLAYER2=PLAYER)
+
+This command is used in the group ownership feature. 
+PLAYER is usually yourself. 
+'# of PLAYER2' is the object# for a second player (the groupchar)
+when this is set, everything created by PLAYER is owned by PLAYER2.
+EXAMPLE:  @defown me=#4550   (everything you create while this is set is 
+                              owned by player #4550)
+          @defown me=        (this cancels out @defown)
+At the present time, the only valid player numbers for this command is
+your own, and that of any group that you belong to. there is no limit on
+the number of groups you can belong to.
+
+SEE ALSO: group ownership, @users
+
+& group ownership
+this feature allows many players to create and modify objects belonging to
+a common project. Here is how it works:
+
+Ask your friendly local admin to create you a group character. this is an
+actual player that will serve as owner of everything that the project
+owns. Noone will have access to the password of the group character tho,
+and it will never have to be connected. Then, the admin uses the @users
+attribute to tell the groupcharacter who is all in the group. At this
+point, everyone on this list has complete control over everything that the
+groupchar owns. You have the ability to chown back and forth between
+yourself and the group if necessary. You may use the @defown (default
+owner) attribute on yourself to set the owner of everything you create to
+the groupchar by default. that way you don't have to chown everything to
+the groupchar. 
+
+SEE ALSO: @users, @defown
+& @lhide
+@lhide is a lock that controls who can see you on the who
+list. for instance,
+@lhide me=me
+makes it so only you can see yourself on the who list.
+
+see also: @lock
+
+& @lpage
+@lpage is a lock that controls who can page you for instance,
+@lpage me=*fred
+makes it so only fred can page you.
+
+see also: @lock
+
+& @upfront
+@upfront <dbref#>
+Puts <dbref#> at the top of the free list. This command can only be used by
+those with POW_DATABASE.
+
+Example: @upfront #12345
+         This would put object #12345 at the top of the free list as the next
+         object to be created (works only if the object has been destroyed.)
+& first function
+first(str)      the first word of str
+& rest function
+rest(str)       everything *BUT* the first word of str
+& Channels
+There are various channels that are used on TinyMUSE for a 'CB' type chatting
+environment. Here is a list of come of those channels:
+
+public - For general use and chatting
+programmers - For various programming questions
+ads - A place for citizens to advertise products and attractions
+
+This is just a partial list, there are many more.
+
+Please also see: +channel, syntax
+& directors
+<insert names of MUSE's directors here>
+
+& doing
+@doing <player>=<message>
+Message put in the 'Doing' column on the WHO list.
+     Example: @doing me=Reading the help.
+& shkoo
+yay! fun! wheee!
+
+& tmf function
+tmf(seconds)			This function returns the number of seconds
+				in a full word form, such as '49 seconds',
+				or 'an hour', or '2 days'.
+

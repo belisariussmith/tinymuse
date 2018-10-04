@@ -3,16 +3,16 @@
 ## Server Text Files
 If you want to change anything in the 'help' or 'news' files, the format is self explanitory.
 
-Make sure you execute a 'make' in the msgs directory after you change them.
+Make sure you execute a 'make' in the [`run/msgs/`] directory after you change them.
 
 A good idea would be to suggest using the 'gripe' command in connect.txt somewhere.
 
-Various files that should be in the run/msgs directory:
+Various files that should be in the [`run/msgs/`] directory:
 
-- welcome.txt:  when someone connects to the port, but not to a char.
-- connect.txt:  when someone connects to a character
-- create.txt:   when someone creates a new character
-- register.txt: when someone tries to create a char, but WCREAT is in force.
+- [`run/msgs/welcome.txt`]:  when someone connects to the port, but not to a char.
+- [`run/msgs/connect.txt`]:  when someone connects to a character
+- [`run/msgs/create.txt`]:   when someone creates a new character
+- [`run/msgs/register.txt`]: when someone tries to create a char, but WCREAT is in force.
 
 <sup>Note that these are just blank if they don't exist. Server won't complain about it or anything.</sup>
 

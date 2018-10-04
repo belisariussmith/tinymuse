@@ -1,0 +1,3 @@
+# Host               lock/allow         filename
+# localhost          allow              msgs/yay.txt
+# aol.com            lock               msgs/lockouts/haha.txt

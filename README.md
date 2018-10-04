@@ -4,13 +4,15 @@
 
 TinyMUSE was created in the MUD codebase explosion of 1990 and was a version of TinyMUSH (itself based on TinyMUD). It had a fairly short lifespan, and was quickly surpassed in both code quality and features by its contemporaries. Though it was updated occasionally, it was for the most part a dead project, and the TinyMUSE server population was accordingly small compared to other MUSHes. Because the code as of the last major update (v1.9f3) was still *so outdated*, it is difficult to compile, *much less run* a TinyMUSE server.
 
-For the sake of preservation & posterity, this repository has been created to provide a compilable and working version of TinyMUSE. There is no intent to add modern functionality nor extensibility, simply to provide a working, stable server so that someone can see how the software originally acted.
+For the sake of preservation &amp; posterity, this repository has been created to provide a compilable and working version of TinyMUSE. There is no intent to add modern functionality nor extensibility, simply to provide a working, stable server so that someone can see how the software originally acted.
 
 This project is maintained by [Belisarius Smith](https://www.belisariussmith.com/ "Belisarius Smith").
 
 ## Attribution
 
-- Nils McCarthy (@shkoo)
+- Jin (original author)
+
+- Nils McCarthy (@shkoo, **nils@chezmoto.ai.mit.edu**)
 - David Albert
 
 - Ben Kotcher

@@ -1,0 +1,2 @@
+# Host               lock/allow         filename
+# localhost          allow              msgs/yay.txt

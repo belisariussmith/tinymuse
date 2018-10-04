@@ -1,0 +1,10 @@
+----------------------------------------------------------------------------
+ Welcome to a new MUSE... commands are:
+  
+   connect <player> <password>               - Connect as <player>.
+   connect Guest                             - Connect as a guest.
+   WHO                                       - See who's on.
+   QUIT                                      - Leave (at any time).
+
+ Please enter your command now...
+----------------------------------------------------------------------------

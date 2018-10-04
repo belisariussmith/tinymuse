@@ -1,0 +1,18 @@
+#
+rm logs/commands
+rm logs/error
+rm logs/important
+rm logs/io
+rm logs/out.log
+rm logs/root
+rm logs/sensitive
+rm logs/wd.log
+
+touch logs/commands
+touch logs/error
+touch logs/important
+touch logs/io
+touch logs/out.log
+touch logs/root
+touch logs/sensitive
+touch logs/wd.log
