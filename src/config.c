@@ -59,10 +59,8 @@ char *def_db_out = "run/db/mdb";
 
 // Logfiles
 char *stdout_logfile       = "run/logs/out.log";
-char *wd_logfile           = "run/logs/wd.log";
 
 char *muse_pid_file        = "run/logs/muse_pid";
-char *wd_pid_file          = "run/logs/wd_pid";
  
 char *create_msg_file      = "run/msgs/create.txt";
 char *connect_msg_file     = "run/msgs/connect.txt";
