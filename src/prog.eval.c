@@ -300,42 +300,54 @@ static void fun_xtime(char *buff, char *args[], dbref privs, dbref doer, int nar
     sprintf(buff, "%ld", cl);
 }
 
-int mem_usage(dbref thing)
+int mem_usage(dbref objectId)
 {
-    ALIST *m;
-    ATRDEF *j;
-    int k;
+    ALIST *attributeListItem;
+    ATRDEF *attribute;
+    int sizeOfObject;
 
-    k = sizeof(struct object);
-    k += strlen(db[thing].name)+1;
+    // Begin with the size of an object
+    sizeOfObject = sizeof(struct object);
+    // Now increase by the object's name (+1 for buffer)
+    sizeOfObject += strlen(db[objectId].name)+1;
 
-    for (m = db[thing].list; m; m = AL_NEXT(m))
+    // Loop through the item's (A)ttribute lists
+    for (attributeListItem = db[objectId].list; attributeListItem; attributeListItem = AL_NEXT(attributeListItem))
     {
-        if (AL_TYPE(m))
+        // Check for a real attribute list
+        if (AL_TYPE(attributeListItem))
         {
-            if (AL_TYPE(m) != A_DOOMSDAY && AL_TYPE(m) != A_BYTESUSED && AL_TYPE(m) != A_IT)
+            // Ignore DOOMSDAY, BYTESUSED, and IT attribute list types
+            if (AL_TYPE(attributeListItem) != A_DOOMSDAY && AL_TYPE(attributeListItem) != A_BYTESUSED && AL_TYPE(attributeListItem) != A_IT)
             {
-                k += sizeof(ALIST);
+                // Increase by the size of the attribute list
+                sizeOfObject += sizeof(ALIST);
 
-                if (AL_STR(m))
+                // Does the attribute list have a string name
+                if (AL_STR(attributeListItem))
                 {
-                    k += strlen(AL_STR(m));
+                    // Attribute has a string name, increase by that size as well
+                    sizeOfObject += strlen(AL_STR(attributeListItem));
                 }
             }
         }
     }
 
-    for (j = db[thing].atrdefs; j; j = j->next)
+    // Loop through the defined attributes
+    for (attribute = db[objectId].atrdefs; attribute; attribute = attribute->next)
     {
-        k += sizeof(ATRDEF);
+        // Increase by the size an ATRDEF
+        sizeOfObject += sizeof(ATRDEF);
 
-        if (j->a.name)
+        // Check to see if the attribute has been named
+        if (attribute->a.name)
         {
-            k += strlen(j->a.name);
+            // If the aittibute has been named, then increase the size of the string
+            sizeOfObject += strlen(attribute->a.name);
         }
     }
 
-    return k;
+    return sizeOfObject;
 }
 
 static void fun_objmem(char *buff, char *args[10], dbref privs)

@@ -687,8 +687,15 @@ dbref new_object()
     db_obj->owner    = NOTHING;
     // db_obj->penn    = 0;
 
-    // flags you must initialize yourself 
-    // (Belisarius) should enact db_init_object() as well?
+    // Attribute initialization. Similar to the need for the db_init_object()
+    // when reading objects in from the database. If the NULL assignment is
+    // not completed and the memory not allocated, then segementation fault
+    // is inevitable.
+    db_obj->atrdefs  = NULL;
+    db_obj->atrdefs  = malloc( sizeof(ATRDEF));
+    db_obj->atrdefs->a.name = NULL;
+    db_obj->atrdefs->next   = NULL;
+
     db_obj->mod_time     = 0;
     db_obj->create_time  = now;
     db_obj->zone         = NOTHING;
