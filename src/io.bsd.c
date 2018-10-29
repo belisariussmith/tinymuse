@@ -255,7 +255,7 @@ static void save_muse_pid()
     if (stat(muse_pid_file, &statbuf) >= 0)
     {
         // it already exists! 
-        log_error("muse pid file already exists!");
+        log_error("found muse_pid. Is server already running? crashed? If crashed, recommend muse_pid be deleted");
         exit_nicely(136);
     }
 
