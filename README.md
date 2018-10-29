@@ -2,9 +2,9 @@
 
 # About TinyMUSE
 
-TinyMUSE was created in the MUD codebase explosion of 1990 and was a version of TinyMUSH (itself based on TinyMUD). It had a fairly short lifespan, and was quickly surpassed in both code quality and features by its contemporaries. Though it was updated occasionally, it was for the most part a dead project, and the TinyMUSE server population was accordingly small compared to other MUSHes. Because the code as of the last major update (v1.9f3) was still *so outdated*, it is difficult to compile, *much less run* a TinyMUSE server.
+TinyMUSE was created in the MUD codebase explosion of 1990 and was based on version 1.5 of TinyMUSH (itself based on TinyMUD). It had a fairly short lifespan, and was quickly surpassed in both code quality and features by its contemporaries. Though it was updated occasionally, it was for the most part a dead project, and the TinyMUSE server population was accordingly small compared to other MUSHes. Because the code as of the last major update (v1.9f3) was still *so outdated*, it is difficult to compile, *much less run* a TinyMUSE server.
 
-For the sake of preservation &amp; posterity, this repository has been created to provide a compilable and working version of TinyMUSE. There is no intent to add modern _mud_ functionality nor extensibility, but simply to provide a working, stable server so that someone can see how the software originally acted. To that end, some minor cleanup (such as removing support for older database versions) and improvements have been applied, such as updating to new standards (and libraries) in the C landuage to increase efficiency, viability, and modifiability.
+For the sake of preservation &amp; posterity, this repository has been created to provide a compilable and working version of TinyMUSE. There is no intent to add modern _mud_ functionality nor extensibility, but simply to provide a working, stripped down, stable server so that someone can see how the software originally acted. To that end, some minor cleanup (such as removing support for older database versions) and improvements have been applied, such as updating to new standards (and libraries) in the C landuage to increase efficiency, viability, and modifiability.
 
 This project is maintained by [Belisarius Smith](https://www.belisariussmith.com/ "Belisarius Smith").
 
@@ -12,19 +12,18 @@ This project is maintained by [Belisarius Smith](https://www.belisariussmith.com
 
 - Jin (original author)
 
-### Gen 2
+### Gen 2 (v1.0 - v1.8a4)
 - Nils McCarthy (@shkoo, **nils@chezmoto.ai.mit.edu**)
-- David Albert
+- Erk (@Erk, **erk@chezmoto.ai.mit.edu**)
+- Michael (**michael@chezmoto.ai.mit.edu**)
 
-- Ben Kotcher
-- Peter Young
-- Ken Moellman
-- Miia Kunnas
+### Gen 3 (v1.8a4 - v1.9f3)
+- Mark Eisenstat (@Morgoth **meisen@musenet.org**)
+- Jason Hula (@Power_Shaper)
+- Rick Harby (@Tabok **rharby@eznet.net**)
+- Robert Peperkamp (@Redone **rpeperkamp@envirolink.org**) 
 
-### Gen 3
-- Mark Eisenstat (@Morgoth) **meisen@musenet.org**
-
-### Gen 4
+### Gen 4 (v1.9a4 - v2.0)
 - Belisarius Smith (@Balr)
 
 This project is a work of love, in appreciation for all the hours of fun from running (and playing) my first MUD server... to all those who wrote, maintained, and played, I thank you.
@@ -35,7 +34,7 @@ See [ADMIN.md](ADMIN.md)
 
 ## Version
 
-This is currently version 2.0 (alpha)
+This is currently version 2.0 (beta)
 
 ## Original Changelog (pre-git)
 
@@ -53,4 +52,4 @@ Any new code or separate code in version 2.0+ falls under the MIT license.
 
 —
 
-<sup>NOTE: This project is still a work in progress, and will not be considered "complete" until version **2.1**</sup>
+<sup>NOTE: This project is still a work in progress, and will not be considered "complete" until version **2.0** is finalized from beta.</sup>
