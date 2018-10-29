@@ -12,18 +12,18 @@ This project is maintained by [Belisarius Smith](https://www.belisariussmith.com
 
 - Jin (original author)
 
-### Gen 2 (v1.0 - v1.8a4)
+### v1.0 - v1.8a4
 - Nils McCarthy (@shkoo, **nils@chezmoto.ai.mit.edu**)
 - Erk (@Erk, **erk@chezmoto.ai.mit.edu**)
 - Michael (**michael@chezmoto.ai.mit.edu**)
 
-### Gen 3 (v1.8a4 - v1.9f3)
+### v1.8a4 - v1.9f3
 - Mark Eisenstat (@Morgoth **meisen@musenet.org**)
 - Jason Hula (@Power_Shaper)
 - Rick Harby (@Tabok **rharby@eznet.net**)
 - Robert Peperkamp (@Redone **rpeperkamp@envirolink.org**) 
 
-### Gen 4 (v1.9a4 - v2.0)
+### v2.0
 - Belisarius Smith (@Balr)
 
 This project is a work of love, in appreciation for all the hours of fun from running (and playing) my first MUD server... to all those who wrote, maintained, and played, I thank you.

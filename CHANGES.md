@@ -36,14 +36,14 @@ This is the remnants of the changelog instituted beginning with version *1.8a4*
 - Added numerous comments to explain code behavior
 
 - Renamed many variables to actually be useful.
-      * f    ->   file
-      * i    ->   db_obj_id
-      * etc.
+- f    ->   file
+- i    ->   db_obj_id
+- etc.
 
 - Renamed various functions to more appropriate names:
-      * shovechars()      ->   mud_loop()
-      * load_more_db()    ->   load_database()
-      * etc. 
+- shovechars()      ->   mud_loop()
+- load_more_db()    ->   load_database()
+- etc. 
 
 - Converted old-style (K&R) C-type declaration syntac for parameters to
   the new modern style
