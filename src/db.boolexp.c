@@ -132,6 +132,7 @@ char *process_lock(dbref player, char *arg)
                     {
                         return NULL;
                     }
+
                     sprintf(t, "#%d", thing);
                 }
 
@@ -281,7 +282,9 @@ static int test_atr(char **buf, dbref player, int ind)
     ;
   
     if (!*s || (*s != ':'))
+    {
         return NOTHING;
+    }
 
     *s++ = '\0';
 

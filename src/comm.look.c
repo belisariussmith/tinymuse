@@ -104,46 +104,65 @@ static void look_contents(dbref player, dbref loc, char *contents_name)
     }
 }
 
-static struct all_atr_list *all_attributes_internal (dbref thing, struct all_atr_list *myop, struct all_atr_list *myend, int dep)
+static struct all_atr_list *all_attributes_internal(dbref thing, struct all_atr_list *myop, struct all_atr_list *myend, int dep)
 {
-    ALIST *k;
+    ALIST *attributeList;
     struct all_atr_list *tmp;
-    int i;
 
-    for (k=db[thing].list; k; k=AL_NEXT(k))
-        if (AL_TYPE(k) && ((dep==0)||(AL_TYPE(k)->flags&AF_INHERIT)))
+    for (attributeList = db[thing].list; attributeList; attributeList = AL_NEXT(attributeList))
+    {
+        if (AL_TYPE(attributeList) && ((dep == 0) || (AL_TYPE(attributeList)->flags & AF_INHERIT)))
         {
-            for (tmp = myop; tmp; tmp=tmp->next)
+            for (tmp = myop; tmp; tmp = tmp->next)
             {
-                if (tmp->type == AL_TYPE(k))
+                if (tmp->type == AL_TYPE(attributeList))
                 {
                     break;
                 }
             }
-      if (tmp)
-	continue;		// there's already something with this type.
-      if (!myop) {
-	myop = myend = newglurp(sizeof(struct all_atr_list));
-	myop->next = NULL;
-      } else {
-	struct all_atr_list *foo;
-	foo = newglurp(sizeof(struct all_atr_list));
-	foo->next = myop;
-	myop = foo;
-      }
-      myop->type = AL_TYPE(k);
-      myop->value = AL_STR(k);
-      myop->numinherit = dep;
+
+            if (tmp)
+            {
+                continue; // there's already something with this type.
+            }
+
+            if (!myop)
+            {
+                myop = myend = newglurp(sizeof(struct all_atr_list));
+                myop->next = NULL;
+            }
+            else
+            {
+                struct all_atr_list *foo;
+                foo = newglurp(sizeof(struct all_atr_list));
+                foo->next = myop;
+                myop = foo;
+            }
+
+            myop->type = AL_TYPE(attributeList);
+            myop->value = AL_STR(attributeList);
+            myop->numinherit = dep;
+        }
     }
-  for (i=0; db[thing].parents && db[thing].parents[i]!=NOTHING; i++) {
-    if (myend)
-      myop = all_attributes_internal (db[thing].parents[i], myop, myend, dep+1);
-    else
-      myop = all_attributes_internal (db[thing].parents[i], 0, 0, dep+1);
-    while (myend && myend->next)
-      myend = myend->next;
-  }
-  return myop;
+
+    for (int i = 0; db[thing].parents && db[thing].parents[i] != NOTHING; i++)
+    {
+        if (myend)
+        {
+            myop = all_attributes_internal (db[thing].parents[i], myop, myend, dep+1);
+        }
+        else
+        {
+            myop = all_attributes_internal (db[thing].parents[i], 0, 0, dep+1);
+        }
+
+        while (myend && myend->next)
+        {
+            myend = myend->next;
+        }
+    }
+
+    return myop;
 }
 
 struct all_atr_list *all_attributes(dbref thing)
@@ -162,25 +181,31 @@ static char* unparse_list(dbref player, char *list)
         {
             int y = atoi(list + 1);
             char *x;
+
             if ( (y >= HOME) || (y < db_top) )
             {
                 x = unparse_object(player,y);
+
                 if ((strlen(x) + pos) < 9900)
                 {
                     buf[pos] = ' ';
                     strcpy((buf + pos + 1), x);
                     pos += strlen(buf + pos);
-                    list++; /* skip the # */
+                    list++; // skip the # 
+
                     while (*list >= '0' && *list <= '9')
                     {
                         list++;
                     }
+
                     continue;
                 }
             }
         }
+
         buf[pos++] = *list++;
     }
+
     buf[pos] = '\0';
     
     return ( (*buf) ? (buf + 1) : buf );
@@ -363,83 +388,108 @@ void do_look_at(dbref player, char *arg1)
         switch(thing = match_result())
         {
             case NOTHING:
-                for(s = name; *s && *s != ' '; s++);
-                if (!*s) {
-                    // (Belisarius) - wth ? a preformatted string
-    	send_message(player, NOMATCH_PATT, arg1);
-	return;
-      }
-      p = name;
-      if ((*(s - 1) == 's' && *(s - 2) == '\'' && *(s - 3) != 's') ||
-	  (*(s - 1) == '\'' && *(s - 2) == 's')) {
+                for (s = name; *s && *s != ' '; s++) ;
 
-	if (*(s - 1) == 's') *(s - 2) = '\0';
-	else *(s - 1) = '\0';
-	name = s + 1;
-	init_match(player, p, TYPE_PLAYER);
-	match_neighbor();
-	match_possession();
-	switch (thing=match_result()) {
-	case NOTHING:
-          // (Belisarius) - wth ? a preformatted string?
-	  send_message(player, NOMATCH_PATT, arg1);
-	  break;
-	case AMBIGUOUS:
-	  send_message(player,AMBIGUOUS_MESSAGE);
-	  break;
-	default:
-	  init_match(thing, name, TYPE_THING);
-	  match_possession();
-	  switch(thing2 = match_result()) {
-	  case NOTHING:
-          // (Belisarius) - wth ? a preformatted string?
-	    send_message(player, NOMATCH_PATT, arg1);
-	    break;
-	  case AMBIGUOUS:
-	    send_message(player,AMBIGUOUS_MESSAGE);
-	    break;
-	  default:
-	    if ((db[thing].flags & OPAQUE)
-		&& !power(player, POW_EXAMINE)) {
-          // (Belisarius) - wth ? a preformatted string?
-	      send_message(player, NOMATCH_PATT, name);
-	    } else {
-	      look_simple(player, thing2, 0);
-	    }
-	  }
-	}
-      }
-      else
-      {
-          // (Belisarius) - wth ? a preformatted string?
-  	send_message(player, NOMATCH_PATT, arg1);
-      }
-      break;
-    case AMBIGUOUS:
-      send_message(player, AMBIGUOUS_MESSAGE);
-      break;
-    default:
-      switch(Typeof(thing)) {
-      case TYPE_ROOM:
-	look_room(player, thing);
-	break;
-      case TYPE_THING:
-      case TYPE_PLAYER:
-	look_simple(player, thing, 1);
-	/*look_atrs(player,thing);*/
-	if (controls(player, thing, POW_EXAMINE) ||
-	    !(db[thing].flags & OPAQUE) ||
-	    power(player, POW_EXAMINE)){
-	  look_contents(player, thing, "Carrying:");
-	}
-	break;
-      default:
-	look_simple(player, thing, 1);
-	/*look_atrs(player,thing);*/
-	break;
-      }
+                if (!*s)
+                {
+                    // (Belisarius) - wth ? a preformatted string
+                    send_message(player, NOMATCH_PATT, arg1);
+                    return;
+                }
+
+                p = name;
+
+                if ( (*(s - 1) == 's' && *(s - 2) == '\'' && *(s - 3) != 's') 
+                  || (*(s - 1) == '\'' && *(s - 2) == 's')
+                   )
+                {
+                    if (*(s - 1) == 's')
+                    {
+                        *(s - 2) = '\0';
+                    }
+                    else
+                    {
+                        *(s - 1) = '\0';
+                    }
+
+                    name = s + 1;
+                    init_match(player, p, TYPE_PLAYER);
+                    match_neighbor();
+                    match_possession();
+
+                    switch (thing = match_result())
+                    {
+                        case NOTHING:
+                            // (Belisarius) - wth ? a preformatted string?
+                            send_message(player, NOMATCH_PATT, arg1);
+                            break;
+                        case AMBIGUOUS:
+                            send_message(player,AMBIGUOUS_MESSAGE);
+                            break;
+                        default:
+                            init_match(thing, name, TYPE_THING);
+                            match_possession();
+
+                            switch(thing2 = match_result())
+                            {
+                                case NOTHING:
+                                    // (Belisarius) - wth ? a preformatted string?
+                                    send_message(player, NOMATCH_PATT, arg1);
+                                    break;
+                                case AMBIGUOUS:
+                                    send_message(player,AMBIGUOUS_MESSAGE);
+                                    break;
+                                default:
+                                    if ( (db[thing].flags & OPAQUE)
+                                      && (!power(player, POW_EXAMINE))
+                                       )
+                                    {
+                                        // (Belisarius) - wth ? a preformatted string?
+                                        send_message(player, NOMATCH_PATT, name);
+                                    }
+                                    else
+                                    {
+                                        look_simple(player, thing2, 0);
+                                    }
+                            }
+                    }
+                }
+                else
+                {
+                    // (Belisarius) - wth ? a preformatted string?
+                    send_message(player, NOMATCH_PATT, arg1);
+                }
+                break;
+            case AMBIGUOUS:
+                send_message(player, AMBIGUOUS_MESSAGE);
+                break;
+            default:
+                switch(Typeof(thing))
+                {
+                    case TYPE_ROOM:
+                        look_room(player, thing);
+                        break;
+                    case TYPE_THING:
+                    case TYPE_PLAYER:
+                        look_simple(player, thing, 1);
+                        //look_atrs(player,thing);
+
+                        if ( controls(player, thing, POW_EXAMINE)
+                          || !(db[thing].flags & OPAQUE)
+                          ||  power(player, POW_EXAMINE)
+                           )
+                        {
+                            look_contents(player, thing, "Carrying:");
+                        }
+
+                        break;
+                    default:
+                        look_simple(player, thing, 1);
+                        //look_atrs(player,thing);
+                        break;
+                }
+        }
     }
-  }
 }
 
 char *flag_description(dbref thing)
@@ -471,53 +521,53 @@ char *flag_description(dbref thing)
     {
         // print flags 
         strcat(buf, "      Flags:");
-        if(db[thing].flags & GOING) strcat(buf," going");
-        if(db[thing].flags & PUPPET) strcat(buf," puppet");
-        if(db[thing].flags & STICKY) strcat(buf," sticky");
-        if(db[thing].flags & DARK) strcat(buf," dark");
-        if(db[thing].flags & LINK_OK) strcat(buf," link_ok");
-        if(db[thing].flags & HAVEN) strcat(buf," haven");
-        if(db[thing].flags & CHOWN_OK) strcat(buf," chown_ok");
-        if(db[thing].flags & ENTER_OK) strcat(buf," enter_ok");
-        if(db[thing].flags & SEE_OK) strcat(buf," visible");
-        if(db[thing].flags & OPAQUE) strcat(buf,(Typeof(thing)==TYPE_EXIT)?" transparent":" opaque");
+        if(db[thing].flags & GOING) strcat(buf, " going");
+        if(db[thing].flags & PUPPET) strcat(buf, " puppet");
+        if(db[thing].flags & STICKY) strcat(buf, " sticky");
+        if(db[thing].flags & DARK) strcat(buf, " dark");
+        if(db[thing].flags & LINK_OK) strcat(buf, " link_ok");
+        if(db[thing].flags & HAVEN) strcat(buf, " haven");
+        if(db[thing].flags & CHOWN_OK) strcat(buf, " chown_ok");
+        if(db[thing].flags & ENTER_OK) strcat(buf, " enter_ok");
+        if(db[thing].flags & SEE_OK) strcat(buf, " visible");
+        if(db[thing].flags & OPAQUE) strcat(buf, (Typeof(thing) == TYPE_EXIT) ? " transparent" : " opaque");
         if(db[thing].flags & INHERIT_POWERS) strcat(buf," inherit");
-        if(db[thing].flags & QUIET) strcat(buf," quiet");
-        if(db[thing].flags & BEARING) strcat(buf," bearing");
-        if(db[thing].flags & CONNECT) strcat(buf," connected");
+        if(db[thing].flags & QUIET) strcat(buf, " quiet");
+        if(db[thing].flags & BEARING) strcat(buf, " bearing");
+        if(db[thing].flags & CONNECT) strcat(buf, " connected");
 
         switch(Typeof(thing))
         {
             case TYPE_PLAYER:
-                if(db[thing].flags & PLAYER_SLAVE) strcat(buf," slave");
-                if(db[thing].flags & PLAYER_TERSE) strcat(buf," terse");
-                if(db[thing].flags & PLAYER_ANSI) strcat(buf," ansi");
-                if(db[thing].flags & PLAYER_MORTAL) strcat(buf," mortal");
-                if(db[thing].flags & PLAYER_NO_WALLS) strcat(buf," no_walls");
-                if(db[thing].flags & PLAYER_NO_COM) strcat(buf," no_com");
-                if(db[thing].flags & PLAYER_NO_ANN) strcat(buf," no_ann");
+                if(db[thing].flags & PLAYER_SLAVE) strcat(buf, " slave");
+                if(db[thing].flags & PLAYER_TERSE) strcat(buf, " terse");
+                if(db[thing].flags & PLAYER_ANSI) strcat(buf, " ansi");
+                if(db[thing].flags & PLAYER_MORTAL) strcat(buf, " mortal");
+                if(db[thing].flags & PLAYER_NO_WALLS) strcat(buf, " no_walls");
+                if(db[thing].flags & PLAYER_NO_COM) strcat(buf, " no_com");
+                if(db[thing].flags & PLAYER_NO_ANN) strcat(buf, " no_ann");
                 break;
             case TYPE_EXIT:
-                if(db[thing].flags & EXIT_LIGHT) strcat(buf," light");
+                if(db[thing].flags & EXIT_LIGHT) strcat(buf, " light");
                 break;
             case TYPE_THING:
-                if(db[thing].flags & THING_KEY) strcat(buf," key");
-                if(db[thing].flags & THING_DEST_OK) strcat(buf," destroy_ok");
-                if(db[thing].flags & THING_SACROK) strcat(buf," x_ok");
-                if(db[thing].flags & THING_LIGHT) strcat(buf," light");
-                if(db[thing].flags & THING_DIG_OK) strcat(buf," dig_ok");
+                if(db[thing].flags & THING_KEY) strcat(buf, " key");
+                if(db[thing].flags & THING_DEST_OK) strcat(buf, " destroy_ok");
+                if(db[thing].flags & THING_SACROK) strcat(buf, " x_ok");
+                if(db[thing].flags & THING_LIGHT) strcat(buf, " light");
+                if(db[thing].flags & THING_DIG_OK) strcat(buf, " dig_ok");
                 break;
             case TYPE_ROOM:
-                if(db[thing].flags&ROOM_JUMP_OK) strcat(buf," jump_ok");
-                if(db[thing].flags&ROOM_AUDITORIUM) strcat(buf," auditorium");
-                if(db[thing].flags&ROOM_FLOATING) strcat(buf," floating");
-                if(db[thing].flags&ROOM_DIG_OK) strcat(buf," dig_ok");
+                if(db[thing].flags&ROOM_JUMP_OK) strcat(buf, " jump_ok");
+                if(db[thing].flags&ROOM_AUDITORIUM) strcat(buf, " auditorium");
+                if(db[thing].flags&ROOM_FLOATING) strcat(buf, " floating");
+                if(db[thing].flags&ROOM_DIG_OK) strcat(buf, " dig_ok");
                 break;
         }
 
-        if (db[thing].i_flags & I_MARKED) strcat(buf," marked");
-        if (db[thing].i_flags & I_QUOTAFULL) strcat(buf," quotafull");
-        if (db[thing].i_flags & I_UPDATEBYTES) strcat(buf," updatebytes");
+        if (db[thing].i_flags & I_MARKED) strcat(buf, " marked");
+        if (db[thing].i_flags & I_QUOTAFULL) strcat(buf, " quotafull");
+        if (db[thing].i_flags & I_UPDATEBYTES) strcat(buf, " updatebytes");
     }
 
     return buf;
@@ -570,13 +620,15 @@ void do_examine(dbref player, char *name, char *arg2)
         match_absolute();
 
         // only Wizards can examine other players 
-        if( has_pow(player,NOTHING, POW_EXAMINE) || has_pow(player, NOTHING,POW_REMOTE))
+        if (has_pow(player, NOTHING, POW_EXAMINE) || has_pow(player, NOTHING,POW_REMOTE))
         {
             match_player();
         }
 
-        /*      if(db[thing].flags & UNIVERSAL)
-	    match_absolute(); */
+        //if(db[thing].flags & UNIVERSAL)
+        //{
+	//    match_absolute();
+        //}
         match_here();
         match_me();
 
@@ -626,8 +678,10 @@ void do_examine(dbref player, char *name, char *arg2)
             {
                 cr = "INFINITE";
             }
+
             rqm = "  Quota-Left: ";
             rq = atr_get(thing, A_RQUOTA);
+
             if ( atoi(rq) <= 0 )
             {
 	            rq = "NONE";
@@ -636,11 +690,11 @@ void do_examine(dbref player, char *name, char *arg2)
     }
 
     send_message(player, "Owner: %s%s%s%s%s", db[db[thing].owner].name, crm, cr, rqm, rq);
+    send_message(player, flag_description(thing));
 
-    send_message(player,flag_description(thing));
     if (db[thing].zone != NOTHING)
     {
-        send_message(player, "Zone: %s", unparse_object(player,db[thing].zone));
+        send_message(player, "Zone: %s", unparse_object(player, db[thing].zone));
     }
     send_message(player, "Created: %s", db[thing].create_time ? mktm(db[thing].create_time, "D", player) : "never");
 

@@ -34,18 +34,18 @@ static int is_prefix(char *p, char *s)
 {
     if (!*s)
     {
-        return(FALSE);
+        return FALSE;
     }
 
     while(*p)
     {
-        if (!*s || (to_upper(*p++)!=to_upper(*s++)))
+        if (!*s || (to_upper(*p++) != to_upper(*s++)))
         {
-            return(FALSE);
+            return FALSE;
         }
     }
 
-    return(TRUE);
+    return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ dbref pref_match(dbref player, dbref list, char *string)
             }
         }
 
-        list=db[list].next;
+        list = db[list].next;
     }
 
     return(lmatch);
@@ -156,9 +156,9 @@ void match_player()
     dbref match;
     char *p;
 
-    if (it != NOTHING && Typeof(it)==TYPE_PLAYER)
+    if (it != NOTHING && Typeof(it) == TYPE_PLAYER)
     {
-        exact_match=it;
+        exact_match = it;
         return;
     }
 

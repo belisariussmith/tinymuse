@@ -44,7 +44,6 @@ void init_timer()
 
 void dispatch()
 {         
-    printf("debug:: >> dispatch()\n");
     // this routine can be used to poll from interface.c 
     if (!alarm_triggered)
     {
@@ -55,7 +54,6 @@ void dispatch()
 
     do_second();
 
-    printf("debug:: free list \n");
     // Free list re ruction 
     {
         static int ticks= -1;
@@ -84,7 +82,6 @@ void dispatch()
             }
         }
     }
-    printf("debug:: dump routines \n");
     // Database dump routines 
     {
         static int ticks = -1;
@@ -109,7 +106,6 @@ void dispatch()
             next_dump = now + dump_interval;
         }
     }
-    printf("debug:: stale mail deletion \n");
     // Stale mail deletion. 
     {
         static int ticks = -1;
@@ -135,7 +131,6 @@ void dispatch()
         }
     }
 
-    printf("debug:: update bytes \n");
     {
         int i;
 
@@ -145,15 +140,10 @@ void dispatch()
         }
     }
 
-    printf("debug:: > cpy garbage \n");
     strcpy(ccom, "garbage");
-    printf("debug:: > do_incremental() \n");
     do_incremental(); // handle incremental garbage collection 
-    printf("debug:: > run topology \n");
     run_topology();
 
-    printf("debug:: > reset alarm \n");
     // reset alarm 
     alarm(1);
-    printf("debug:: << dispatch()\n");
 }

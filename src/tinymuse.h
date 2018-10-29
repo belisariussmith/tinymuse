@@ -8,6 +8,9 @@
 #define FALSE   0
 #define TRUE    1
 
+// MUSE
+#define MUD_PORT     4201
+
 // String Buffers
 #define BUF_SIZE        1024                  // Default string buffer
 #define MAX_BUF         10000                 // Maximum size allowed

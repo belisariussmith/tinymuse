@@ -25,8 +25,8 @@ void free_hash()
         for (j = 0; j < i->nbuckets; j++)
         {
 //          int k;
-//          for (k=0; j->buckets[j][k].name; k++)
-//      	free(i->buckets[j][k].name);*/
+//          for (k = 0; j->buckets[j][k].name; k++)
+//      	free(i->buckets[j][k].name);
             free(i->buckets[j]);
         }
 
@@ -44,7 +44,7 @@ void do_showhash(dbref player, char *arg1)
     {
         for (i = hashtabs; i; i = i->next)
         {
-            send_message(player,i->name);
+            send_message(player, i->name);
         }
 
         send_message(player, "done.");
@@ -68,8 +68,8 @@ void do_showhash(dbref player, char *arg1)
 
                     for (k=0; i->buckets[j][k].name; k++)
                     {
-                        sprintf(buf,"   %s: %s",i->buckets[j][k].name, (*i->display)(i->buckets[j][k].value));
-                        send_message(player,buf);
+                        sprintf(buf,"   %s: %s", i->buckets[j][k].name, (*i->display)(i->buckets[j][k].value));
+                        send_message(player, buf);
                     }
                 }
                 return;

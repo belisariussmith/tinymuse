@@ -19,66 +19,6 @@ static int ok_name P((char *));
 static int group_depth = 0;
 static int group_controls_int P((dbref,dbref));
 
-  /*
-   * Belisarius
-   * Original macro took only the single parameter
-   * The <stdarg.h> interface was introduced in the 1989 ANSI C standard
-   *
-   */
-   /*
-char *tprintf(va_alist)
-     va_dcl
-{
-  long args[10];
-  int k;
-  static char buff[10000];
-  va_list ap;
-  char *format;
-
-  va_start(ap);
-  format=va_arg(ap,char *);
-  for(k=0;k<10;k++)
-      args[k]=va_arg(ap, long);
-
-  sprintf(buff,format,args[0],args[1],args[2],args[3],args[4],
-      args[5],args[6], args[7],args[8],args[9],args[10]);
-  buff[1000] = 0;
-
-  return (buff);
-}
-*/
-
-///////////////////////////////////////////////////////////////////////////////
-// tprintf()
-///////////////////////////////////////////////////////////////////////////////
-//     A sorry excuse for a sprintf() replacement that returns a formatted
-// string.
-///////////////////////////////////////////////////////////////////////////////
-// Notes:
-//     Since the local character string is not allocated any memory, this is
-// a dangerous function. We could allocate memory malloc(), but then it'd have
-// to be free'd later.
-//     This function just needs to be erased from history and all references to
-// deleted and replaced with the usage of a sprintf() call.
-///////////////////////////////////////////////////////////////////////////////
-// Returns: (char *) a string to a local character array
-///////////////////////////////////////////////////////////////////////////////
-/*
-char *tprintf(const char* format, ...)
-{
-    va_list args;
-    va_start(args, format);
-    char buffer[MAX_BUF];
-
-    vsprintf(buffer, format, args);
-
-    va_end(args);
-
-    return (buffer);
-}
-*/
-// Belisarius END 
-
 int Level(dbref thing)
 {
     if(db[thing].owner != thing)
@@ -511,13 +451,6 @@ int controls_a_zone(dbref who, dbref what, int cutoff_level)
 
 int controls(dbref who, dbref what, int cutoff_level)
 {
-    /*
-     * Belisarius
-     * Looks like old deprecated code
-     */
-    // dbref where;
-    // where = db[what].location;
-
     // valid thing to control?
     if (what == NOTHING)
     {
@@ -534,8 +467,11 @@ int controls(dbref who, dbref what, int cutoff_level)
     }
 
     // owners (and their stuff) control the owner's stuff 
-    //    if ( db[who].owner == db[what].owner )
-    //return 1;
+    //if ( db[who].owner == db[what].owner )
+    //{
+    //    return TRUE;
+    //}
+
     if (db[who].owner == db[what].owner || group_controls(db[who].owner,db[what].owner))
     {
         // the owners match, check ipow 
@@ -556,11 +492,14 @@ int controls(dbref who, dbref what, int cutoff_level)
             return TRUE; // the target isn't inherit  
         }
     }
-  /*  if (( db[who].owner == db[what].owner ) &&
-      ((db[who].flags&INHERIT_POWERS) || !(db[what].flags&INHERIT_POWERS)
-      || Typeof(who)==TYPE_PLAYER || * or it's a player -- dont need I. *
-      !power(db[who].owner,TYPE_OFFICIAL))) * or it's no special powers *
-      return 1; */
+
+    //if (( db[who].owner == db[what].owner ) &&
+    //((db[who].flags&INHERIT_POWERS) || !(db[what].flags&INHERIT_POWERS)
+    //|| Typeof(who)==TYPE_PLAYER ||                                      // or it's a player -- dont need I.
+    //!power(db[who].owner,TYPE_OFFICIAL)))                               // or it's no special powers
+    //{
+    //    return TRUE;
+    //}
 
     if (db[what].flags & INHERIT_POWERS)
     {
@@ -667,7 +606,7 @@ void giveto(dbref who, int pennies)
     }
     else
     {
-        s_Pennies(who,old_amount+pennies);
+        s_Pennies(who, old_amount+pennies);
     }
 }
 
@@ -907,7 +846,7 @@ int ok_player_name(dbref player, char *name, char *alias)
         !string_compare(name, "--") ||
         !string_compare(name, "->") ||
         !string_compare(name, ":)") ||
-        !string_compare(name, "clear")) /* +mail clear. */
+        !string_compare(name, "clear")) // +mail clear
     {
         return FALSE;
     }
@@ -925,7 +864,7 @@ int ok_player_name(dbref player, char *name, char *alias)
         }
     }
 
-    if (lookup_player(name) != NOTHING && lookup_player(name)!=player)
+    if (lookup_player(name) != NOTHING && lookup_player(name) != player)
     {
         return FALSE;
     }
@@ -1189,25 +1128,14 @@ void pronoun_substitute(char *result, dbref player, char *str, dbref privs)
                     break;
                 case 's':
                 case 'S':
-                    // deprecated (this was originally for genderless characters)
-                    //sstrcat(ores,result, (gender==0) ? db[player].name : subjective[gender]);
-                    sstrcat(ores,result, subjective[gender]);
+                    sstrcat(ores, result, subjective[gender]);
                     break;
                 case 'p':
                 case 'P':
-                    /*
-                        if (gender==0) {
-                          sstrcat(ores,result,db[player].name);
-                          sstrcat(ores,result,"'s");
-                        }
-                    */
-                    //    else
                    sstrcat(ores,result, possessive[gender]);
                    break;
                 case 'o':
                 case 'O':
-                    // deprecated (this was originally for genderless characters)
-                    //sstrcat(ores,result, (gender==0) ? db[player].name : objective[gender]);
                     sstrcat(ores,result, objective[gender]);
                     break;
                 case 'n':
@@ -1219,7 +1147,6 @@ void pronoun_substitute(char *result, dbref player, char *str, dbref privs)
                     {
                         break;
                     }
-
                     sprintf(result+strlen(result), "#%d", player);
                     break;
                 case '/':

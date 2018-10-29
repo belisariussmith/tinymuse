@@ -22,33 +22,8 @@ static long get_timezone()
     return tz.tz_minuteswest * 60;
 }
 
-// added 12/1/90 by jstanley to locate entrance of an exit 
 dbref find_entrance(dbref door)
 {
-  /*
-        dbref room;
-	dbref thing;
-	
-	for ( room = 0; room < db_top; room++ )
-        {
-	    if ( Typeof(room) == TYPE_ROOM )
-            {
-	        thing = Exits(room);
-
-        	while ( thing != NOTHING )
-                {
-                    if ( thing == door )
-                    {
-                        return room;
-                    }
-
-                    thing = db[thing].next;
-                }
-            }
-        }
-	
-	return NOTHING;
-    */
     return db[door].location;
 }
 

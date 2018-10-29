@@ -48,7 +48,7 @@ void muse_log(struct log *l, char *str)
 
         if (!l->fptr)
         {
-            mkdir("logs",0755);
+            mkdir("logs", 0755);
             l->fptr = fopen(l->filename, "a");
 
             if (!l->fptr)

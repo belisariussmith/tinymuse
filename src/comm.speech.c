@@ -15,21 +15,18 @@
 
 static int can_emit_msg P((dbref, dbref, char *));
 
+///////////////////////////////////////////////////////////////////////////////
+// spname()
+///////////////////////////////////////////////////////////////////////////////
 // generate name for object to be used when spoken 
-// for spoof protection player names always capitalized, object names 
-// always lower case 
+///////////////////////////////////////////////////////////////////////////////
+// OPTIONAL
+//     For spoof protection:
+//           - player names always capitalized
+//           - object names always lower case
+///////////////////////////////////////////////////////////////////////////////
 char *spname(dbref thing)
 {
-    // ack! this is evil to do. -shkoo
-    /*
-       static char buff[BUF_SIZE];
-       strcpy(buff,db[thing].name);
-       if (Typeof(thing)==TYPE_PLAYER)
-       buff[0]=to_upper(buff[0]);
-       else
-       buff[0]=to_lower(buff[0]);
-       return(buff);
-    */
     return db[thing].name;
 }
 
@@ -369,11 +366,16 @@ void do_general_emit(dbref player, char *arg1, char *arg2, int emittype)
                 if (controls(player, who, POW_REMOTE) && controls(player, who, POW_SPOOF) && controls(player, who, POW_MODIFY) && can_emit_msg(player, (dbref) -1, bf))
                 {
                     if (db[who].zone == NOTHING && !(db[player].flags & QUIET))
+                    {
                         send_message(player, "%s might not be a zone... but i'll do it anyways", unparse_object(player, who));
+                    }
 
                     notify_in_zone (who, bf);
+
                     if (!(db[player].flags & QUIET))
+                    {
                         send_message(player, "Everything in zone %s saw \"%s\".", unparse_object(player, who), bf);
+                    }
                 }
                 else
                 {
@@ -469,11 +471,11 @@ void do_announce(dbref player, char *arg1, char *arg2)
     {
         if (*arg1 == ';')
         {
-            sprintf(buf, "From across the MUSE, %s's %s", spname(player),arg1+1);
+            sprintf(buf, "From across the MUSE, %s's %s", spname(player), arg1+1);
         }
         else if (*arg1 == ':')
         {
-            sprintf(buf, "From across the MUSE, %s %s", spname(player),arg1+1);
+            sprintf(buf, "From across the MUSE, %s %s", spname(player), arg1+1);
         }
         else
         {
@@ -593,6 +595,7 @@ void do_page(dbref player, char *arg1, char *arg2)
         if ((db[x[k]].owner == x[k]) ?(!(db[x[k]].flags & CONNECT)) : !(*atr_get(x[k],A_APAGE) || Hearer(x[k])))
         {
             send_message(player, "%s is either hidden from you or not connected.", db[x[k]].name);
+
             if (*Away(x[k]))
             {
                 send_message(player, "Away message from %s: %s", spname(x[k]), atr_get(x[k],A_AWAY));
@@ -601,6 +604,7 @@ void do_page(dbref player, char *arg1, char *arg2)
         else if (!could_doit(player,x[k],A_LHIDE) && !has_pow(player, x[k], POW_WHO))
         {
             send_message(player, "%s is either hidden from you or not connected.", db[x[k]].name);
+
             if (*Away(x[k]))
             {
                 send_message(player, "Away message from %s: %s", spname(x[k]), atr_get(x[k],A_AWAY));
@@ -610,7 +614,6 @@ void do_page(dbref player, char *arg1, char *arg2)
                 if (!*arg2)
                 {
                     send_message(x[k], "You sense that %s is looking for you in %s", title(player), unparse_object(x[k], db[player].location));
-                   
                 }
                 else if ( *arg2 == ':' )
                 {
@@ -643,11 +646,11 @@ void do_page(dbref player, char *arg1, char *arg2)
         }
         else if (!could_doit(player, x[k], A_LPAGE))
         {
-            send_message(player, "%s is not accepting pages.",spname(x[k]));
+            send_message(player, "%s is not accepting pages.", spname(x[k]));
         
             if (*atr_get(x[k],A_HAVEN))
             {
-                send_message(player, "Haven message from %s: %s", spname(x[k]), atr_get(x[k],A_HAVEN));
+                send_message(player, "Haven message from %s: %s", spname(x[k]), atr_get(x[k], A_HAVEN));
             }
         }
         else
@@ -655,14 +658,14 @@ void do_page(dbref player, char *arg1, char *arg2)
             if (!*arg2)
             {
                 send_message(x[k], "You sense that %s is looking for you in %s", spname(player), db[db[player].location].name);
-                send_message(player, "You notified %s of your location.",spname(x[k]));
+                send_message(player, "You notified %s of your location.", spname(x[k]));
                 //    wptr[0]=arg2;  // Do not pass %0
                 did_it(player, x[k], NULL, 0, NULL, 0, A_APAGE);
             }
             else if ( *arg2 == ':' )
             {
-                send_message(x[k], "%s page-poses: %s %s",title(player),spname(player),arg2+1);
-                send_message(player, "You page-posed %s with \"%s %s\".", db[x[k]].name,spname(player),arg2+1);
+                send_message(x[k], "%s page-poses: %s %s",title(player), spname(player), arg2+1);
+                send_message(player, "You page-posed %s with \"%s %s\".", db[x[k]].name, spname(player), arg2+1);
                 if (db[x[k]].owner != x[k])
                 {
                     wptr[0] = arg2;
@@ -672,11 +675,13 @@ void do_page(dbref player, char *arg1, char *arg2)
             else if ( *arg2 == ';' )
             {
                 send_message(x[k], "%s page-poses: %s's %s",title(player), spname(player), arg2+1);
-                send_message(player, "You page-posed %s with \"%s's %s\".", db[x[k]].name,spname(player),arg2+1);
+                send_message(player, "You page-posed %s with \"%s's %s\".", db[x[k]].name, spname(player), arg2+1);
+
                 if (db[x[k]].owner != x[k])
                 {
                     wptr[0] = arg2;
                 }
+
                 did_it(player, x[k], NULL, 0, NULL, 0, A_APAGE);
             }
             else

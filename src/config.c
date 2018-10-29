@@ -27,11 +27,7 @@ int number_guests   = 10;        // Maximum number of guests at a time
 int max_pennies     = 10000;     // Maximum pennies a player is allowed
 char *start_quota   = "20";
 
-#ifdef ALPHA
-int inet_port = 4208;
-#else
-int inet_port = 4201;
-#endif
+int inet_port = MUD_PORT;
 
 int max_output     = 16384;     // number of bytes until output flushed 
 int max_input      = 1024;      // maximum # of bytes taken from client at a time

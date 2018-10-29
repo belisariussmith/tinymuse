@@ -13,10 +13,19 @@
 #include "externs.h"
 
 #define DOWNCASE(x) to_lower(x)
+///////////////////////////////////////////////////////////////////////////////
+// string_compare()
+///////////////////////////////////////////////////////////////////////////////
+//     Case-insensitive string comparison.
+///////////////////////////////////////////////////////////////////////////////
+// Returns: int (0 for positive comparison) NOT BOOLEAN
+///////////////////////////////////////////////////////////////////////////////
 int string_compare(char *s1, char *s2)
 {
-    while(*s1 && *s2 && DOWNCASE(*s1) == DOWNCASE(*s2))
+    // Loop through both strings one character at a time
+    while (*s1 && *s2 && DOWNCASE(*s1) == DOWNCASE(*s2))
     {
+        // Characters both match, step to next character in each string
         s1++;
         s2++;
     }
@@ -26,7 +35,7 @@ int string_compare(char *s1, char *s2)
 
 int string_prefix(char *string, char *prefix)
 {
-    while(*string && *prefix && DOWNCASE(*string) == DOWNCASE(*prefix))
+    while (*string && *prefix && DOWNCASE(*string) == DOWNCASE(*prefix))
     {
         string++;
         prefix++;
@@ -40,7 +49,7 @@ char *string_match(char *src, char *sub)
 {
     if (*sub != '\0')
     {
-        while(*src)
+        while (*src)
         {
             if (string_prefix(src, sub))
             {

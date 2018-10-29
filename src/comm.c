@@ -609,12 +609,12 @@ void do_channel(dbref player, char *arg1)
         }
     }
 //
-//  send_message(player,"Usage:");
-//  send_message(player,"  +channel +<channel>    :adds a channel");
-//  send_message(player,"  +channel -<channel>    :deletes a channel");
-//  send_message(player,"  +channel <channel>     :change current channel");
-//  send_message(player,"  +channel               :lists your channels.");
-//  send_message(player,"For a general chatting channel, try channel 'public'.");
+//  send_message(player, "Usage:");
+//  send_message(player, "  +channel +<channel>    :adds a channel");
+//  send_message(player, "  +channel -<channel>    :deletes a channel");
+//  send_message(player, "  +channel <channel>     :change current channel");
+//  send_message(player, "  +channel               :lists your channels.");
+//  send_message(player, "For a general chatting channel, try channel 'public'.");
 //
 }
 

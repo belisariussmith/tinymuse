@@ -73,11 +73,11 @@ static void complain(dbref i, char *name, char *desc)
     char bufname[BUF_SIZE];
     char *x = buf, *y;
 
-    strcpy(buf,atr_get(i,A_WINHIBIT));
+    strcpy(buf, atr_get(i, A_WINHIBIT));
 
-    while ((y = parse_up(&x,' ')))
+    while ((y = parse_up(&x, ' ')))
     {
-        if (!string_compare(y,name) || !string_compare(y,"all"))
+        if (!string_compare(y, name) || !string_compare(y, "all"))
         {
             // user doesn't want to hear about
             // it for this object.
@@ -96,7 +96,7 @@ static void complain(dbref i, char *name, char *desc)
  
 static void ct_roomdesc(dbref i)
 {
-    if ((Typeof(i) == TYPE_ROOM) && !*atr_get(i,A_DESC))
+    if ((Typeof(i) == TYPE_ROOM) && !*atr_get(i, A_DESC))
     {
         complain(i, "roomdesc", "room has no description");
     }
@@ -151,30 +151,30 @@ static void ct_exitmsgs(dbref i)
 {
     int lt;
 
-    if ((Typeof(i) != TYPE_EXIT) || (db[i].flags&DARK))
+    if ((Typeof(i) != TYPE_EXIT) || (db[i].flags & DARK))
     {
         return;
     }
 
-    lt = lock_type(i,atr_get(i,A_LOCK));
+    lt = lock_type(i, atr_get(i,A_LOCK));
 
-    if ((lt != 1) && (!*atr_get(i,A_OSUCC) ||
-                      !*atr_get(i,A_ODROP) ||
-                      !*atr_get(i,A_SUCC)))
+    if ((lt != 1) && (!*atr_get(i, A_OSUCC) ||
+                      !*atr_get(i, A_ODROP) ||
+                      !*atr_get(i, A_SUCC)))
     {
-        complain(i,"exitmsgs", "exit is missing one or more of osucc, odrop, succ");
+        complain(i, "exitmsgs", "exit is missing one or more of osucc, odrop, succ");
     }
 
-    if ((lt != 0) && (!*atr_get(i,A_OFAIL) ||
-                      !*atr_get(i,A_FAIL)))
+    if ((lt != 0) && (!*atr_get(i, A_OFAIL) ||
+                      !*atr_get(i, A_FAIL)))
     {
-        complain(i,"exitmsgs", "exit is missing one or more of fail, ofail");
+        complain(i, "exitmsgs", "exit is missing one or more of fail, ofail");
     }
 }
 
 static void ct_exitdesc(dbref i)
 {
-    if ((Typeof(i) != TYPE_EXIT) || (db[i].flags&DARK))
+    if ((Typeof(i) != TYPE_EXIT) || (db[i].flags & DARK))
     {
         return;
     }
@@ -192,7 +192,7 @@ static void ct_playdesc(dbref i)
         return;
     }
 
-    if (!*atr_get(i,A_DESC))
+    if (!*atr_get(i, A_DESC))
     {
         complain(i, "playdesc", "player is missing description");
     }
@@ -205,7 +205,7 @@ static void ct_thngdesc(dbref i)
         return;
     }
 
-    if (!*atr_get(i,A_DESC))
+    if (!*atr_get(i, A_DESC))
     {
         complain(i, "thngdesc", "thing is missing description");
     }
@@ -220,18 +220,18 @@ static void ct_thngmsgs(dbref i)
         return;
     }
 
-    lt = lock_type(i, atr_get(i,A_LOCK));
+    lt = lock_type(i, atr_get(i, A_LOCK));
 
-    if ((lt != 1) && (!*atr_get(i,A_OSUCC) ||
-                      !*atr_get(i,A_ODROP) ||
-                      !*atr_get(i,A_SUCC)  ||
-                      !*atr_get(i,A_DROP)))
+    if ((lt != 1) && (!*atr_get(i, A_OSUCC) ||
+                      !*atr_get(i, A_ODROP) ||
+                      !*atr_get(i, A_SUCC)  ||
+                      !*atr_get(i, A_DROP)))
     {
         complain(i, "thngmsgs", "thing is missing one or more of osucc,odrop,succ,drop");
     }
 
-    if ((lt != 0) && (!*atr_get(i,A_OFAIL) ||
-                      !*atr_get(i,A_FAIL)))
+    if ((lt != 0) && (!*atr_get(i, A_OFAIL) ||
+                      !*atr_get(i, A_FAIL)))
     {
         complain(i, "thngmsgs", "thing is missing one or more of ofail,fail");
     }
@@ -304,31 +304,38 @@ static void ct_security(dbref i)
 
                 if (!strncmp(x, "@fo", 2))
                 {
-                    for (;*x && *x != '=';x++);
+                    for (;*x && *x != '='; x++) ;
 
-                    if (!*x) continue;
+                    if (!*x)
+                    {
+                        continue;
+                    }
 
                     x++;
 
                     if (!strncmp(x, "%0", 2) || !strncmp(x, "[v(0", 4))
                     {
                         complain(i, "security", buf);
-                        sprintf(buf, "wizbug may be present on attribute %s", unparse_attr(AL_TYPE(j),0));
+                        sprintf(buf, "wizbug may be present on attribute %s", unparse_attr(AL_TYPE(j), 0));
+
                         continue;
                     }
                 }
                 else if (*x == '#')
                 {
-                    for (;*x && *x != ' '; x++);
+                    for (;*x && *x != ' '; x++) ;
 
-                    if (!*x) continue;
+                    if (!*x)
+                    {
+                        continue;
+                    }
 
                     x++;
 
-                    if (!strncmp(x,"%0",2) || !strncmp(x,"[v(0",4))
+                    if (!strncmp(x, "%0", 2) || !strncmp(x, "[v(0", 4))
                     {
                         complain(i, "security", buf);
-                        sprintf(buf, "wizbug may be present on attribute %s", unparse_attr(AL_TYPE(j),0));
+                        sprintf(buf, "wizbug may be present on attribute %s", unparse_attr(AL_TYPE(j), 0));
                         continue;
                     }
                 }
@@ -421,7 +428,8 @@ static void check_topology_on(dbref i)
         {
             if (!string_compare(tchecks[j].name, y))
             {
-                (*tchecks[j].func)(i);
+                (*tchecks[j].func)(i) ;
+
                 break;
             }
         }
@@ -453,7 +461,7 @@ void run_topology()
               	check_topology_on(current_object);
             	ndone += warning_bonus;
             }
-            else if (get_pow(db[current_object].owner,POW_MODIFY) != PW_NO)
+            else if (get_pow(db[current_object].owner, POW_MODIFY) != PW_NO)
             {
               	ct_security(current_object);
             	ndone += warning_bonus;

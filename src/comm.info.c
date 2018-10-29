@@ -4,15 +4,15 @@
 
 void do_info(dbref player, char *arg1)
 {
-    if (!string_compare(arg1,"config"))
+    if (!string_compare(arg1, "config"))
     {
         info_config(player);
     }
-    else if (!string_compare(arg1,"db"))
+    else if (!string_compare(arg1, "db"))
     {
         info_db(player);
     }
-    else if (!string_compare(arg1,"funcs"))
+    else if (!string_compare(arg1, "funcs"))
     {
         info_funcs(player);
     }

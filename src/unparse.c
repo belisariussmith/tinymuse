@@ -183,12 +183,12 @@ char *unparse_object(dbref player, dbref loc)
                       (IS(loc, TYPE_ROOM, ROOM_JUMP_OK)) ||
                       (db[loc].flags & CHOWN_OK) ||
                       (db[loc].flags & SEE_OK) ||
-                      power(player,POW_BACKSTAGE)))
+                      power(player, POW_BACKSTAGE)))
             {
                 // show everything 
                 flags = db[loc].flags;
 
-                if (!controls(player,loc,POW_WHO) && !could_doit(player, loc, A_LHIDE))
+                if (!controls(player, loc, POW_WHO) && !could_doit(player, loc, A_LHIDE))
                 {
                     db[loc].flags &= ~(CONNECT);
                 }

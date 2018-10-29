@@ -114,7 +114,7 @@ char *translate_color(char *str, int add)
 int is_color(char *str)
 {
     char buffer[MAX_CMD_BUF];
-    char *tmpstr=NULL, *p=NULL;
+    char *tmpstr = NULL, *p = NULL;
 
     strcpy(buffer, str);
     tmpstr = buffer;
@@ -152,7 +152,7 @@ char *addcolor(char **strptr, int flag)
 char *color(char *str, int flag)
 {
     static char buffer[MAX_CMD_BUF], buffer2[MAX_CMD_BUF];
-    char *newstr=NULL, *p=NULL, *k=NULL;
+    char *newstr = NULL, *p = NULL, *k = NULL;
 
     strcpy(buffer, "");
     strcpy(buffer2, str);

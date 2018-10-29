@@ -17,7 +17,7 @@
 #include "interface.h"
 #include <netdb.h>
 #include <ctype.h>
-#include <time.h> // Belisarius - fixes dereferncing pointer to incomplete type 'struct tm' error 
+#include <time.h>
 
 #define  DEF_MODE       0644
 
@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
     next_mail_clear = now + old_mail_interval;
 
     // Start the Game Loop 
-    mud_loop(inet_port);
+    mud_loop(MUD_PORT);
 
     //
     // Game loop has completed, so let's shut
@@ -321,10 +321,12 @@ static void init_args(int argc, char *argv[])
     }
 
     // change port number? 
+    /*
     if ( argc > 1 )
     {
         --argc, inet_port = atoi(*++argv);
     }
+    */
 }
 
 static void init_io()
@@ -338,6 +340,7 @@ static void init_io()
 
     // open a link to the log file 
     fd = open(stdout_logfile, O_WRONLY | O_CREAT | O_APPEND, DEF_MODE);
+
     if ( fd < 0 )
     {
         perror("open()");
@@ -348,60 +351,66 @@ static void init_io()
 
     // attempt to convert standard output to logfile
     close(fileno(stdout));
-    if ( dup2(fd, fileno(stdout)) == -1 )  {
+
+    if ( dup2(fd, fileno(stdout)) == -1 )
+    {
         perror("dup2()");
         log_error("error converting standard output to logfile");
     }
+
     mklinebuf(stdout);
 
     // attempt to convert standard error to logfile
     close(fileno(stderr));
-    if ( dup2(fd, fileno(stderr)) == -1 )  {
+
+    if ( dup2(fd, fileno(stderr)) == -1 )
+    {
         perror("dup2()");
         printf("error converting standard error to logfile\n");
     }
+
     mklinebuf(stderr);
 
     // this logfile reference is no longer needed
     close(fd);
 
     // save a file descriptor 
-    reserved = open("/dev/null",O_RDWR, 0);
+    reserved = open("/dev/null", O_RDWR, 0);
 }
 
 static void set_signals()
 {
     // we don't care about SIGPIPE, we notice it in select() and write() 
     signal(SIGPIPE, SIG_IGN);
-    signal (SIGCLD, SIG_IGN);
+    signal(SIGCLD, SIG_IGN);
 
     // standard termination signals 
-    signal (SIGINT, bailout);
+    signal(SIGINT, bailout);
 
     // catch these because we might as well 
-    /*signal (SIGQUIT, bailout);
-      signal (SIGILL, bailout);
-      signal (SIGTRAP, bailout);
-      signal (SIGIOT, bailout);
-      signal (SIGEMT, bailout);
-      signal (SIGFPE, bailout);
-      signal (SIGBUS, bailout);
-      signal (SIGSEGV, bailout);
-      signal (SIGSYS, bailout);
-      signal (SIGTERM, bailout);
-      signal (SIGXCPU, bailout);
-      signal (SIGXFSZ, bailout);
-      signal (SIGVTALRM, bailout);
-      signal (SIGUSR2, bailout);
-      * want a core dump for now!! */
+    //signal (SIGQUIT, bailout);
+    //signal (SIGILL, bailout);
+    //signal (SIGTRAP, bailout);
+    //signal (SIGIOT, bailout);
+    //signal (SIGEMT, bailout);
+    //signal (SIGFPE, bailout);
+    //signal (SIGBUS, bailout);
+    //signal (SIGSEGV, bailout);
+    //signal (SIGSYS, bailout);
+    //signal (SIGTERM, bailout);
+    //signal (SIGXCPU, bailout);
+    //signal (SIGXFSZ, bailout);
+    //signal (SIGVTALRM, bailout);
+    //signal (SIGUSR2, bailout);
+    // want a core dump for now!! 
 
     // status dumper (predates "WHO" command) 
     signal(SIGUSR1, dump_status);
 
     // signal to reboot the MUSE 
     signal(SIGUSR2, do_sig_reboot);
-    signal (SIGHUP, sig_handler);
-    signal (SIGTERM, sig_handler);
+    signal(SIGHUP, sig_handler);
+    signal(SIGTERM, sig_handler);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -432,6 +441,7 @@ static void sig_handler(int signal)
         // SIGHUP, so let's restart instead of terminating 
         exit_status = STATUS_REBOOT;
     }
+
     //
     // Different signals may require a special exit status, and
     // those should be added below.
@@ -484,14 +494,16 @@ void message_ch_raw(dbref player, char *msg)
         return;
     }
 
-    if (IS(player,TYPE_PLAYER,PUPPET))
+    if (IS(player, TYPE_PLAYER, PUPPET))
     {
         static char buf[BUF_SIZE*2];
         strcpy(buf, msg);
+
         if (speaker != player)
         {
             sprintf(buf+strlen(buf), " |NORMAL|[#%d/%s]", speaker, short_name(db[speaker].owner));
         }
+
         msg = buf;
     }
 
@@ -504,7 +516,7 @@ void message_ch_raw(dbref player, char *msg)
     {
         if (d->state == CONNECTED && d->player == player)
         {
-            if (Typeof(player)==TYPE_PLAYER && db[player].flags & PLAYER_ANSI)
+            if (Typeof(player) == TYPE_PLAYER && db[player].flags & PLAYER_ANSI)
             {
                 sprintf(newmsg, "%s|NORMAL|", msg);
                 queue_string(d, color(newmsg, ADD));
@@ -712,15 +724,17 @@ static void mud_loop(int port)
             FD_SET (sock, &input_set);
         }
 
-        for (d = descriptor_list; d; d=dnext)
+        for (d = descriptor_list; d; d = dnext)
         {
             dnext = d->next;
+
             if (d->cstatus & C_REMOTE && d->output.head)
             {
                 if (!process_output(d))
                 {
                     shutdownsock(d);
                 }
+
                 need_more_proc = 1;
              }
         }
@@ -862,7 +876,7 @@ static struct descriptor_data* new_connection(int sock)
                 log_error("Killin' EALREADY. restartin' socket.");
                 puts("Killin' EALREADY. restartin' socket.");
                 close(sock);
-                sock = make_socket(4201);
+                sock = make_socket(inet_port);
                 k = 0;
             }
         }
@@ -1594,7 +1608,7 @@ static void process_commands()
     } while (nprocessed > 0);
 }
 
-static int do_command (struct descriptor_data *d, char *command)
+static int do_command(struct descriptor_data *d, char *command)
 {
     d->last_time = now;
     d->quota--;
@@ -1659,7 +1673,7 @@ static int do_command (struct descriptor_data *d, char *command)
             }
             else if (!strncmp(command, "I wanna kill concid ", sizeof("I wanna kill concid ")-1))
             {
-                do_killid(d, atoi(command+ sizeof("I wanna kill concid ")-1));
+                do_killid(d, atoi(command + sizeof("I wanna kill concid ")-1));
             }
             else
             {
@@ -1676,7 +1690,7 @@ static int do_command (struct descriptor_data *d, char *command)
                     int j;
 
                     *k = '\0';
-                    j=atoi(command);
+                    j = atoi(command);
 
                     for(l = descriptor_list; l; l = l->next)
                     {
@@ -1685,7 +1699,7 @@ static int do_command (struct descriptor_data *d, char *command)
                             break;
                         }
                     }
-                    if(!l)
+                    if (!l)
                     {
                         queue_string(d, "I don't know that concid.\r\n");
                     }
@@ -1709,8 +1723,8 @@ static int do_command (struct descriptor_data *d, char *command)
 
                 if (d->output_prefix)
                 {
-                    queue_string (d, d->output_prefix);
-                    queue_write (d, "\n", 1);
+                    queue_string(d, d->output_prefix);
+                    queue_write(d, "\n", 1);
                 }
 
                 cplr = d->player;
@@ -1718,7 +1732,7 @@ static int do_command (struct descriptor_data *d, char *command)
                 if (d->player > 0)
                 {
                     strcpy(ccom,command);
-                    process_command (d->player, command,NOTHING);
+                    process_command(d->player, command,NOTHING);
                 }
                 else
                 {
@@ -1727,13 +1741,13 @@ static int do_command (struct descriptor_data *d, char *command)
  
                 if (d->output_suffix)
                 {
-                    queue_string (d, d->output_suffix);
-                    queue_write (d, "\n", 1);
+                    queue_string(d, d->output_suffix);
+                    queue_write(d, "\n", 1);
                 }
             }
             else
             {
-                check_connect (d, command);
+                check_connect(d, command);
             }
         }
     }
@@ -1741,7 +1755,7 @@ static int do_command (struct descriptor_data *d, char *command)
     return TRUE;
 }
 
-static void check_connect (struct descriptor_data *d, char *msg)
+static void check_connect(struct descriptor_data *d, char *msg)
 {
     char buf[BUF_SIZE];
     char *p;
@@ -2078,7 +2092,7 @@ static void close_sockets()
     struct descriptor_data *d, *dnext;
     FILE *x = NULL;
 
-    if (exit_status == 1)
+    if (exit_status == TRUE)
     {
         unlink("run/logs/socket_table");
         x = fopen("run/logs/socket_table","w");
@@ -2086,9 +2100,9 @@ static void close_sockets()
         fcntl(sock, F_SETFD, 0);
     }
 
-/*  shutdown_flag = 1;        * just in case. so announce_disconnect
-                 * does'nt reset the CONNECT
-                 * flags. */
+    // Might be useful so announce_disconnect
+    // does not reset the CONNECT flags.
+    //shutdown_flag = TRUE;
 
     for (d = descriptor_list; d; d = dnext)
     {
@@ -2099,9 +2113,9 @@ static void close_sockets()
             write (d->descriptor, shutdown_message, strlen (shutdown_message));
             process_output(d);
 
-            if (x && d->player>=0 && d->state==CONNECTED /*&& !Guest(d->player)*/ )
+            if (x && d->player >= 0 && (d->state == CONNECTED) /*&& (!Guest(d->player))*/ )
             {
-                fprintf(x,"%010d %010ld %010ld %010d\n",d->descriptor, d->connected_at, d->last_time, d->player);
+                fprintf(x, "%010d %010ld %010ld %010d\n", d->descriptor, d->connected_at, d->last_time, d->player);
                 fcntl(d->descriptor, F_SETFD, 0);
             }
             else
@@ -2204,7 +2218,7 @@ static void open_sockets()
 void emergency_shutdown()
 {
     log_error("Emergency shutdown.");
-    shutdown_flag = 1;
+    shutdown_flag = TRUE;
     exit_status = 136;
     close_sockets();
 }
@@ -2446,6 +2460,7 @@ void dump_users(dbref w, char *arg1, char *arg2, struct descriptor_data *k)
 
     // calc # of groups 
     num_grps = ((scr_cols - grp_len) / (grp_len + MIN_GRP_SPC)) + 1;
+
     if ( num_grps < 1 )
     {
         num_grps = 1;

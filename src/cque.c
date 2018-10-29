@@ -93,14 +93,15 @@ static void big_que(dbref player, char *command, dbref cause)
 
     if (add_to(player,1)>max_queue)
     {
-        send_message(db[player].owner, "Run away object (%s), commands halted", unparse_object(db[player].owner,player));
-        do_halt(db[player].owner,"");
+        send_message(db[player].owner, "Run away object (%s), commands halted", unparse_object(db[player].owner, player));
+        do_halt(db[player].owner, "");
         // haven also means no command execution allowed 
-        db[player].flags|=HAVEN;
+        db[player].flags |= HAVEN;
+
         return;
     }
 
-    tmp = (BQUE *) malloc(sizeof(BQUE)+strlen(command)+1);
+    tmp = (BQUE *) malloc(sizeof(BQUE) + strlen(command)+1);
 
     strcpy(Astr(tmp),command);
 
@@ -112,11 +113,11 @@ static void big_que(dbref player, char *command, dbref cause)
     {
         if (!wptr[a])
         {
-            tmp->env[a]=NULL;
+            tmp->env[a] = NULL;
         }
         else
         {
-            strcpy(tmp->env[a]=(char *)malloc(strlen(wptr[a])+1),wptr[a]);
+            strcpy(tmp->env[a] = (char *)malloc(strlen(wptr[a])+1), wptr[a]);
         }
     }
 
@@ -124,24 +125,24 @@ static void big_que(dbref player, char *command, dbref cause)
     {
         if (qlast)
         {
-            qlast->next=tmp;
-            qlast=tmp;
+            qlast->next = tmp;
+            qlast = tmp;
         }
         else
         {
-            qlast=qfirst=tmp;
+            qlast = qfirst = tmp;
         }
     }
     else
     {
         if (qllast)
         {
-              qllast->next=tmp;
-              qllast=tmp;
+              qllast->next = tmp;
+              qllast = tmp;
         }
         else
         {
-              qllast=qlfirst=tmp;
+              qllast = qlfirst = tmp;
         }
     }
 }
@@ -152,13 +153,13 @@ void wait_que(dbref player, int wait, char *command, dbref cause)
     int a;
 
     // make sure player can afford to do it 
-    if (!payfor(player,queue_cost+(((rand() & queue_loss)==0) ? 1 : 0)))
+    if (!payfor(player, queue_cost + (((rand() & queue_loss) == 0) ? 1 : 0)))
     {
         send_message(player, "Not enough money to queue command.");
         return;
     }
 
-    tmp = (BQUE *) malloc(sizeof(BQUE)+strlen(command)+1);
+    tmp = (BQUE *) malloc(sizeof(BQUE) + strlen(command) + 1);
 
     strcpy(Astr(tmp),command);
 
@@ -171,11 +172,11 @@ void wait_que(dbref player, int wait, char *command, dbref cause)
     {
         if (!wptr[a])
         {
-            tmp->env[a]=NULL;
+            tmp->env[a] = NULL;
         }
         else
         {
-            strcpy(tmp->env[a]=(char *)malloc(strlen(wptr[a])+1),wptr[a]);
+            strcpy(tmp->env[a] = (char *)malloc(strlen(wptr[a])+1), wptr[a]);
         }
     }
 
@@ -194,6 +195,7 @@ void do_second()
     BQUE *trail = NULL;
     BQUE *point;
     BQUE *next;
+
     // move contents of low priority queue onto end of normal one 
     // this helps to keep objects from getting out of control since 
     // its affects on other objects happen only after one seconds 
@@ -224,7 +226,7 @@ void do_second()
             int a;
             giveto(point->player, queue_cost);
 
-            for(a=0;a<10;a++)
+            for (a = 0; a < 10; a++)
             {
                 wptr[a] = point->env[a];
             }
@@ -257,8 +259,7 @@ void do_second()
     }
 }
 
-int
-test_top()
+int test_top()
 {
     return (qfirst ? TRUE : FALSE);
 }
@@ -343,7 +344,7 @@ void do_queue(dbref player)
 
     for (tmp = qfirst; tmp; tmp = tmp->next)
     {
-        if ((db[tmp->player].owner==db[player].owner) || can_see)
+        if ((db[tmp->player].owner == db[player].owner) || can_see)
         {
             send_message(player, "%s:%s", unparse_object(player, tmp->player), Astr(tmp));
         }
@@ -351,7 +352,7 @@ void do_queue(dbref player)
 
     for (tmp = qlfirst; tmp; tmp = tmp->next)
     {
-        if ((db[tmp->player].owner==db[player].owner) || can_see)
+        if ((db[tmp->player].owner == db[player].owner) || can_see)
         {
             send_message(player, "%s:%s", unparse_object(player, tmp->player), Astr(tmp));
         }

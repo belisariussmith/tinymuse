@@ -233,24 +233,26 @@ static void fun_get(char *buff, char *args[10], dbref player, dbref doer, int na
 
     if (can_see_atr (player, thing, attrib))
     {
-        strcpy(buff,atr_get(thing,attrib));
+        strcpy(buff, atr_get(thing, attrib));
     }
     else
     {
-        strcpy(buff,"Permission denied");
+        strcpy(buff, "Permission denied");
     }
 
-  /*
-     if (!controls(player,thing,POW_SEEATR) && !(attrib->flags&AF_OSEE)) {
-     strcpy(buff,"Permission denied");
-     return;
-     }
-     if (attrib->flags&AF_DARK && !controls(player,attrib->obj,POW_SECURITY)) {
-     strcpy(buff,"Permission denied");
-     return;
-     }
-     strcpy(buff,atr_get(thing,attrib));
-     */
+    //if (!controls(player, thing, POW_SEEATR) && !(attrib->flags & AF_OSEE))
+    //{
+    //    strcpy(buff, "Permission denied");
+    //    return;
+    //}
+   
+    //if (attrib->flags & AF_DARK && !controls(player, attrib->obj, POW_SECURITY))
+    //{
+    //    strcpy(buff, "Permission denied");
+    //    return;
+    //}
+
+    //strcpy(buff,atr_get(thing,attrib));
 }
 
 static void fun_time(char *buff, char *args[10], dbref privs, dbref doer, int nargs)
@@ -366,7 +368,7 @@ static void fun_objmem(char *buff, char *args[10], dbref privs)
 
 static void fun_playmem (char *buff, char *args[10], dbref privs)
 {
-    int tot=0;
+    int tot = 0;
     dbref thing;
     dbref j;
 
@@ -378,7 +380,7 @@ static void fun_playmem (char *buff, char *args[10], dbref privs)
         return;
     }
 
-    for (j = 0; j<db_top; j++)
+    for (j = 0; j < db_top; j++)
     {
         if (db[j].owner == thing)
         {
@@ -672,12 +674,12 @@ static void fun_flags(char *buff, char *args[10], dbref privs, dbref owner)
         return;
     }
 
-    //
-    // if ( ! controls(owner, thing, POW_FUNCTIONS) )  {
-    // *buff = '\0';
-    // return;
-    // }
-    // 
+    //if ( ! controls(owner, thing, POW_FUNCTIONS) )
+    //{
+    //    *buff = '\0';
+    //    return;
+    //}
+
     oldflags = db[thing].flags;    // grr, this is kludgy. 
 
     if (!controls(privs,thing,POW_WHO) && !could_doit(privs, thing, A_LHIDE))
@@ -798,14 +800,21 @@ static void fun_quota(char *buff, char *args[10], dbref player)
     }
 
     // count up all owned objects 
-    //  owned = -1;  * a player is never included in his own quota 
-    //  for ( thing = 0; thing < db_top; thing++ )  {
-    //  if ( db[thing].owner == who )
-    //  if ((db[thing].flags & (TYPE_THING|GOING)) != (TYPE_THING|GOING))
-    //  ++owned;
-    //  }
+    //owned = -1;  * a player is never included in his own quota 
+    //for ( thing = 0; thing < db_top; thing++ )
+    //{
+    //    if ( db[thing].owner == who )
+    //    {
+    //        if ((db[thing].flags & (TYPE_THING|GOING)) != (TYPE_THING|GOING))
+    //        {
+    //            ++owned;
+    //        }
+    //    }
+    //}
+
     strcpy(buff, atr_get(who, A_QUOTA));
-    //  sprintf(buff,"%d", (owned + atoi(atr_get(who, A_RQUOTA))));
+
+    //sprintf(buff, "%d", (owned + atoi(atr_get(who, A_RQUOTA))));
 }
 
 static void fun_strlen(char *buff, char *args[10])
@@ -2526,6 +2535,7 @@ static void fun_onfor(char *buff, char *args[10], dbref owner)
     {
         who = lookup_player(args[0]);
     }
+
     if (!who)
     {
         sprintf(buff, "#-1");
@@ -2705,9 +2715,9 @@ static int udef_fun(char **str, char *buff, dbref privs, dbref doer)
             args[a] = "";
         }
 
-        for (a=0;(a<10) && **str &&  (**str!=')');a++)
+        for (a = 0; (a < 10) && **str &&  (**str != ')'); a++)
         {
-            if (**str==',')
+            if (**str == ',')
             {
                 (*str)++;
             }
@@ -2729,12 +2739,10 @@ static int udef_fun(char **str, char *buff, dbref privs, dbref doer)
 
         for(--a; a >= 0; a--)
         {
-      /*      na_unalloc(glurp,wptr[a]);. this is an example of something that
-          seems to be done often. (i commented this out. it was wrong.).
-          you do *not* unallocate things from glurp, especially static
-          strings. glurp is freed at the beginning of each command anyways.
-          at the for(a=0;a<10;a++) args[a]="";, it was assigning them all
-          to "", then it was freeing them here. not good. -shkoo */
+            // na_unalloc(glurp, wptr[a]);       // Never unalloc thing from glurp, esp static strings
+                                                 // glurp is freed at the beginning of each command anyways.
+                                                 // at the for(a=0;a<10;a++) args[a]="";, it was assigning them all
+                                                 // to "", then it was freeing them here. not good. -shkoo 
             wptr[a] = saveptr[a];
         }
 
@@ -2751,9 +2759,9 @@ static int udef_fun(char **str, char *buff, dbref privs, dbref doer)
 // note str will get hacked up 
 char *parse_up(char **args, int delimit)
 {
-    char **str=args;
-    int deep=0;
-    char *s= *str,*os= *str;
+    char **str = args;
+    int deep = 0;
+    char *s= *str, *os= *str;
 
     if (!*s)
     {
@@ -2762,9 +2770,9 @@ char *parse_up(char **args, int delimit)
 
     while(*s && (*s!=delimit))
     {
-        if (*s++=='{')
+        if (*s++ == '{')
         {
-            deep=1;
+            deep = 1;
 
             while(deep && *s)
             {
@@ -2783,7 +2791,7 @@ char *parse_up(char **args, int delimit)
 
     if (*s)
     {
-        *s++=0;
+        *s++ = 0;
     }
 
     *str = s;
@@ -3155,8 +3163,8 @@ static void do_fun(char **str, char *buff, dbref privs, dbref doer)
         {
             return;
         }
-        // (Belisarius) - ambiguous if/else here. So else {}
-        // might belong one level higher to (!fp) instead
+        // ambiguous if/else here. So else {} might belong
+        // one level higher to (!fp) instead -- Belisarius
         else
         {
             int deep = 2;
@@ -3266,18 +3274,21 @@ void exec(char **str, char *buff, dbref privs, dbref doer, int coma)
             case ',':            // comma in list of function arguments 
             case ')':            // end of arguments 
                 if (!coma)
+                {
                     goto cont;
+                }
             case ']':            // end of expression 
                                  // eat trailing space 
-                while((--e>=buff) && isspace(*e))
+                while((--e >= buff) && isspace(*e))
                 ;
-                e[1]=0;
-                *str=s;
+
+                e[1] = 0;
+                *str = s;
                 lev--;
 
                 return;
             case '(':            // this is a function 
-                while((--e>=buff) && isspace(*e))
+                while ((--e >= buff) && isspace(*e))
                 ;
 
                 e[1] = 0;
@@ -3297,9 +3308,9 @@ void exec(char **str, char *buff, dbref privs, dbref doer, int coma)
                     e = buff;
                     s++;
 
-                    while(deep && *s)
+                    while (deep && *s)
                     {
-                        switch(*e++= *s++)
+                        switch(*e++ = *s++)
                         {
                             case '{':
                                 deep++;
@@ -3310,12 +3321,12 @@ void exec(char **str, char *buff, dbref privs, dbref doer, int coma)
                         }
                     }
 
-                    if ((e>buff) && (e[-1]=='}'))
+                    if ((e > buff) && (e[-1] == '}'))
                     {
                         e--;
                     }
 
-                    while((--e>=buff) && isspace(*e))
+                    while ((--e >= buff) && isspace(*e))
                     ;
 
                     e[1] = 0;
@@ -3330,7 +3341,8 @@ void exec(char **str, char *buff, dbref privs, dbref doer, int coma)
                     int deep = 1;
                     *e++ = *s++;
 
-                    while(deep && *s)
+                    while (deep && *s)
+                    {
                         switch(*e++= *s++)
                         {
                             case '{':
@@ -3340,6 +3352,7 @@ void exec(char **str, char *buff, dbref privs, dbref doer, int coma)
                                 deep--;
                                 break;
                         }
+                    }
 
                     s--;
                 }
@@ -3351,7 +3364,7 @@ void exec(char **str, char *buff, dbref privs, dbref doer, int coma)
         }
     }
 
-    while((--e>=buff) && isspace(*e))
+    while ((--e >= buff) && isspace(*e))
     ;
 
     e[1] = 0;

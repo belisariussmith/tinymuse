@@ -19,7 +19,7 @@ static int dt_mem(dbref x)
         return -1;
     }
 
-    return atoi(atr_get(x ,A_BYTESUSED));
+    return atoi(atr_get(x, A_BYTESUSED));
  
     // Supposed to be used ? (Belisarius)
     /*
@@ -186,13 +186,12 @@ static void dbtop_internal(dbref player, int (*calc)(), char *nam)
 
     for(j = 0; j < 30; j++)
     {
-        /*
-         * Belisarius
-         * Goofy double assignment - likely an artifact
-         *
-        top[j]  = top[j]  = (-1);
-        topp[j] = topp[j] = (dbref)0;
-         */
+        //
+        // Belisarius
+        // Goofy self assignment - likely an artifact
+        //
+        //top[j]  = top[j]  = (-1);
+        //topp[j] = topp[j] = (dbref)0;
         top[j]  = (-1);
         topp[j] = (dbref)0;
     }
@@ -203,7 +202,7 @@ static void dbtop_internal(dbref player, int (*calc)(), char *nam)
     {
         m = (*calc)(i);
 
-        if(m > top[28])
+        if (m > top[28])
         {
             // put it somewhere 
             for (j = 28; (j > 0) && (top[j] < m); j--) ;  // (Belisarius) what is the point?
@@ -215,7 +214,7 @@ static void dbtop_internal(dbref player, int (*calc)(), char *nam)
         }
     }
 
-    for(j = 1; j < 27; j++)
+    for (j = 1; j < 27; j++)
     {
         send_message(player, "%2d) %s has %d %s", j, unparse_object(player, topp[j]), top[j], nam);
     }

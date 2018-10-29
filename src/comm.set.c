@@ -41,6 +41,7 @@ void do_recycle(dbref player, char *name)
 
     match_everything();
     thing = match_result();
+
     if ( (thing != NOTHING)
       && (thing != AMBIGUOUS)
       && !controls(player, thing, POW_MODIFY)
@@ -58,7 +59,7 @@ void do_recycle(dbref player, char *name)
 
     if (thing < 0)
     {
-        /* I hope no wizard is this stupid but just in case */
+        // I hope no wizard is this stupid but just in case 
         send_message(player, "I don't know what that is, sorry.");
         return;
     }
@@ -124,8 +125,11 @@ void do_recycle(dbref player, char *name)
 
 void destroy_obj (dbref obj, int no_seconds)
 {
-    if (!(db[obj].flags&QUIET))
+    if (!(db[obj].flags & QUIET))
+    {
         do_pose(obj, "shakes and starts to crumble", "", 0);
+    }
+
     atr_add (obj, A_DOOMSDAY, int_to_str (no_seconds + now));
     db[obj].flags |= GOING;
     do_halt (obj, "");
@@ -181,7 +185,7 @@ void do_name(dbref player, char *name, char *newname, int is_direct)
                 password = newname + strlen(newname);
             }
 
-            /* check for reserved player names */
+            // check for reserved player names 
             if ( string_prefix(newname, guest_prefix) )
             {
                 send_message(player, "Only guests may have names beginning with '%s'", guest_prefix);
@@ -327,7 +331,7 @@ void do_chown(dbref player, char *name, char *newobj)
 
     if(!*newobj || !string_compare(newobj,"me"))
     {
-        owner = def_owner(player); /* @chown thing or @chown thing=me */
+        owner = def_owner(player); // @chown thing or @chown thing=me 
     }
     else if ((owner = lookup_player(newobj)) == NOTHING)
     {
@@ -359,7 +363,6 @@ void do_chown(dbref player, char *name, char *newobj)
     {
         send_message(player, perm_denied());
     }
-
     else
     {
         if ( power(player, POW_CHOWN) )
@@ -487,16 +490,18 @@ void do_set(dbref player, char *name, char *flag, int allow_commands)
     char leader_buf[BUF_SIZE];
     char buf[BUF_SIZE];
 
-    /* find thing */
+    // find thing 
     if ((thing = match_thing(player, name)) == NOTHING)
     {
         return;
     }
+
     if ( thing == root && player != root )
     {
         send_message(player, "Only root can set him/herself!");
         return;
     }
+
     if (!*atr_get(db[thing].owner, A_BYTESUSED))
     {
         recalc_bytes(db[thing].owner);
@@ -504,7 +509,7 @@ void do_set(dbref player, char *name, char *flag, int allow_commands)
 
     her = Hearer(thing);
 
-    /* get leader. */
+    // get leader
     if (*atr_get(thing, A_LEADER))
     {
         sscanf(atr_get(thing, A_LEADER), "#%s", leader_buf);
@@ -516,9 +521,10 @@ void do_set(dbref player, char *name, char *flag, int allow_commands)
         leader = NOTHING;
     }
 
-    /* check for attribute set first */
+    // check for attribute set first 
     for( p = flag; *p && (*p != ':'); p++ )
     ;
+
     if ( *p )
     {
         ATTR *attr;
@@ -529,10 +535,11 @@ void do_set(dbref player, char *name, char *flag, int allow_commands)
             send_message(player, "Sorry that isn't a valid attribute.");
             return;
         }
-        /* if ( (attr->flags & AF_WIZARD) && !((attr->obj == NOTHING)?power(player, POW_WATTR):controls(player,attr->obj,POW_WATTR))) {
-           send_message(player,"Sorry only Administrators can change that.");
-           return;
-           } */
+        // if ( (attr->flags & AF_WIZARD) && !((attr->obj == NOTHING)?power(player, POW_WATTR):controls(player,attr->obj,POW_WATTR)))
+        // {
+        //     send_message(player, "Sorry only Administrators can change that.");
+        //     return;
+        // }
         if (!can_set_atr(player, thing, attr) && attr != A_USERS)
         {
             send_message(player, "You can't set that attribute.");
@@ -559,7 +566,7 @@ void do_set(dbref player, char *name, char *flag, int allow_commands)
             send_message(player, "your quota has run out.");
             return;
         }
-        if(attr->flags & AF_LOCK)
+        if (attr->flags & AF_LOCK)
         {
             if ((q = process_lock(player, p)))
             {
@@ -582,26 +589,32 @@ void do_set(dbref player, char *name, char *flag, int allow_commands)
         {
             delete_player(thing);
         }
+
         mark_hearing(thing);
+
         if (!allow_commands && (*p == '!' || *p == '$'))
         {
-            /* urgh. fix it. */
+            // urgh. fix it
             char *x;
             x = newglurp(strlen(p) + 2);
             strcpy(x, "_");
             strcat(x, p);
             p = x;
         }
+
         db[thing].mod_time = now;
         atr_add(thing, attr, p);
-        if(attr == A_ALIAS)
+
+        if (attr == A_ALIAS)
         {
             add_player(thing);
         }
+
         if (!(db[player].flags & QUIET))
         {
             send_message(player, "%s - Set.", db[thing].name);
         }
+
         check_hearing();
 
         return;
@@ -635,8 +648,10 @@ void do_set(dbref player, char *name, char *flag, int allow_commands)
             {
                 f = THING_LIGHT;
             }
-            /*	if ( string_prefix("ROBOT",p) )
-            f=THING_ROBOT; */
+            //	if ( string_prefix("ROBOT",p) )
+            //  {
+            //      f = THING_ROBOT;
+            //  }
             if ( string_prefix("X_OK", p) )
             {
                 f = THING_SACROK;
@@ -944,7 +959,7 @@ int parse_attrib(dbref player, char *s, dbref *thing, ATTR **atr, int withpow)
 
     if (!*s)
     {
-        return(FALSE);
+        return FALSE;
     }
 
     *s++ = 0;
@@ -970,7 +985,7 @@ int parse_attrib(dbref player, char *s, dbref *thing, ATTR **atr, int withpow)
     // rest is attrib name
     if (!((*atr) = atr_str(player, *thing, s)))
     {
-        return(FALSE);
+        return FALSE;
     }
 
     if (withpow != 0)
@@ -980,11 +995,11 @@ int parse_attrib(dbref player, char *s, dbref *thing, ATTR **atr, int withpow)
            )
 
         {
-          return(FALSE);
+          return FALSE;
         }
     }
 
-    return(TRUE);
+    return TRUE;
 }
 
 void do_edit(dbref player, char *it, char *argv[])
@@ -995,44 +1010,61 @@ void do_edit(dbref player, char *it, char *argv[])
     char dest[BUF_SIZE];
     ATTR *attr;
 
-    if (!parse_attrib(player,it,&thing,&attr,POW_MODIFY)) {
-        send_message(player,"No match.");
-        return;
-    }
-    if(!attr) {
-        send_message(player,"Gack! Don't do that. it makes me uncomfortable.");
-        return;
-    }
-    if((attr->flags&AF_WIZARD) && (!power(player,POW_WATTR) ||
-                                 !controls(player,thing,POW_MODIFY))) {
-        send_message(player,"Eeg! Tryin to edit a admin-only prop? hrm. don't do it.");
-        return;
-    }
-    if (!controls(player,thing,POW_MODIFY)) {
-        send_message(player,perm_denied());
-        return;
-    }
-    if(attr==A_ALIAS) {
-        send_message(player,"To set an alias, do @alias me=<new alias>. Don't use @edit.");
-        return;
-    }
-    if (!argv[1] || !*argv[1]) {
-        send_message(player,"Nothing to do.");
-        return;
-    }
-    val=argv[1];
-    r=(argv[2]) ? argv[2] : "";
-    // replace all occurances of val with r 
-    s=atr_get(thing,attr);
-    len=strlen(val);
-    for(d=0;(d<1000) && *s;)
+    if (!parse_attrib(player, it, &thing, &attr, POW_MODIFY))
     {
-        if (strncmp(val,s,len)==0)
+        send_message(player, "No match.");
+        return;
+    }
+
+    if(!attr)
+    {
+        send_message(player, "Gack! Don't do that. it makes me uncomfortable.");
+        return;
+    }
+
+    if ( (attr->flags & AF_WIZARD)
+      && (!power(player, POW_WATTR) || !controls(player, thing, POW_MODIFY))
+       )
+                                
+    {
+        send_message(player, "Eeg! Tryin to edit a admin-only prop? hrm. don't do it.");
+        return;
+    }
+
+    if (!controls(player, thing, POW_MODIFY))
+    {
+        send_message(player, perm_denied());
+        return;
+    }
+
+    if (attr == A_ALIAS)
+    {
+        send_message(player, "To set an alias, do @alias me=<new alias>. Don't use @edit.");
+        return;
+    }
+
+    if (!argv[1] || !*argv[1])
+    {
+        send_message(player, "Nothing to do.");
+        return;
+    }
+
+    val =  argv[1];
+    r   = (argv[2]) ? argv[2] : "";
+
+    // replace all occurances of val with r 
+    s = atr_get(thing, attr);
+    len = strlen(val);
+
+    for (d = 0; (d < 1000) && *s ; )
+    {
+        if (strncmp(val, s, len) == 0)
         {
-            if ((d+strlen(r))<1000) {
-                strcpy(dest+d,r);
-                d+=strlen(r);
-                s+=len;
+            if ((d+strlen(r)) < 1000)
+            {
+                strcpy(dest+d, r);
+                d += strlen(r);
+                s += len;
             }
             else
             {
@@ -1203,7 +1235,7 @@ void do_haven(dbref player, char *haven)
 {
     if (*haven == '?')
     {
-        if (*atr_get(player,A_HAVEN))
+        if (*atr_get(player, A_HAVEN))
         {
             send_message(player, "Your Haven message is: %s", atr_get(player,A_HAVEN));
             return;
@@ -1259,7 +1291,7 @@ void do_away(dbref player, char* away)
     {
         if (*Away(player))
         {
-            send_message(player, "Your Away message is: %s", atr_get(player,A_AWAY));
+            send_message(player, "Your Away message is: %s", atr_get(player, A_AWAY));
             return;
         }
         else

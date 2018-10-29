@@ -866,14 +866,22 @@ void do_quota(dbref player, char *arg1, char *arg2)
     }
 
     // count up all owned objects 
-    /*
-    owned = -1;  * a player is never included in his own quota *
-    for ( thing = 0; thing < db_top; thing++ )  {
-    if ( db[thing].owner == who )
-    if ((db[thing].flags & (TYPE_THING|GOING)) != (TYPE_THING|GOING))
-    ++owned;
-    }*/
-    owned = atoi(atr_get(who,A_QUOTA))-atoi(atr_get(who,A_RQUOTA));
+    
+    owned = -1;  // a player is never included in his own quota
+  
+    // Belisarius - Doesn't this still need to be done?
+    //for ( thing = 0; thing < db_top; thing++ )
+    //{
+    //    if ( db[thing].owner == who )
+    //    {
+    //        if ((db[thing].flags & (TYPE_THING|GOING)) != (TYPE_THING|GOING))
+    //        {
+    //            ++owned;
+    //        }
+    //    }
+    //}
+
+    owned = atoi(atr_get(who, A_QUOTA)) - atoi(atr_get(who, A_RQUOTA));
 
     // calculate and/or set new limit 
     if ( *arg2 == '\0' )

@@ -26,68 +26,8 @@ extern "C" {
 
 #ifdef IS_STDC
 #  define __P(AL)	                  AL
-
-#ifdef IN_LIBIDENT_SRC
-
-/*
-#  define __P1(t1,a1) \
-    (t1 a1)
-
-#  define __P2(t1,a1,t2,a2) \
-    (t1 a1, t2 a2)
-
-#  define __P3(t1,a1,t2,a2,t3,a3) \
-    (t1 a1, t2 a2, t3 a3)
-
-#  define __P4(t1,a1,t2,a2,t3,a3,t4,a4) \
-    (t1 a1, t2 a2, t3 a3, t4 a4)
-
-#  define __P5(t1,a1,t2,a2,t3,a3,t4,a4,t5,a5) \
-    (t1 a1, t2 a2, t3 a3, t4 a4, t5 a5)
-
-#  define __P7(t1,a1,t2,a2,t3,a3,t4,a4,t5,a5,t6,a6,t7,a7) \
-    (t1 a1, t2 a2, t3 a3, t4 a4, t5 a5, t6 a6, t7 a7)
-    */
-#endif
-
 #else
-
 #  define __P(AL)	                  ()
-
-#ifdef IN_LIBIDENT_SRC
-
-/*
-#  define __P1(t1,a1)                     (a1) \
-    t1 a1;
-#  define __P2(t1,a1,t2,a2)               (a1, a2) \
-    t1 a1; \
-    t2 a2;
-#  define __P3(t1,a1,t2,a2,t3,a3)         (a1, a2, a3) \
-    t1 a1; \
-    t2 a2; \
-    t3 a3;
-#  define __P4(t1,a1,t2,a2,t3,a3,t4,a4)   (a1, a2, a3, a4) \
-    t1 a1; \
-    t2 a2; \
-    t3 a3; \
-    t4 a4;
-#  define __P5(t1,a1,t2,a2,t3,a3,t4,a4,t5,a5)   (a1, a2, a3, a4, a5) \
-    t1 a1; \
-    t2 a2; \
-    t3 a3; \
-    t4 a4; \
-    t5 a5;
-#  define __P7(t1,a1,t2,a2,t3,a3,t4,a4,t5,a5,t6,a6,t7,a7) \
-    (a1, a2, a3, a4, a5, a6, a7) \
-    t1 a1; \
-    t2 a2; \
-    t3 a3; \
-    t4 a4; \
-    t5 a5; \
-    t6 a6; \
-    t7 a7;
-    */
-#endif
 #endif
 
 #ifdef IS_STDC

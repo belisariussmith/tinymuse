@@ -21,8 +21,8 @@
 #define TYPE_ADMIN 0xE
 #define TYPE_DIRECTOR 0xF
 
-/*#define getstring(x) alloc_string(getstring_noalloc(x))*/
-#define getstring(x,p) {p=NULL;SET(p,getstring_noalloc(x));}
+//#define getstring(x) alloc_string(getstring_noalloc(x))
+#define getstring(x,p) {p = NULL; SET(p, getstring_noalloc(x));}
 
 #define getstring_compress(x,p) getstring(x,p)
 
@@ -37,7 +37,7 @@ dbref db_top = 0;
 int malloc_count = 0;
 #endif // TEST_MALLOC 
 
-dbref update_bytes_counter=(-1);
+dbref update_bytes_counter = (-1);
 dbref db_size  = 100;
 int db_version = 1;  // database version defaults to 1 
 int db_init    = 0;
@@ -71,7 +71,7 @@ struct builtinattr {
   int number;
 };
 
-struct builtinattr attr[]={
+struct builtinattr attr[] = {
 #define DOATTR(var, name, flags, num) \
   {{name, flags, NOTHING, 1}, num},
 #include "attrib.h"
@@ -98,7 +98,7 @@ static ATTR *builtin_atr(int num)
         {
             int a = 0;
 
-            while ((a<NUM_BUILTIN_ATTRS)&&(attr[a].number!=i))
+            while ((a < NUM_BUILTIN_ATTRS)&&(attr[a].number != i))
             {
                 a++;
             }
@@ -124,7 +124,7 @@ static ATTR *builtin_atr(int num)
     }
 }
 
-static char *attr_disp (void *atr)
+static char *attr_disp(void *atr)
 {
     //char buf[BUF_SIZE];   // cannot return address of local variable
     char *buf = malloc(BUF_SIZE); // Needs to be free()'d later
@@ -134,7 +134,7 @@ static char *attr_disp (void *atr)
     return buf; 
 }
 
-ATTR *builtin_atr_str (char *str)
+ATTR *builtin_atr_str(char *str)
 {
     static struct hashtab *attrhash = NULL;
 
@@ -144,10 +144,15 @@ ATTR *builtin_atr_str (char *str)
         attrhash = make_hashtab(207, attr, sizeof(struct builtinattr), "attr", attr_disp);
     }
 
-/*  for (a=0; a<NUM_BUILTIN_ATTRS; a++)
-    if (!string_compare (str, attr[a].definition.name))
-      return &(attr[a].definition);
-  return NULL;*/
+    //  for (a = 0; a < NUM_BUILTIN_ATTRS; a++)
+    //  {
+    //      if (!string_compare (str, attr[a].definition.name))
+    //      {
+    //          return &(attr[a].definition);
+    //      }
+    //  }
+    //  return NULL;
+
     return &((struct builtinattr *)lookup_hash (attrhash, hash_name(str), str))->definition;
 }
 
@@ -172,7 +177,7 @@ static ATTR *atr_defined_on_str (dbref obj, char *str)
     return NULL;
 }
 
-static ATTR *atr_find_def_str (dbref obj, char *str)
+static ATTR *atr_find_def_str(dbref obj, char *str)
 {
     ATTR *k;
     int i;
@@ -216,15 +221,25 @@ ATTR *atr_str(dbref player, dbref obj, char *s)
         match_everything ();
         onobj = match_result();
 
-        if (onobj == AMBIGUOUS) onobj = NOTHING;
+        if (onobj == AMBIGUOUS)
+        {
+            onobj = NOTHING;
+        }
 
         if (onobj != NOTHING)
         {
 
-            a = atr_defined_on_str (onobj, t+1);
-//      if (is_a (player, a->obj))
-//        return a;
-            if (a) return a;
+            a = atr_defined_on_str(onobj, t+1);
+
+            //if (is_a(player, a->obj))
+            //{
+            //    return a;
+            //}
+
+            if (a)
+            {
+                return a;
+            }
         }
     }
 
@@ -339,7 +354,7 @@ void atr_add(dbref thing, ATTR *atr, char *str)
 }
 
 // used internally by defines
-static char *atr_get_internal (dbref thing, ATTR *atr)
+static char *atr_get_internal(dbref thing, ATTR *atr)
 {
     int i;
     ALIST *ptr;
@@ -462,27 +477,27 @@ char *atr_get(dbref thing, ATTR *atr)
         }
         else if (atr == A_FLAGS)
         {
-            strcpy(buf,unparse_flags(thing));
+            strcpy(buf, unparse_flags(thing));
         }
         else if (atr == A_ZONE)
         {
-            sprintf(buf, "#%d",db[thing].zone);
+            sprintf(buf, "#%d", db[thing].zone);
         }
         else if (atr == A_NEXT)
         {
-            sprintf(buf, "#%d",db[thing].next);
+            sprintf(buf, "#%d", db[thing].next);
         }
         else if (atr == A_MODIFIED)
         {
-            sprintf(buf, "%ld",db[thing].mod_time);
+            sprintf(buf, "%ld", db[thing].mod_time);
         }
         else if (atr == A_CREATED)
         {
-            sprintf(buf, "%ld",db[thing].create_time);
+            sprintf(buf, "%ld", db[thing].create_time);
         }
         else if (atr == A_LONGFLAGS)
         {
-            sprintf(buf, "%s",flag_description(thing));
+            sprintf(buf, "%s", flag_description(thing));
         }
         else
         {
@@ -492,7 +507,7 @@ char *atr_get(dbref thing, ATTR *atr)
         return atr_p = buf;
     }
 
-    for (ptr=db[thing].list; ptr; ptr = AL_NEXT(ptr))
+    for (ptr = db[thing].list; ptr; ptr = AL_NEXT(ptr))
     {
         if (ptr && AL_TYPE(ptr) == atr)
         {
@@ -591,27 +606,6 @@ void atr_cpy_noninh(dbref dest, dbref source)
     }
 }
 
-/*
- * Notes:
- void *
- memchr(const void *s, unsigned char c, size_t n)
- {
-     if (n != 0)
-     {
-         const unsigned char *p = s;
-
-         do
-         {
-             if (*p++ == c)
-             {
-                 return ((void *)(p - 1));
-             }
-         } while (--n != 0);
-     }
-
-     return (NULL);
- }
- */
 static void db_grow(dbref newtop)
 {
     struct object *newdb;
@@ -634,7 +628,8 @@ static void db_grow(dbref newtop)
                 // Allocation not possible, abort
                 abort();
             }
-            // Doesn't seem to do anything (perhaps meant to check for NULL return?)
+
+            // What are we scanning for?
             //memchr (db-5, 0, sizeof(struct object)*(db_size + 5));
         }
 
@@ -653,11 +648,13 @@ static void db_grow(dbref newtop)
             {
                 abort();
             }
+
             newdb += 5;
-            // Doesn't seem to do anything (perhaps meant to check for NULL return?)
+            // What are we scanning for?
             //memchr((newdb + db_top), 0, sizeof(struct object)*(db_size - db_top));
             db = newdb;
         }
+
         db_top = newtop;
     }
 }
@@ -709,62 +706,6 @@ void putref(FILE *file, dbref ref)
 {
     fprintf(file, "%d\n", ref);
 }
-
-/* static char *atr_format P((ATTR *));
-   static char *atr_format (k)
-     ATTR *k;
-{
-  static char opbuf[100];
-  ATRDEF *def;
-  int j;
-
-  if (k->obj == NOTHING) {
-    sprintf(opbuf,"%d",*(((int *)k)-1)); * get the atr number. kludgy. *
-    return opbuf;
-  }
-  for (j=0,def=db[k->obj].atrdefs; def; def=def->next, j++)
-    if (&(def->a) == k) {
-      sprintf(opbuf,"%d.%d",k->obj, j);
-      return opbuf;
-    }
-  sprintf(opbuf,"%d.%d",k->obj,0);
-  return opbuf;
-}
-static ATTR *atr_unformat (o, str)
-     dbref o;
-     char *str;
-{
-  dbref obj;
-  int num;
-  int i;
-  ATRDEF *atr;
-
-  if (!strchr(str,'.'))
-    return builtin_atr(atoi(str));
-  *strchr(str,'.') = '\0';
-  obj = atoi(str);
-  num = atoi(str+strlen(str)+1);
-  if (obj>=o) {
-    db_grow (obj+1);
-    if (!db[obj].atrdefs) {
-      db[obj].atrdefs=malloc(sizeof(ATRDEF));
-      db[obj].atrdefs->a.name=NULL;
-      db[obj].atrdefs->next=NULL;
-    }
-    for (atr = db[obj].atrdefs, i=0; atr->next && i<num; atr=atr->next, i++)
-      ;
-    while (i < num) {
-      atr->next = malloc( sizeof(ATRDEF));
-      atr->next->a.name = NULL;
-      atr->next->next = NULL;
-      atr = atr->next;
-      i++;
-    }
-  } else
-    for (atr=db[obj].atrdefs, i=0; i<num; atr=atr->next, i++)
-      ;
-  return &(atr->a);
-} */
 
 static int db_write_object(FILE *file, dbref i)
 {
@@ -942,285 +883,6 @@ char *getstring_noalloc(FILE *file)
     return buf;
 }
 
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
-/////////////////////////////////////////////////////////////////////
-// getboolexp()
-/////////////////////////////////////////////////////////////////////
-//     Used by db_read_object() for reading in the A_LOCK attribute
-// info for objects of older database versions.
-/////////////////////////////////////////////////////////////////////
-// Note:
-// just return the string, for now, we need to convert attrs later
-/////////////////////////////////////////////////////////////////////
-// Returns: -
-/////////////////////////////////////////////////////////////////////
-/*
-static void getboolexp(dbref i, FILE *file)
-{
-    char buffer[DB_MSGLEN];
-    char *p = buffer;
-    int c;
-
-    while ((c = getc(file)) != '\n')
-    {
-        if (c == ':')
-        {
-            // snarf up the attribute
-            *p++ = c;
-            while ((c = getc(file)) != '\n')
-            {
-                *p++ = c;
-            }
-        }
-        else
-        {
-            *p++ = c;
-        }
-    }
-    *p = '\0';
-    atr_add(i, A_LOCK, buffer);
-}
-*/
-
-
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
- /*
-static void get_num(s, i)
-     char **s;
-     int *i;
-{
-  *i = 0;
-  while (**s && isdigit(**s)) {
-    *i = (*i * 10) + **s - '0';
-    (*s)++;
-  }
-  return;
-}
-*/
-
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
-/*
-#define RIGHT_DELIMITER(x) ((x == AND_TOKEN) || (x == OR_TOKEN) || \
-                            (x == ':') || (x == '.') || (x == ')') || \
-                            (x == '=') || (!x))
-*/
-
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
- /*
-static void grab_dbref(p)
-     char *p;
-{
-  int num, n;
-  dbref thing;
-  ATRDEF *atr;
-  ATTR *attr;
-
-  get_num(&b, &num);
-  switch (*b) {
-  case '.':
-    b++;
-    sprintf(p, "#%d", num);
-    p += strlen(p);
-    *p++ = '.';
-    thing = (dbref) num;
-    get_num(&b, &num);
-    for (atr=db[thing].atrdefs, n=0; n<num; atr=atr->next, n++);
-    strcpy(p, atr->a.name);
-    p += strlen(p);
-    *p++ = *b++;
-    while (!RIGHT_DELIMITER(*b)) *p++ = *b++;
-    *p = '\0';
-    break;
-  case ':':
-    b++;
-    attr = builtin_atr(num);
-    strcpy(p, attr->name);
-    p += strlen(p);
-    *p++ = ':';
-    while (!RIGHT_DELIMITER(*b)) *p++ = *b++;
-    *p = '\0';
-    break;
-  default:
-    sprintf(p, "#%d", num);
-    break;
-  }
-  return;
-}
-*/
-
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
-    /*
-static int
-convert_sub(char *p, int outer)
-{
-    int inner;
-
-    if (!*b)
-    {
-        *p = '\0';
-        return 0;
-    }
-
-    switch (*b)
-    {
-        case '(':
-            b++;
-            inner = convert_sub(p, outer);
-
-            if (*b == ')')
-            {
-                b++;
-            }
-            else
-            {
-                p += strlen(p);
-                // Belisarius
-                // - What!?! Why?!
-                // goto part2;
-                break;
-            }
-
-            return inner;
-        case NOT_TOKEN:
-            *p++ = *b++;
-
-            if ((inner = convert_sub(p + 1, outer)) > 0)
-            {
-                *p    = '(';
-                 p   += strlen(p);
-                *p++  = ')';
-                *p    = '\0';
-            }
-            else
-            {
-                p++;
-                while(*p)
-                {
-                    *(p-1) = *p++;
-                }
-                *--p = '\0';
-            }
-            return inner;
-        default:
-            // a dbref of some sort
-            grab_dbref(p);
-            p += strlen(p);
-    }
-
-    // Belisarius
-    // - This label is pointless
-    //part2:
-
-    switch (*b)
-    {
-        case AND_TOKEN:
-            *p++ = *b++;
-            if ((inner = convert_sub(p + 1, 1)) == 2)
-            {
-                *p = '(';
-                p += strlen(p);
-                *p++ = ')';
-                *p = '\0';
-            }
-            else
-            {
-                p++;
-                while(*p)
-                {
-                    *(p - 1) = *p++;
-                }
-                *--p = '\0';
-            }
-            return 1;
-        case OR_TOKEN:
-            *p++ = *b++;
-            inner = convert_sub(p, 2);
-            p += strlen(p);
-            return 2;
-        default:
-            return 0;
-    }
-}
-*/
-
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
- /*
-static int is_zone(i)
-     dbref i;
-{
-  dbref j;
-
-  for (j = 0; j < db_top; j++)
-    if (db[j].zone == i) return 1;
-  return 0;
-}
-*/
-
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
-/////////////////////////////////////////////////////////////////////
-// convert_boolexp()
-/////////////////////////////////////////////////////////////////////
-//     Used by db_read_object() for reading in the A_LOCK attribute
-// info for objects of database versions prior to version 9.
-/////////////////////////////////////////////////////////////////////
-// Returns: -
-/////////////////////////////////////////////////////////////////////
-/*
-static void
-convert_boolexp()
-{
-    dbref i;
-    char buffer[MAX_CMD_BUF];
-    char *p;
-
-    for (i = 0; i < db_top; i++)
-    {
-        p = buffer;
-        b = atr_get(i, A_LOCK);
-        convert_sub(p, 0);
-
-        if ((db[i].flags & ENTER_OK) && (!is_zone(i)))
-        {
-            atr_add(i, A_ELOCK, buffer);
-            sprintf(buffer,"#%d",db[i].owner);
-            atr_add(i, A_LOCK, buffer);
-        }
-        else
-        {
-            atr_add(i, A_LOCK, buffer);
-        }
-    }
-}
-*/
-
 /////////////////////////////////////////////////////////////////////
 // db_init_object()
 /////////////////////////////////////////////////////////////////////
@@ -1287,8 +949,9 @@ static int get_list(FILE *db_file, dbref obj_id, int vers)
         {
             case '>': // read # then string 
                 attr_id = getref(db_file);
-                /*
-                if (vers <= 7)
+                attr_obj_id = getref(db_file);
+
+                if (attr_obj_id == NOTHING)
                 {
                     if (builtin_atr(attr_id) && !(builtin_atr(attr_id)->flags & AF_UNIMP))
                     {
@@ -1301,67 +964,50 @@ static int get_list(FILE *db_file, dbref obj_id, int vers)
                 }
                 else
                 {
-                */
-                    attr_obj_id = getref(db_file);
-                    if (attr_obj_id == NOTHING)
+                    if (attr_obj_id >= obj_id)
                     {
-                        if (builtin_atr(attr_id) && !(builtin_atr(attr_id)->flags & AF_UNIMP))
+                        // ergh, haven't read it in yet.
+                        // (Belisarius) this references an object which has not yet been read in yet
+                        old_db_top = db_top;
+                        db_grow (attr_obj_id+1);
+                        db_init_object(attr_obj_id);
+                        db_top = old_db_top;
+
+                        if (db[attr_obj_id].atrdefs == NULL)
                         {
-                            atr_add (obj_id, builtin_atr(attr_id), s = getstring_noalloc(db_file));
+                            db[attr_obj_id].atrdefs = malloc( sizeof(ATRDEF));
+                            db[attr_obj_id].atrdefs->a.name = NULL;
+                            db[attr_obj_id].atrdefs->next   = NULL;
                         }
-                        else
+
+                        // (Belisarius) clean up, see if crash on boot **
+                        attributes = db[attr_obj_id].atrdefs;
+                        //ATRDEF *attributes2;
+                        //attributes2 = attributes->next;
+                        // ** end **
+
+                        for (attributes = db[attr_obj_id].atrdefs, i = 0; attributes->next && i < attr_id; attributes = attributes->next, i++)
                         {
-                            getstring_noalloc(db_file);
                         }
+                        ; // check to see if it's already there.
+
+                        while (i < attr_id)
+                        {
+                            attributes->next         = malloc( sizeof(ATRDEF));
+                            attributes->next->a.name = NULL;
+                            attributes->next->next   = NULL;
+                            attributes = attributes->next;
+                            i++;
+                        }
+                        atr_add(obj_id, &(attributes->a), s = getstring_noalloc(db_file));
                     }
                     else
                     {
-                        if (attr_obj_id >= obj_id)
-                        {
-                            // ergh, haven't read it in yet.
-                            // (Belisarius) this references an object which has not yet been read in yet
-                            old_db_top = db_top;
-                            db_grow (attr_obj_id+1);
-                            db_init_object(attr_obj_id);
-                            db_top = old_db_top;
-                            //if (!db[attr_obj_id].atrdefs)
-
-                            if (db[attr_obj_id].atrdefs == NULL)
-                            {
-                                db[attr_obj_id].atrdefs = malloc( sizeof(ATRDEF));
-                                db[attr_obj_id].atrdefs->a.name = NULL;
-                                db[attr_obj_id].atrdefs->next   = NULL;
-                            }
-
-                            // (Belisarius) clean up, see if crash on boot **
-                            attributes = db[attr_obj_id].atrdefs;
-                            //ATRDEF *attributes2;
-                            //attributes2 = attributes->next;
-                            // ** end **
-
-                            for (attributes = db[attr_obj_id].atrdefs, i = 0; attributes->next && i < attr_id; attributes = attributes->next, i++)
-                            {
-                            }
-                            ; // check to see if it's already there.
-
-                            while (i < attr_id)
-                            {
-                                attributes->next         = malloc( sizeof(ATRDEF));
-                                attributes->next->a.name = NULL;
-                                attributes->next->next   = NULL;
-                                attributes = attributes->next;
-                                i++;
-                            }
-                            atr_add (obj_id, &(attributes->a), s = getstring_noalloc (db_file));
-                        }
-                        else
-                        {
-                            for (attributes = db[attr_obj_id].atrdefs, i = 0; i < attr_id; attributes = attributes->next, i++)
-                            ;
-                            atr_add (obj_id, &(attributes->a), s = getstring_noalloc (db_file));
-                        }
+                        for (attributes = db[attr_obj_id].atrdefs, i = 0; i < attr_id; attributes = attributes->next, i++)
+                        ;
+                        atr_add (obj_id, &(attributes->a), s = getstring_noalloc(db_file));
                     }
-                // }
+                }
                 break;
             case '<': // end of list
                 if ('\n' != fgetc(db_file))
@@ -1455,41 +1101,6 @@ static object_flag_type upgrade_flags(int version, dbref player, object_flag_typ
 
     return flags;
 }
-
-/*
- * Belisarius
- *
- * deprecated due to removing support for older databases
- */
-/////////////////////////////////////////////////////////////////////
-// scramble_to_link()
-/////////////////////////////////////////////////////////////////////
-//     Used by db_read_object() for reading in the link information
-// for objects of older database versions.
-/////////////////////////////////////////////////////////////////////
-// Returns: -
-/////////////////////////////////////////////////////////////////////
-/*
-static void
-scramble_to_link()
-{
-  dbref i,j;
-  for(i=0;i<db_top;i++) {
-    if(Typeof(i) == TYPE_ROOM || Typeof(i)== TYPE_EXIT) {
-      db[i].link = db[i].location;
-      db[i].location = i;
-    } else if(Typeof(i)==TYPE_THING || Typeof(i)>=TYPE_PLAYER) {
-      db[i].link = db[i].exits;
-      db[i].exits = -1;
-    }
-  }
-  for (i=0;i<db_top;i++) {
-    if(Typeof(i)==TYPE_ROOM)
-      for(j=db[i].exits;j!= NOTHING;j=db[j].next)
-        db[j].location = i;
-  }
-}
-*/
 
 // put quotas in! 
 static void db_check()
@@ -1628,13 +1239,6 @@ load_database()
         return;
     }
 
-    //
-    // Pointless check since variable cannot
-    // change after Initialization
-    /*
-    if (db_obj_id == NOTHING)
-    {
-     */
     // Initialization
     clear_players();
     db_free();
@@ -1989,11 +1593,12 @@ void update_bytes()
 
 /*****************************************************XXX BRG DB CODE XXX*/
 
+///////////////////////////////////////////////////////////////////////////////
 // atr_fputs - needed to support %r substitution
 // does: outputs string <what> on stream <fp>, quoting newlines
 // with a DB_LOGICAL (currently ctrl-U).
 // added on 4/26/94 by Brian Gaeke (Roodler)
-
+///////////////////////////////////////////////////////////////////////////////
 void atr_fputs(char *what, FILE * fp)
 {
         while (*what)
@@ -2004,13 +1609,14 @@ void atr_fputs(char *what, FILE * fp)
         }
 }
 
+///////////////////////////////////////////////////////////////////////////////
 // atr_fgets - needed to support %r substitution              *
 // does: inputs a string, max <size> chars, from stream <fp>, *
 // into buffer <buffer>. if a DB_LOGICAL is encountered,      *
 // the next character (possibly a \n) won't terminate the     *
 // string, as it would in fgets.                              *
 // added on 4/26/94 by Brian Gaeke (Roodler)                  */
-
+///////////////////////////////////////////////////////////////////////////////
 char *atr_fgets(char *buffer, int size, FILE * fp)
 {
     int num_read = 0;
@@ -2049,8 +1655,6 @@ char *atr_fgets(char *buffer, int size, FILE * fp)
 
     return buffer;
 }
-
-///////////////////////////////////////////////////////////////////////////////
 
 void putstring(FILE *f, char *s)
 {

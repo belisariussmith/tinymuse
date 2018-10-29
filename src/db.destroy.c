@@ -131,7 +131,7 @@ void fix_free_list()
     {
         if (IS_DOOMED(thing))
         {
-            if ((atol(ch=atr_get(thing,A_DOOMSDAY)) < now) && (atol(ch) > 0))
+            if ((atol(ch = atr_get(thing,A_DOOMSDAY)) < now) && (atol(ch) > 0))
             {
                 do_empty(thing);
             }
@@ -277,10 +277,14 @@ static void dbmark2()
         if (Typeof(loc) == TYPE_PLAYER || Typeof(loc) == TYPE_THING)
         {
             if (db[loc].link != NOTHING)
+            {
                 dbmark(db[loc].link);
+            }
 
             if (db[loc].location != NOTHING)
+            {
                 dbmark(db[loc].location);
+            }
         }
     }
 }
@@ -524,7 +528,7 @@ void do_empty(dbref thing)
         moveto(thing, NOTHING);
     }
 
-    for (k=db[thing].atrdefs; k; k=next)
+    for (k = db[thing].atrdefs; k; k = next)
     {
         next = k->next;
 
@@ -657,32 +661,32 @@ void do_empty(dbref thing)
 
 void do_undestroy(dbref player, char *arg1)
 {
-  dbref object;
+    dbref object;
 
-  object = match_controlled(player, arg1, POW_EXAMINE);
-  if (object == NOTHING)
-  {
-      return;
-  }
+    object = match_controlled(player, arg1, POW_EXAMINE);
 
-  if (!(db[object].flags & GOING))
-  {
-    send_message(player, "%s is not scheduled for destruction", unparse_object(player, object));
-    return;
-  }
+    if (object == NOTHING)
+    {
+        return;
+    }
 
-  db[object].flags &= ~GOING;
+    if (!(db[object].flags & GOING))
+    {
+        send_message(player, "%s is not scheduled for destruction", unparse_object(player, object));
+        return;
+    }
 
-  if (atol(atr_get(object, A_DOOMSDAY)) > 0)
-  {
-    atr_add(object, A_DOOMSDAY, "");
-    send_message(player, "%s has been saved from destruction.", unparse_object(player, object));
-			  
-  }
-  else
-  {
-    send_message(player, "%s is protected, and the GOING flag shouldn't have been set in the first place so what on earth happened?", unparse_object(player, object));
-  }
+    db[object].flags &= ~GOING;
+
+    if (atol(atr_get(object, A_DOOMSDAY)) > 0)
+    {
+        atr_add(object, A_DOOMSDAY, "");
+        send_message(player, "%s has been saved from destruction.", unparse_object(player, object));
+    }
+    else
+    {
+        send_message(player, "%s is protected, and the GOING flag shouldn't have been set in the first place so what on earth happened?", unparse_object(player, object));
+    }
 }
 
 void zero_free_list()
@@ -702,7 +706,10 @@ void do_check(dbref player, char *arg1)
 
     obj = match_controlled (player, arg1, POW_MODIFY);
 
-    if (obj == NOTHING) return;
+    if (obj == NOTHING)
+    {
+        return;
+    }
 
     thing = obj;
     gstate = 1;

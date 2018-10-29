@@ -15,12 +15,14 @@ static long spot = 0;        // noone's gunna be on for 68 years, so
                              // people log on more often than 1/second.
                              //
 
-long make_concid ()
+long make_concid()
 {
     spot++;
 
     if (spot < 0)
+    {
         spot = 1;
+    }
 
     return spot;
 }
@@ -46,12 +48,12 @@ static int can_be_a_conc(struct sockaddr_in *addr, char *pass)
         {
             if (addr->sin_addr.s_addr == inet_addr(concs[k].ip))
             {
-                return 1;
+                return TRUE;
             }
         }
     }
 
-    return 0;
+    return FALSE;
 }
 
 void do_makeid(struct descriptor_data *d)

@@ -65,7 +65,7 @@ void do_give(dbref player, char *recipient, char *amnt)
         return;
     }
   
-    /* check recipient */
+    // check recipient 
     init_match(player, recipient, TYPE_PLAYER);
     match_neighbor();
     match_me();
@@ -86,10 +86,11 @@ void do_give(dbref player, char *recipient, char *amnt)
             return;
     }
   
-    /* make sure amount is all digits */
+    // make sure amount is all digits 
     for (s = amnt; *s && ((isdigit(*s)) || (*s=='-')); s++)
     ;
-    /* must be giving object */
+
+    // must be giving object 
     if (*s)
     {
         dbref thing;
@@ -127,7 +128,7 @@ void do_give(dbref player, char *recipient, char *amnt)
 
     amount = atoi(amnt);
 
-    /* do amount consistency check */
+    // do amount consistency check 
     if (amount <= 0 && !power(player, POW_STEAL))
     {
         send_message(player, "You must specify a positive number of Credits.");
@@ -143,14 +144,14 @@ void do_give(dbref player, char *recipient, char *amnt)
         }
     }
   
-    /* try to do the give */
+    // try to do the give 
     if (!payfor(player, amount))
     {
         send_message(player, "You don't have that many Credits to give!");
     }
     else
     {
-        /* objects work differently */
+        // objects work differently 
         if (Typeof(who) == TYPE_THING)
         {
             int cost;
@@ -173,10 +174,10 @@ void do_give(dbref player, char *recipient, char *amnt)
             {
 	        sprintf(buf, "You paid %d credits.", amount);
 	    }
-            send_message(player,buf);
-            giveto(player,amount-cost);
-            giveto(who,cost);
-            did_it(player,who,A_PAY,NULL,A_OPAY,NULL,A_APAY);
+            send_message(player, buf);
+            giveto(player, amount-cost);
+            giveto(who, cost);
+            did_it(player, who, A_PAY, NULL, A_OPAY, NULL, A_APAY);
             return;
         }       
         else
@@ -211,13 +212,17 @@ void do_slay(dbref player, char *what)
     match_neighbor();
     match_me();
     match_here();
-    if(power(player, POW_REMOTE)) {
+
+    if (power(player, POW_REMOTE))
+    {
         match_player();
         match_absolute();
     }
+
     victim = match_result();
 
-    switch(victim) {
+    switch(victim)
+    {
         case NOTHING:
             send_message(player, "I don't see that player here.");
             break;
@@ -228,34 +233,36 @@ void do_slay(dbref player, char *what)
             if ((Typeof(victim) != TYPE_PLAYER) && (Typeof(victim)!=TYPE_THING))
             {
                 send_message(player, "Sorry, you can only kill other players.");
-                /*    } else if (!controls(player,victim)){*/
+                //    } else if (!controls(player,victim)){
             }
-            else if (Level(player)<Levnm(victim))
+            else if (Level(player) < Levnm(victim))
             {
                 send_message(player, "Sorry.");
             }
             else if (power(victim, POW_NOSLAY))
             {
-                /* Check for power_noslay. */
+                // Check for power_noslay
                 send_message(player, "Sorry, that person can't be slain.");
             }
             else
             {
-                /* go for it */
-                /* you killed him */
+                // go for it 
+                // you killed him 
                 sprintf(buf, "You killed %s!", db[victim].name);
                 sprintf(buf1, "killed %s!", db[victim].name);
+
                 if (Typeof(victim) == TYPE_THING)
                 {
                     do_halt(victim, "");
                 }
+
                 did_it(player, victim, A_KILL, buf, A_OKILL, buf1, A_AKILL);
 
-                /* notify victim */
+                // notify victim 
                 sprintf(buf, "%s killed you!", db[player].name);
                 send_message(victim, buf);
 
-                /* send him home */
+                // send him home 
                 safe_tel(victim, HOME);
             }
             break;

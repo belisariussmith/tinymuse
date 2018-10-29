@@ -41,18 +41,18 @@ void do_switch(dbref player, char *exp, char *argv[], dbref cause)
                 wptr[c] = ptrsrv[c];
             }
 
-            parse_que(player,argv[a+1],cause);
+            parse_que(player, argv[a+1], cause);
         }                              
     }
 
     for (c = 0; c < 10; c++)
     {
-        wptr[c]=ptrsrv[c];
+        wptr[c] = ptrsrv[c];
     }
 
     if ((a<MAX_ARG) && !any && argv[a])                              
     {
-        parse_que(player,argv[a],cause);
+        parse_que(player, argv[a], cause);
     }
 }
 
@@ -108,7 +108,7 @@ void do_trigger(dbref player, char *object, char *argv[])
 
     if ( thing == root )
     {
-        send_message(player,"root says, \"thou shalt not trigger me.\"");
+        send_message(player, "root says, \"thou shalt not trigger me.\"");
         return;
     }
 
@@ -121,7 +121,7 @@ void do_trigger(dbref player, char *object, char *argv[])
 
     if (!(db[player].flags & QUIET))
     {
-        send_message(player, "%s - Triggered.",db[thing].name);
+        send_message(player, "%s - Triggered.", db[thing].name);
     }
 }
 
@@ -183,19 +183,20 @@ void do_decompile(dbref player, char *arg1, char *arg2)
         return;
     }
 
-    if ((!controls(player,obj,POW_SEEATR) || !controls(player,obj,POW_EXAMINE)) && !(db[obj].flags&SEE_OK)) {
-        send_message(player,perm_denied());
+    if ((!controls(player, obj, POW_SEEATR) || !controls(player, obj, POW_EXAMINE)) && !(db[obj].flags & SEE_OK))
+    {
+        send_message(player, perm_denied());
         return;
     }
 
     s = flag_description(obj);
 
-    if ((s=strchr(s,':')) && (s=strchr(++s,':')))
+    if ((s = strchr(s, ':')) && (s = strchr(++s, ':')))
     {
         char *g;
         s += 2;
 
-        while ((g=parse_up(&s,' ')))
+        while ((g = parse_up(&s,' ')))
         {
             send_message(player, "@set %s=%s", (*arg2) ? arg2 : arg1, g);
         }
@@ -232,9 +233,9 @@ void do_decompile(dbref player, char *arg1, char *arg2)
     {
         if (AL_TYPE(a))
         {
-            if (!(AL_TYPE(a)->flags&AF_UNIMP))
+            if (!(AL_TYPE(a)->flags & AF_UNIMP))
             {
-                if (can_see_atr (player, obj, AL_TYPE(a)))
+                if (can_see_atr(player, obj, AL_TYPE(a)))
                 {
                     //if ( AL_TYPE(a)->obj == NOTHING )
                     sprintf(buf, "%s", unparse_attr(AL_TYPE(a),0));
@@ -282,7 +283,7 @@ void do_cycle(dbref player, char *arg1, char **argv)
         {
             i++;
 
-            if (!(db[player].flags&QUIET))
+            if (!(db[player].flags & QUIET))
             {
                 send_message(player,"Cycling...");
             }

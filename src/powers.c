@@ -33,8 +33,11 @@ int get_pow(dbref player, ptype pow)
         return PW_NO;
     }
 
-    //if(*db[player].pows)
-    //return PW_NO;
+    //if (*db[player].pows)
+    //{
+    //    return PW_NO;
+    //}
+
     pows = db[player].pows;
 
     if (!pows)

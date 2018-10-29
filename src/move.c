@@ -357,6 +357,7 @@ int can_move(dbref player, char *direction)
     // otherwise match on exits 
     init_match(player, direction, TYPE_EXIT);
     match_exit();
+
     return (last_match_result() != NOTHING);
 }
 
@@ -580,7 +581,7 @@ void do_drop(dbref player, char *name)
                 send_message(thing, "Dropped.");
                 safe_tel(thing,HOME);
             }
-            else if (db[loc].link != NOTHING && (Typeof(loc)==TYPE_ROOM) && !(db[loc].flags & STICKY))
+            else if (db[loc].link != NOTHING && (Typeof(loc) == TYPE_ROOM) && !(db[loc].flags & STICKY))
             {
                 // location has immediate dropto 
                 send_message(thing, "Dropped.");
@@ -624,10 +625,10 @@ void do_enter(dbref player, char *what)
     {
         case TYPE_ROOM:
         case TYPE_EXIT:
-            send_message(player,perm_denied());
+            send_message(player, perm_denied());
             break;
         default:
-            if (!(db[thing].flags & ENTER_OK) && !controls(player,thing,POW_TELEPORT))
+            if (!(db[thing].flags & ENTER_OK) && !controls(player, thing, POW_TELEPORT))
             {
                 did_it(player, thing, A_EFAIL, "You can't enter that.", A_OEFAIL, NULL, A_AEFAIL);
                 return;

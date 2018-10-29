@@ -11,16 +11,6 @@
 #ifndef IPPROTO_IP
 #include <netinet/in.h>
 #endif
-/* struct buffer {
-  char line[80];
-  struct buffer *next;
-};
-struct top {
-  char filename[1024];
-  int state, linenum;
-  char issaved;
-  struct buffer *next, *current, *bound;
-}; */
 
 struct text_block {
   int nchars;

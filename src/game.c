@@ -70,18 +70,11 @@ static void do_dump(dbref player)
 ///////////////////////////////////////////////////////////////////////////////
 // report()
 ///////////////////////////////////////////////////////////////////////////////
-//    This is where print out stuff into the error file 
-///////////////////////////////////////////////////////////////////////////////
-//
+//    Dump report data into error log 
 ///////////////////////////////////////////////////////////////////////////////
 void report()
 {
     char repbuf[BUF_SIZE*5];
-
-    /*  fprintf(stderr,"Command:%s depth:%d\n",ccom,depth);fflush(stderr);
-        if ((cplr>0) && (cplr<db_top))
-        fprintf(stderr,"Player #%d location #%d\n",cplr,db[cplr].location);
-        fflush(stderr);*/
 
     log_error("*** Reporting position ***");
 
@@ -157,15 +150,19 @@ static void notify_nopup(dbref player, char *msg)
 
     if (db[player].owner != player)
     {
-        strcpy(buff,msg);
+        strcpy(buff, msg);
 
-        if (*(d=atr_get(player,A_LISTEN)) && wild_match(d,buff))
+        if (*(d = atr_get(player, A_LISTEN)) && wild_match(d, buff))
         {
 
             if (speaker != player)
+            {
                 did_it(speaker, player, 0, NULL, 0, NULL, A_AHEAR);
+            }
             else
+            {
                 did_it(speaker, player, 0, NULL, 0, NULL, A_AMHEAR);
+            }
 
             did_it(speaker, player, 0, NULL, 0, NULL, A_AAHEAR);
 
@@ -176,7 +173,7 @@ static void notify_nopup(dbref player, char *msg)
             // but this will be terminated when the depth variable exceeds 30 
             if (db[speaker].location != player)
             {
-                notify_in(player,player,buff);
+                notify_in(player, player, buff);
             }
         }
         // now check for multi listeners 
@@ -188,35 +185,6 @@ static void notify_nopup(dbref player, char *msg)
 
     depth--;
 }
-
-/*
-void send_message(dbref player, char *msg)
-{
-    static char buff[BUF_SIZE+100];
-
-    if ((player < 0) || (player >= db_top))
-    {
-        return;
-    }
-
-    if (depth++ > 7)
-    {
-        depth--;
-        return;
-    }
-
-    raw_send_message(player, msg);
-
-    if (db[player].flags & PUPPET && db[player].owner != player)
-    {
-        sprintf(buff, "%s> %s", db[player].name, msg);
-        raw_send_message(db[player].owner, buff);
-    }
-
-    notify_nopup(player, msg);
-    depth--;
-}
-*/
 
 void send_message(dbref player, const char* format, ...)
 {
@@ -240,62 +208,18 @@ void send_message(dbref player, const char* format, ...)
         sprintf(buffer, "%s> %s", db[player].name, buffer);
         message_ch_raw(db[player].owner, buffer);
     }
-
-    // from raw_notify
-    /*
-    extern dbref speaker, as_from, as_to;
-
-    if (!(db[player].flags & CONNECT) && player != as_from)
-    {
-        return;
-    }
-
-    if (IS(player, TYPE_PLAYER, PUPPET))
-    {
-        if (speaker != player)
-        {
-            extern char *short_name(dbref obj);
-            sprintf("%s |NORMAL|[#%d/%s]", buffer, speaker, short_name(db[speaker].owner));
-        }
-    }
-
-    if (player == as_from)
-    {
-        player = as_to;
-    }
-
-    extern int queue_write(struct descriptor_data *d, char *b, int n);
-
-    for (d = descriptor_list; d; d = d->next)
-    {
-        if (d->state == CONNECTED && d->player == player)
-        {
-            if (Typeof(player) == TYPE_PLAYER && db[player].flags & PLAYER_ANSI)
-            {
-                sprintf(buffer, "%s|NORMAL|", buffer);
-                queue_string(d, color(buffer, ADD));
-            }
-            else
-            {
-                queue_string(d, color(buffer, REMOVE));
-            }
-
-            queue_write(d, "\n", 1);
-        }
-    }
-    */
 }
 
 // Notify the users of 'group' of something... 
 void notify_group(dbref group, char *message)
 {
     char buf[BUF_SIZE];
-    char *s=buf;
+    char *s = buf;
     char *z;
 
-    strcpy(buf,atr_get(group,A_USERS));
+    strcpy(buf, atr_get(group, A_USERS));
 
-    while ((z=parse_up(&s,' ')))
+    while ((z = parse_up(&s, ' ')))
     {
         int i;
         if (*z != '#') continue;
@@ -307,26 +231,30 @@ void notify_group(dbref group, char *message)
 // special notify, if puppet && owner is in same room don't relay 
 static void snotify(dbref player, char *msg)
 {
-    if ((db[player].owner!=player) && (db[player].flags & PUPPET)
-      && (db[player].location==db[db[player].owner].location))
+    if ((db[player].owner != player) && (db[player].flags & PUPPET)
+      && (db[player].location == db[db[player].owner].location))
     {
-        notify_nopup(player,msg);
+        notify_nopup(player, msg);
     }
     else
     {
-        send_message(player,msg);
+        send_message(player, msg);
     }
 }
 
 static void notify_except(dbref first, dbref exception, char *msg)
 {
-    if(first == NOTHING) return;
+    if (first == NOTHING)
+    {
+        return;
+    }
 
     DOLIST (first, first)
     {
-        if (/*((db[first].flags & TYPE_MASK) == TYPE_PLAYER ||
-          ((db[first].flags & PUPPET) && (Typeof(first)==TYPE_THING)))
-          &&*/ first != exception)
+        if (// ((db[first].flags & TYPE_MASK) == TYPE_PLAYER ||
+            // ((db[first].flags & PUPPET) && (Typeof(first)==TYPE_THING)))
+            //&& 
+            first != exception)
         {
             snotify(first, msg);
         }
@@ -368,13 +296,13 @@ static void do_shutdown(dbref player, char *arg1)
         }
         else
         {
-            send_message(player, "This is %s, not %s.",muse_name, arg1);
+            send_message(player, "This is %s, not %s.", muse_name, arg1);
         }
 
         return;
     }
 
-    sprintf(buf, "Shutdown attempt by %s",unparse_object(player,player));
+    sprintf(buf, "Shutdown attempt by %s", unparse_object(player, player));
     log_sensitive(buf);
 
     if (power(player, POW_SHUTDOWN))
@@ -398,9 +326,14 @@ static void do_reboot(dbref player, char *arg1)
     if (strcmp(arg1, muse_name))
     {
         if (!*arg1)
+        {
             send_message(player, "You must specify the name of the muse you wish to reboot.");
+        }
         else
-            send_message(player, "This is %s, not %s.",muse_name, arg1);
+        {
+            send_message(player, "This is %s, not %s.", muse_name, arg1);
+        }
+
         return;
     }
 
@@ -683,10 +616,8 @@ void process_command(dbref player, char *command, dbref cause)
     int match, z=NOTHING;
     dbref zon;
     // general form command arg0=arg1, arg2...arg10 
-    int slave = IS(player,TYPE_PLAYER,PLAYER_SLAVE);
+    int slave = IS(player, TYPE_PLAYER, PLAYER_SLAVE);
     int is_direct = 0;
-
-    printf("debug: >> process_command()\r\n");
 
     if (player == root)
     {
@@ -702,15 +633,11 @@ void process_command(dbref player, char *command, dbref cause)
         }
     }
 
-    printf("debug: >> passed root check\r\n");
-
     if (cause == NOTHING)
     {
         is_direct = 1;
         cause = player;
     };
-
-    printf("debug: >> passed NOTHING cause check\r\n");
 
     if (is_direct && Typeof(player)!=TYPE_PLAYER && *atr_get(player,A_INCOMING))
     {
@@ -722,11 +649,7 @@ void process_command(dbref player, char *command, dbref cause)
         return;
     }
 
-    printf("debug: >> passed is_direct check\r\n");
-
     inc_pcmdc(); // increment command stats 
-
-    printf("debug: >> passed increment command stats\r\n");
 
     temp = command;
 
@@ -762,22 +685,16 @@ void process_command(dbref player, char *command, dbref cause)
     clearglurp();
     depth = 0;
 
-    printf("debug: >> passed misc string manipulation\r\n");
-
     if (command == 0)
     {
         abort();
     }
-
-    printf("debug: >> passed command check\r\n");
 
     // Access the player 
     if (player == root && cause != root)
     {
         return;
     }
-
-    printf("debug: >> passed access player check\r\n");
 
     // robustify player 
     if ((player < 0) || (player >= db_top))
@@ -789,8 +706,6 @@ void process_command(dbref player, char *command, dbref cause)
     }
 
     speaker = player;
-
-    printf("debug: >> passed speaker assignment \r\n");
 
     {
         static short counter;
@@ -837,8 +752,6 @@ void process_command(dbref player, char *command, dbref cause)
         }
     }
 
-    printf("debug: >> passed command log area \r\n");
-
     if ((db[player].flags & PUPPET) && (db[player].flags & DARK))
     {
         char buf[BUF_SIZE*2];
@@ -846,8 +759,6 @@ void process_command(dbref player, char *command, dbref cause)
         sprintf(buf, "%s>> %s", db[player].name, command);
         message_ch_raw(db[player].owner, buf);  // Wouldn't regular message_ch() work? (Belisarius)
     }
-
-    printf("debug: >> passed puppet check \r\n");
 
     // eat leading whitespace 
     while(*command && isspace(*command)) command++;
@@ -875,8 +786,6 @@ void process_command(dbref player, char *command, dbref cause)
     // terminate 
     *q = '\0';
 
-    printf("debug: >> passed whitespace management \r\n");
-
     // important home checking comes first! 
     if (strcmp(command, "home") == 0)
     {
@@ -891,8 +800,6 @@ void process_command(dbref player, char *command, dbref cause)
         return;
     }
 
-    printf("debug: >> passed home check \r\n");
-
     if (!slave && try_force(player, command)) /*||
 					     ((Typeof(player)!=TYPE_PLAYER) && (Typeof(player)!=TYPE_THING)))*/ {
                                                if(command_log) {
@@ -901,8 +808,6 @@ void process_command(dbref player, char *command, dbref cause)
                                                }
                                                return;
                                              }
-
-    printf("debug: >> passed force check \r\n");
 
     // check for single-character commands 
     if (*command == SAY_TOKEN)
@@ -932,8 +837,6 @@ void process_command(dbref player, char *command, dbref cause)
     }
     else
     {
-        printf("debug: >> entering non single or exit command area \r\n");
-
         strcpy(unp,command);
         // parse arguments 
 
@@ -965,8 +868,6 @@ void process_command(dbref player, char *command, dbref cause)
         }
 
         arg1 = (arge[0]) ? buff2 : "";
-
-        printf("debug: >> passed second management area \r\n");
 
         if (slave)
         {
@@ -1189,1016 +1090,1096 @@ void process_command(dbref player, char *command, dbref cause)
                                         }
                                     }
                                     break;
-                          case 'p':
-                          case 'P':
-                            Matched("@cpage");
-                            do_cpage(player, arg1, arg2);
-                        	    break;
-                          case 'r':
-                          case 'R':
-	    Matched("@create");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_create(player, arg1, atol(arg2));
-	    break;
-	  case 't':
-	  case 'T':
-	    Matched("@ctrace");
-	    do_ctrace(player);
-	    break;
-	  case 'l':
-	  case 'L':
-	    switch(command[3])  {
-	    case 'a':
-	    case 'A':
-	      Matched("@class");
-	      if (!is_direct) goto bad;
-	      do_class(player, arg1, arg2);
-	      break;
-	    case 'e':
-	    case 'E':
-	      Matched("@clearmail");
-	      if (!(Wizard(player))) { send_message(player, perm_denied()); return; }
-              clear_old_mail();
-	      break;
-	    case 'o':
-	    case 'O':
-	      Matched("@clone");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_clone(player, arg1, arg2);
-	      break;
-	    default:
-	      goto bad;
-	    }
-	    break;
-	  case 'o':
-	  case 'O':
-	    Matched("@config");
-	    do_config(player, arg1, arg2);
-	    break;
-	  case 's':
-	  case 'S':
-	    Matched("@cset");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_set(player, arg1, arg2, 1);
-	    break;
-	  case 'y':
-	  case 'Y':
-	    Matched("@cycle");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_cycle(player, arg1, argv);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'd':
-	case 'D':
-	  // describe, dig, or dump 
-	  switch(command[2]) {
-	  case 'b':
-	  case 'B':
-	    switch (command[3]) {
-	    case 'c':
-	    case 'C':
-	      Matched("@dbck");
-	      do_dbck(player);
-	      break;
-	    case 't':
-	    case 'T':
-	      Matched("@dbtop");
-	      do_dbtop(player, arg1);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  case 'e':
-	  case 'E':
-	    switch (command[3]) {
-	    case 'c':
-	    case 'C':
-	      Matched("@decompile");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_decompile (player, arg1, arg2);
-	      break;
-	    case 's':
-	    case 'S':
-	      switch (command[4]) {
-	      case 'c':
-	      case 'C':
-	        Matched("@describe");
-	        do_describe(player, arg1, arg2);
-	        break;
-	      case 't':
-	      case 'T':
-		Matched("@destroy");
-                if (Guest(player)) { send_message(player, guest_fail()); return; };
-		do_recycle(player, arg1);
-		break;
-	      default: goto bad;
-	      }
-	      break;
-	    case 'f':
-	    case 'F':
-	      Matched("@defattr");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_defattr(player, arg1, arg2);
-	      break;
-	    case 'l':
-	    case 'L':
-	      Matched("@delparent");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_delparent (player, arg1, arg2);
-	      break;
-	    default:
-	      goto bad;
-	    }
-	    break;
-	  case 'i':
-	  case 'I':
-	    Matched("@dig");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_dig(player, arg1, argv);
-	    break;
-	  case 'u':
-	  case 'U':
-	    Matched("@dump");
-	    do_dump(player);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'f':
-	case 'F':
-	  switch(command[2])
-          {
-	  case 'i':
-	  case 'I':
-	    Matched("@find");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_find(player, arg1);
-	    break;
-	  case 'o':
-	  case 'O':
-	    if (string_prefix ("@foreach", command) && strlen(command)>4)
-            {
-	      Matched("@foreach");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_foreach(player, arg1, arg2, cause);
-	      break;
-	    }
-            else
-            {
-	      Matched("@force");
-	      do_force(player, arg1, arg2);
-	      break;
-	    }
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'e':
-	case 'E':
-	  switch(command[2])
-          {
-	  case 'c':
-	  case 'C':
-	    Matched("@echo");
-	    if (Guest(player))
-	      do_echo(player, arg1, pure2, 0);
-	    else
-	      do_echo(player, arg1, arg2, 0);
-	    break;
-	  case 'd':
-	  case 'D':
-	    Matched("@edit");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_edit(player, arg1, argv);
-	    break;
-	  case 'm':
-	  case 'M':
-	    switch(command[3])
-            {
-	    case 'i':
-	    case 'I':
-	      Matched("@emit");
-              if (Guest(player))
-                do_emit(player, arg1, pure2, 0);
-              else
-                do_emit(player, arg1, arg2, 0);
-	      break;
-	    case 'p':
-	    case 'P':
-	      Matched("@empower");
-	      if (!is_direct) goto bad;
-	      do_empower(player, arg1, arg2);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  case 'x':
-	  case 'X':
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'g':
-	case 'G':
-	  switch(command[2])
-          {
-	  case 'i':
-	  case 'I':
-	    Matched("@giveto");
-	    do_giveto(player, arg1, arg2);
-	    break;
-	  case 'e':
-	  case 'E':
-	    Matched("@gethost");
-	    do_gethost(player, arg1);
-	    break;
-	  default: goto bad;
-	  }
-	  break;
-	case 'h':
-	case 'H':		// removes all queued commands by your objects 
-	  // halt or hide 
-	  switch(command[2])
-          {
-	  case 'a':
-	  case 'A':
-	    Matched("@halt");
-	    do_halt(player, arg2);
-	    break;
-	  case 'i':		// hides player name from WHO 
-	  case 'I':
-	    Matched("@hide");
-	    do_hide(player, arg1);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'i':
-	case 'I':
-	  Matched("@info");
-	  do_info(player, arg1);
-	  break;
-	case 'l':
-	case 'L':
-	  // lock or link 
-	  switch(command[2])
-          {
-	  case 'i':
-	  case 'I':
-	    Matched("@link");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_link(player, arg1, arg2);
-	    break;
-	  case 'o':
-	  case 'O':
-	    switch (command[5]) {
-	    case 'o':
-	    case 'O':
-	      Matched("@lockout");
-	      do_lockout(player, arg1);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'm':
-	case 'M':
-	  Matched("@misc"); // miscelanious functions 
-	  do_misc(player, arg1, arg2);
-	  break;
-	case 'n':
-	case 'N':
-	  switch(command[2]) {
-	  case 'a':
-	  case 'A':
-	    Matched("@name");
-	    do_name(player, arg1, arg2, is_direct);
-	    break;
-	  case 'c':
-	  case 'C':
-	    Matched("@ncset");
-	    if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_set(player, arg1, pure2, 1);
-	    break;
-	  case 'e':
-	  case 'E':
-	    switch(command[3]) {
-	    case 'c':
-	    case 'C':
-	      Matched("@necho");
-	      do_echo(player, pure, NULL, 1);
-	      break;
-	    case 'w':
-	      if(strcmp(command, "@newpassword")) goto bad;
-	      if (!is_direct) goto bad;
-	      do_newpassword(player, arg1, arg2);
-	      break;
-	    case 'm':
-	    case 'M':
-	      Matched("@nemit");
-	      do_emit(player, pure, NULL, 1);
-	      break;
-	    default:
-	      goto bad;
-	    }
-	    break;
-	  case 'o':
-	  case 'O':
-	    switch (command[3]) {
-            case 'l':
-            case 'L':
-              Matched("@nologins");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-              do_nologins(player, arg1);
-              break;
-	    case 'o':
-	    case 'O':
-	      Matched("@noop");
-	      break;
-	    case 'p':
-	    case 'P':
-	      Matched("@nopow_class");
-	      if (!is_direct) goto bad;
-	      do_nopow_class(player, arg1, arg2);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  case 'p':
-	  case 'P':
-	    switch(command[3]) {
-	    case 'e':
-	    case 'E':
-	      Matched("@npemit");
-	      do_general_emit(player, arg1, pure, 4);
-	      break;
-	    case 'a':
-	    case 'A':
-	      Matched("@npage");
-	      do_page(player, arg1, pure2);
-	      break;
-	    default:
-	      goto bad;
-	    }
-	    break;
-	  case 's':
-	  case 'S':
-	    Matched("@nset");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_set(player, arg1, pure2, is_direct);
-	    break;
-          case 'u':
-          case 'U':
-            Matched("@nuke");
-            if (!is_direct) goto bad;
-            do_nuke(player, arg1);
-            break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'o':
-	case 'O':
-	  switch(command[2]) {
-	  case 'e':
-	  case 'E':
-	    Matched("@oemit");
-            if (Guest(player))
-              do_general_emit(player, arg1, pure2, 2);
-            else
-              do_general_emit(player, arg1, arg2, 2);
-	    break;
-	  case 'p':
-	  case 'P':
-	    Matched("@open");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_open(player, arg1, arg2,NOTHING);
-	    break;
-	  case 'u':
-	  case 'U':
-	    Matched("@outgoing");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_outgoing(player, arg1, arg2);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'p':
-	case 'P':
-	  switch(command[2]) {
-	  case 'a':
-	  case 'A':
-	    Matched("@password");
-	    do_password(player, arg1, arg2);
-	    break;
-	  case 'b':
-	  case 'B':
-	    Matched("@pbreak");
-	    do_pstats(player, arg1);
-	    break;
-	  case 'C':
-	  case 'c':
-	    Matched("@pcreate");
-	    do_pcreate(player, arg1, arg2);
-	    break;
-	  case 'e':
-	  case 'E':
-	    Matched("@pemit");
-            if (Guest(player))
-              do_general_emit(player, arg1, pure2, 0);
-            else
-              do_general_emit(player, arg1, arg2, 0);
-	    break;
-	  case 'O':
-	  case 'o':
-	    switch(command[3]) {
-	    case 'o':
-	    case 'O':
-	      Matched("@Poor");
-	      if (!is_direct) goto bad;
-	      do_poor(player, arg1);
-	      break;
-	    case 'w':
-	    case 'W':
-	      Matched("@powers");
-	      do_powers(player, arg1);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  case 'S':
-	  case 's':
-	    Matched("@ps");
-	    do_queue(player);
-	    break;
-	  case 'u':
-	  case 'U':		/* force room destruction */
-	    Matched("@purge");
-	    do_purge(player);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'q':
-	case 'Q':
-	  Matched("@quota");
-	  do_quota(player, arg1, arg2);
-	  break;
-	case 'r':
-	case 'R':
-	  switch(command[2]) {
-	  case 'e':
-	  case 'E':
-	    switch(command[3]) {
-	    case 'b':
-	    case 'B':
-	      Matched("@reboot");
-	      do_reboot(player, arg1);
-	      break;
-	    case 'm':
-	    case 'M':
-	      Matched("@remit");
-              if (Guest(player))
-                do_general_emit(player, arg1, pure2, 1);
-              else
-                do_general_emit(player, arg1, arg2, 1);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  case 'O':
-	  case 'o':
-	    Matched("@robot");
-	    do_robot(player, arg1, arg2);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 's':
-	case 'S':
-	  switch(command[2]) {
-	  case 'e':
-	  case 'E':
-	    switch(command[3]) {
-	    case 'a':
-	    case 'A':
-	      Matched("@search");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_search(player, arg1, arg2);
-	      break;
-	    case 't':
-	    case 'T':
-	      Matched("@set");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_set(player, arg1, arg2, is_direct);
-	      break;
-	    default:
-	      goto bad;
-	    }
-	    break;
-	  case 'h':
-	  case 'H':
-	    switch(command[3]) {
-	    case 'u':
-	      if(strcmp(command, "@shutdown")) goto bad;
-	      do_shutdown(player, arg1);
-	      break;
-	    case 'o':
-	    case 'O':
-	      Matched("@showhash");
-	      do_showhash(player, arg1);
-	      break;
-	    default:
-	      goto bad;
-	    }
-	    break;
-	  case 't':
-	  case 'T':
-	    Matched("@stats");
-	    do_stats(player, arg1);
-	    break;
-	  case 'u':
-	  case 'U':
-	    Matched("@su");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_su(player, arg1, arg2);
-	    break;
-	  case 'w':
-	  case 'W':
-	    switch(command[3]) {
-	    case 'a':
-	    case 'A':
-	      Matched("@swap");
-	      do_swap(player, arg1, arg2);
-	      break;
-	    case 'e':
-	    case 'E':
-	      Matched("@sweep");
-	      do_sweep(player, pure);
-	      break;
-	    case 'i':
-	    case 'I':
-	      Matched("@switch");
-	      do_switch(player, arg1, argv, cause);
-	      break;
-	    default:
-	      goto bad;
-	    }
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 't':
-	case 'T':
-	  switch(command[2]) {
-	  case 'e':
-	  case 'E':
-	    switch(command[3]) {
-	    case 'l':
-	    case 'L':
-	    case '\0':
-	      Matched("@teleport");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_teleport(player, arg1, arg2);
-	      break;
-	    case 'x':
-	    case 'X':
-	      Matched("@text");
-	      do_text(player, arg1, arg2, NULL);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  case 'r':
-	  case 'R':
-	    switch(command[3]) {
-	    case 'i':
-	    case 'I':
-	    case '\0':
-	      Matched("@trigger");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_trigger(player, arg1, argv);
-	      break;
-	    case '_':
-	      Matched("@tr_as");
-              if (Guest(player)) { send_message(player, guest_fail()); return; };
-	      do_trigger_as(player, arg1, argv);
-	      break;
-	    default: goto bad;
-	    };
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case 'u':
-	case 'U':
-	  switch(command[2]) {
-	  case 'l':
-	  case 'L':
-	    Matched("@ulink");
-	    do_ulink(player, arg1);
-	    break;
-	  case 'n':
-	  case 'N':
-	    switch(command[3]) {
-	    case 'd':
-	    case 'D':
-	      switch(command[4]) {
-	      case 'e':
-	      case 'E':
-		switch(command[5]) {
-		case 's':
-		case 'S':
-		  Matched("@undestroy");
-                  if (Guest(player)) { send_message(player, guest_fail()); return; };
-		  do_undestroy(player, arg1);
-		  break;
-		case 'f':
-		case 'F':
-		  Matched ("@undefattr");
-                  if (Guest(player)) { send_message(player, guest_fail()); return; };
-		  do_undefattr (player, arg1);
-		  break;
-		default: goto bad;
-		}
-		break;
-	      default: goto bad;
-	      }
-	      break;
-	    case 'l':
-	    case 'L':
-	      switch(command[4]) {
-	      case 'i':
-	      case 'I':
-		Matched("@unlink");
-                if (Guest(player)) { send_message(player, guest_fail()); return; };
-		do_unlink(player, arg1);
-		break;
-	      case 'o':
-	      case 'O':
-		Matched("@unlock");
-                if (Guest(player)) { send_message(player, guest_fail()); return; };
-		do_unlock(player, arg1);
-		break;
-	      default:
-		goto bad;
-	      }
-	      break;
-	    case 'h':
-	    case 'H':
-	      Matched("@unhide");
-	      do_unhide(player, arg1);
-	      break;
-	    case 'z':
-	    case 'Z':
-	      Matched("@unzlink");
-	      do_unzlink(player, arg1);
-	      break;
-	    default: goto bad;
-	    }
-	    break;
-	  case 'p':
-	  case 'P':
-	    Matched("@upfront");
-	    do_upfront(player, arg1);
-	    break;
-          case 's':
-          case 'S':
-            if (string_compare(command, "@usercap")) goto bad;
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-            do_usercap(player, arg1);
-            break;
-	  default: goto bad;
-	  }
-	  break;
-	case 'w':
-	case 'W':
-	  if (strcmp(command, "@whereis")==0)
-          {
-	      do_whereis(player, arg1);
-	      break;
-	  }
-	  if ( strcmp(command, "@wipeout") == 0 )
-          {
-	    if (!is_direct) goto bad;
-	    do_wipeout(player, arg1, arg2);
-	    break;
-	  }
-          if ( strcmp(command, "@wemit") == 0 )
-          {
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-            do_wemit(player, arg1, arg2);
-            break;
-          }
-	  Matched("@wait");
-          if (Guest(player)) { send_message(player, guest_fail()); return; };
-	  wait_que(player,atoi(arg1), arg2,cause);
-	  break;
-	case 'z':
-	case 'Z':
-	  switch(command[2])
-          {
-	  case 'e':
-	  case 'E':
-	    Matched("@zemit");
-            if (Guest(player))
-              do_general_emit(player, arg1, pure2, 3);
-            else
-              do_general_emit(player, arg1, arg2, 3);
-	    break;
-	  case 'l':
-	  case 'L':
-	    Matched("@zlink");
-            if (Guest(player)) { send_message(player, guest_fail()); return; };
-	    do_zlink(player, arg1, arg2);
-	    break;
-	  default: goto bad;
-	  }
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 'd':
-      case 'D':
-	Matched("drop");
-	do_drop(player, arg1);
-	break;
-      case 'e':
-      case 'E':
-	switch(command[1]) {
-	case 'X':
-	case 'x':
-	  Matched("examine");
-	  do_examine(player, arg1, arg2);
-	  break;
-	case 'N':
-	case 'n':
-	  Matched("enter");
-	  do_enter(player, arg1);
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 'f':
-      case 'F':
-	Matched("follow");
-	do_follow(player, arg1);
-	break;
-      case 'g':
-      case 'G':
-	// get, give, go, or gripe 
-	switch(command[1]) {
-	case 'e':
-	case 'E':
-	  Matched("get");
-	  do_get(player, arg1);
-	  break;
-	case 'i':
-	case 'I':
-	  Matched("give");
-	  do_give(player, arg1, arg2);
-	  break;
-	case 'o':
-	case 'O':
-	  Matched("goto");
-	  do_move(player, arg1);
-	  break;
-	case 'r':
-	case 'R':
-	  Matched("gripe");
-	  do_gripe(player, arg1, arg2);
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 'h':
-      case 'H':
-	Matched("help");
-	do_text(player, "help", arg1, NULL);
-	//	do_help(player, arg1, "help", HELPINDX, HELPTEXT, NULL); 
-	break;
-      case 'i':
-      case 'I':
-	Matched("inventory");
-	do_inventory(player);
-	break;
-      case 'j':
-      case 'J':
-	Matched("join");
-	do_join(player, arg1);
-	break;
-      case 'l':
-      case 'L':
-	switch(command[1]) {
-	case 'o':
-	case 'O':
-	case '\0':		// patch allow 'l' command to do a look
-	  Matched("look");
-	  do_look_at(player, arg1);
-	  break;
-	case 'E':
-	case 'e':
-	  Matched("leave");
-	  do_leave(player);
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 'm':
-      case 'M':
-	switch(command[1])
-        {
-	case 'o':
-	case 'O':
-	  switch(command[2])
-          {
-	  case 'n':
-	  case 'N':
-	    Matched("money");
-	    do_money(player, arg1, arg2);
-	    break;
-	  case 'v':
-	  case 'V':
-	    Matched("move");
-	    do_move(player, arg1);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 'n':
-      case 'N':
-	// news 
-	if (string_compare(command, "news")) goto bad;
-	//        do_news(player, arg1); 
-	// do_help(player, arg1, "news", NEWSINDX, NEWSTEXT, A_ANEWS); 
-	do_text(player, "news", arg1, A_ANEWS);
-	break;
-      case 'p':
-      case 'P':
-	switch(command[1])
-        {
-	case 'a':
-	case 'A':
-	case '\0':
-	  Matched("page");
-	  do_page(player, arg1, arg2);
-	  break;
-	case 'o':
-	case 'O':
-	  Matched("pose");
-	  do_pose(player, arg1, arg2, 0);
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 'r':
-      case 'R':
-	switch(command[1]) {
-	case 'e':
-	case 'E':
-	  Matched("read");	// undocumented alias for look at 
-	  do_look_at(player, arg1);
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 's':
-      case 'S':
-        printf("debug: entering sXXXX.\r\n");
-	// say, "score" 
-	switch(command[1])
-        {
-	case 'a':
-	case 'A':
-	  Matched("say");
-          if (Guest(player))
-          {
-              do_say(player, arg1, pure2);
-          }
-          else
-          {
-              do_say(player, arg1, arg2);
-          }
-	  break;
-	case 'c':
-	case 'C':
-          printf("debug: executing 'score'.\r\n");
-	  Matched("score");
-          printf("debug: score matched.\r\n");
-	  do_score(player);
-	  break;
-	case 'l':
-	case 'L':
-	  Matched("slay");
-	  do_slay(player, arg1);
-	  break;
-	case 'u':
-	case 'U':
-	  Matched("summon");
-	  do_summon(player, arg1);
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 't':
-      case 'T':
-	switch(command[1]) {
-	case 'a':
-	case 'A':
-	  Matched("take");
-	  do_get(player, arg1);
-	  break;
-	case 'h':
-	case 'H':
-	  Matched("throw");
-	  do_drop(player, arg1);
-	  break;
-	case 'o':
-	case 'O':
-	  Matched("to");
-	  do_to(player, arg1, arg2);
-	  break;
-	default:
-	  goto bad;
-	}
-	break;
-      case 'u':
-      case 'U':
-	Matched("use");
-	do_use(player, arg1);
-	break;
-      case 'w':
-      case 'W':
-	switch(command[1])
-        {
-	case 'h':
-	case 'H':
-	  switch(command[2])
-          {
-	  case 'i':
-	  case 'I':
-	  case '\0':
-	    Matched("whisper");
-            if (Guest(player))
-            {
-                do_whisper(player, arg1, pure2);
-            }
-            else
-            {
-                do_whisper(player, arg1, arg2);
-            }
-	    break;
-	  case 'o':
-	  case 'O':
-	    Matched("who");
-	    dump_users(player, arg1, arg2, NULL);
-	    break;
-	  default:
-	    goto bad;
-	  }
-	  break;
-	case '\0':
-	  do_whisper(player, arg1, arg2);
-	  break;
-	default:
-	  goto bad;
-	}
-                break;
-            default:
-                goto bad;
+                                case 'p':
+                                case 'P':
+                                    Matched("@cpage");
+                                    do_cpage(player, arg1, arg2);
+                                    break;
+                                case 'r':
+                                case 'R':
+                                    Matched("@create");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_create(player, arg1, atol(arg2));
+                                    break;
+                                case 't':
+                                case 'T':
+                                    Matched("@ctrace");
+                                    do_ctrace(player);
+                                    break;
+                                case 'l':
+                                case 'L':
+                                    switch(command[3])
+                                    {
+                                        case 'a':
+                                        case 'A':
+                                            Matched("@class");
+                                            if (!is_direct)
+                                            {
+                                                goto bad;
+                                            }
+                                            do_class(player, arg1, arg2);
+                                            break;
+                                        case 'e':
+                                        case 'E':
+                                            Matched("@clearmail");
+                                            if (!(Wizard(player))) { send_message(player, perm_denied()); return; }
+                                            clear_old_mail();
+                                            break;
+                                        case 'o':
+                                        case 'O':
+                                            Matched("@clone");
+                                            if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                            do_clone(player, arg1, arg2);
+                                            break;
+                                        default:
+                                            goto bad;
+                                    }
+                                    break;
+                                case 'o':
+                                case 'O':
+                                    Matched("@config");
+                                    do_config(player, arg1, arg2);
+                                    break;
+                                case 's':
+                                case 'S':
+                                    Matched("@cset");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_set(player, arg1, arg2, 1);
+                                    break;
+                                case 'y':
+                                case 'Y':
+                                    Matched("@cycle");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_cycle(player, arg1, argv);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'd':
+                        case 'D':
+                            // describe, dig, or dump 
+                            switch(command[2])
+                            {
+                                case 'b':
+                                case 'B':
+                                    switch (command[3])
+                                    {
+                                        case 'c':
+                                        case 'C':
+                                            Matched("@dbck");
+                                            do_dbck(player);
+                                            break;
+                                        case 't':
+                                        case 'T':
+                                            Matched("@dbtop");
+                                            do_dbtop(player, arg1);
+                                            break;
+                                        default:
+                                            goto bad;
+                                    }
+                                    break;
+                                case 'e':
+                                case 'E':
+                                    switch (command[3])
+                                    {
+                                        case 'c':
+                                        case 'C':
+                                            Matched("@decompile");
+                                            if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                            do_decompile (player, arg1, arg2);
+                                            break;
+                                        case 's':
+                                        case 'S':
+                                            switch (command[4])
+                                            {
+                                                case 'c':
+                                                case 'C':
+                                                    Matched("@describe");
+                                                    do_describe(player, arg1, arg2);
+                                                    break;
+                                                case 't':
+                                                case 'T':
+                                                    Matched("@destroy");
+                                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                    do_recycle(player, arg1);
+                                                    break;
+                                                default:
+                                                    goto bad;
+                                            }
+                                            break;
+                                        case 'f':
+                                        case 'F':
+                                            Matched("@defattr");
+                                            if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                            do_defattr(player, arg1, arg2);
+                                            break;
+                                        case 'l':
+                                        case 'L':
+                                            Matched("@delparent");
+                                              if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                            do_delparent (player, arg1, arg2);
+                                            break;
+                                        default:
+                                            goto bad;
+                                    }
+                                    break;
+                                case 'i':
+                                case 'I':
+                                    Matched("@dig");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_dig(player, arg1, argv);
+                                    break;
+                                case 'u':
+                                case 'U':
+                                    Matched("@dump");
+                                    do_dump(player);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'f':
+                        case 'F':
+                            switch(command[2])
+                            {
+                                case 'i':
+                                case 'I':
+                                    Matched("@find");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_find(player, arg1);
+                                    break;
+                                case 'o':
+                                case 'O':
+                                    if (string_prefix ("@foreach", command) && strlen(command)>4)
+                                    {
+                                        Matched("@foreach");
+                                        if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                        do_foreach(player, arg1, arg2, cause);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Matched("@force");
+                                        do_force(player, arg1, arg2);
+                                        break;
+                                    }
+                                    default:
+                                        goto bad;
+                            }
+                            break;
+                        case 'e':
+                        case 'E':
+                            switch(command[2])
+                            {
+                                case 'c':
+                                case 'C':
+                                    Matched("@echo");
+                                    if (Guest(player))
+                                    {
+                                        do_echo(player, arg1, pure2, 0);
+                                    }
+                                    else
+                                    {
+                                        do_echo(player, arg1, arg2, 0);
+                                    }
+                                    break;
+                                case 'd':
+                                case 'D':
+                                    Matched("@edit");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_edit(player, arg1, argv);
+                                    break;
+                                case 'm':
+                                case 'M':
+                                    switch(command[3])
+                                    {
+                                        case 'i':
+                                        case 'I':
+                                            Matched("@emit");
+                                            if (Guest(player))
+                                            {
+                                                do_emit(player, arg1, pure2, 0);
+                                            }
+                                            else
+                                            {
+                                                do_emit(player, arg1, arg2, 0);
+                                            }
+                                            break;
+                                        case 'p':
+                                        case 'P':
+                                            Matched("@empower");
+                                            if (!is_direct)
+                                            {
+                                                goto bad;
+                                            }
+                                            do_empower(player, arg1, arg2);
+                                            break;
+                                        default:
+                                            goto bad;
+                                    }
+                                    break;
+                                case 'x':
+                                case 'X':
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'g':
+                        case 'G':
+                            switch(command[2])
+                            {
+                                case 'i':
+                                case 'I':
+                                    Matched("@giveto");
+                                    do_giveto(player, arg1, arg2);
+                                    break;
+                                case 'e':
+                                case 'E':
+                                    Matched("@gethost");
+                                    do_gethost(player, arg1);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'h':
+                        case 'H':		// removes all queued commands by your objects 
+                            // halt or hide 
+                            switch(command[2])
+                            {
+                                case 'a':
+                                case 'A':
+                                    Matched("@halt");
+                                    do_halt(player, arg2);
+                                    break;
+                                case 'i':		// hides player name from WHO 
+                                case 'I':
+                                    Matched("@hide");
+                                    do_hide(player, arg1);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'i':
+                        case 'I':
+                            Matched("@info");
+                            do_info(player, arg1);
+                            break;
+                        case 'l':
+                        case 'L':
+                            // lock or link 
+                            switch(command[2])
+                            {
+                                case 'i':
+                                case 'I':
+                                    Matched("@link");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_link(player, arg1, arg2);
+                                    break;
+                                case 'o':
+                                case 'O':
+                                    switch (command[5])
+                                    {
+                                        case 'o':
+                                        case 'O':
+                                            Matched("@lockout");
+                                            do_lockout(player, arg1);
+                                            break;
+                                        default:
+                                            goto bad;
+                                    }
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'm':
+                        case 'M':
+                            Matched("@misc"); // miscelanious functions 
+                            do_misc(player, arg1, arg2);
+                            break;
+                        case 'n':
+                        case 'N':
+                            switch(command[2])
+                            {
+                                case 'a':
+                                case 'A':
+                                    Matched("@name");
+                                    do_name(player, arg1, arg2, is_direct);
+                                    break;
+                                case 'c':
+                                case 'C':
+                                    Matched("@ncset");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_set(player, arg1, pure2, 1);
+                                    break;
+                                case 'e':
+                                case 'E':
+                                    switch(command[3]) {
+                                        case 'c':
+                                        case 'C':
+                                            Matched("@necho");
+                                            do_echo(player, pure, NULL, 1);
+                                            break;
+                                        case 'w':
+                                            if(strcmp(command, "@newpassword")) goto bad;
+                                            if (!is_direct) goto bad;
+                                            do_newpassword(player, arg1, arg2);
+                                            break;
+                                        case 'm':
+                                        case 'M':
+                                            Matched("@nemit");
+                                            do_emit(player, pure, NULL, 1);
+                                            break;
+                                        default:
+                                        goto bad;
+                                    }
+                                    break;
+                                case 'o':
+                                case 'O':
+                                    switch (command[3]) {
+                                        case 'l':
+                                        case 'L':
+                                            Matched("@nologins");
+                                            if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                            do_nologins(player, arg1);
+                                            break;
+                                        case 'o':
+                                        case 'O':
+                                            Matched("@noop");
+                                            break;
+                                        case 'p':
+                                        case 'P':
+                                            Matched("@nopow_class");
+                                            if (!is_direct) goto bad;
+                                            do_nopow_class(player, arg1, arg2);
+                                            break;
+                                            default: goto bad;
+                                    }
+                                    break;
+                                case 'p':
+                                case 'P':
+                                    switch(command[3])
+                                    {
+                                        case 'e':
+                                        case 'E':
+                                            Matched("@npemit");
+                                            do_general_emit(player, arg1, pure, 4);
+                                            break;
+                                        case 'a':
+                                        case 'A':
+                                            Matched("@npage");
+                                            do_page(player, arg1, pure2);
+                                            break;
+                                        default:
+                                            goto bad;
+                                    }
+                                    break;
+                                case 's':
+                                case 'S':
+                                    Matched("@nset");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_set(player, arg1, pure2, is_direct);
+                                    break;
+                                case 'u':
+                                case 'U':
+                                    Matched("@nuke");
+                                    if (!is_direct)
+                                    {
+                                        goto bad;
+                                    }
+                                    do_nuke(player, arg1);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'o':
+                        case 'O':
+                            switch(command[2])
+                            {
+                                case 'e':
+                                case 'E':
+                                    Matched("@oemit");
 
-            bad:
-                printf("debug: >> went to bad section");
+                                    if (Guest(player))
+                                    {
+                                        do_general_emit(player, arg1, pure2, 2);
+                                    }
+                                    else
+                                    {
+                                        do_general_emit(player, arg1, arg2, 2);
+                                    }
+                                    break;
+                                case 'p':
+                                case 'P':
+                                    Matched("@open");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_open(player, arg1, arg2,NOTHING);
+                                    break;
+                                case 'u':
+                                case 'U':
+                                    Matched("@outgoing");
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_outgoing(player, arg1, arg2);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'p':
+                        case 'P':
+                            switch(command[2])
+                            {
+                                case 'a':
+                                case 'A':
+                                    Matched("@password");
+                                    do_password(player, arg1, arg2);
+                                    break;
+                                case 'b':
+                                case 'B':
+                                    Matched("@pbreak");
+                                    do_pstats(player, arg1);
+                                    break;
+                                case 'C':
+                                case 'c':
+                                    Matched("@pcreate");
+                                    do_pcreate(player, arg1, arg2);
+                                    break;
+                                case 'e':
+                                case 'E':
+                                    Matched("@pemit");
+                                    if (Guest(player))
+                                    {
+                                        do_general_emit(player, arg1, pure2, 0);
+                                    }
+                                    else
+                                    {
+                                        do_general_emit(player, arg1, arg2, 0);
+                                    }
+                                    break;
+                                case 'O':
+                                case 'o':
+                                    switch(command[3])
+                                    {
+                                        case 'o':
+                                        case 'O':
+                                            Matched("@Poor");
+                                            if (!is_direct)
+                                            {
+                                                goto bad;
+                                            }
+                                            do_poor(player, arg1);
+                                            break;
+                                        case 'w':
+                                        case 'W':
+                                            Matched("@powers");
+                                            do_powers(player, arg1);
+                                            break;
+                                        default:
+                                            goto bad;
+                                    }
+                                    break;
+                                case 'S':
+                                case 's':
+                                    Matched("@ps");
+                                    do_queue(player);
+                                    break;
+                                case 'u':
+                                case 'U':		/* force room destruction */
+                                    Matched("@purge");
+                                    do_purge(player);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case 'q':
+                        case 'Q':
+                                Matched("@quota");
+                                do_quota(player, arg1, arg2);
+                                break;
+                        case 'r':
+                        case 'R':
+                                switch(command[2])
+                                {
+                                    case 'e':
+                                    case 'E':
+                                        switch(command[3])
+                                        {
+                                            case 'b':
+                                            case 'B':
+                                                Matched("@reboot");
+                                                do_reboot(player, arg1);
+                                                break;
+                                            case 'm':
+                                            case 'M':
+                                                Matched("@remit");
+                                                if (Guest(player))
+                                                {
+                                                    do_general_emit(player, arg1, pure2, 1);
+                                                }
+                                                else
+                                                {
+                                                    do_general_emit(player, arg1, arg2, 1);
+                                                }
+                                                break;
+                                            default:
+                                                goto bad;
+                                        }
+                                        break;
+                                    case 'O':
+                                    case 'o':
+                                        Matched("@robot");
+                                        do_robot(player, arg1, arg2);
+                                        break;
+                                    default:
+                                        goto bad;
+                                }
+                                break;
+                            case 's':
+                            case 'S':
+                                switch(command[2])
+                                {
+                                    case 'e':
+                                    case 'E':
+                                        switch(command[3])
+                                        {
+                                            case 'a':
+                                            case 'A':
+                                                Matched("@search");
+                                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                do_search(player, arg1, arg2);
+                                                break;
+                                            case 't':
+                                            case 'T':
+                                                Matched("@set");
+                                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                do_set(player, arg1, arg2, is_direct);
+                                                break;
+                                            default:
+                                                goto bad;
+                                        }
+                                        break;
+                                    case 'h':
+                                    case 'H':
+                                        switch(command[3])
+                                        {
+                                            case 'u':
+                                                if(strcmp(command, "@shutdown")) goto bad;
+                                                do_shutdown(player, arg1);
+                                                break;
+                                            case 'o':
+                                            case 'O':
+                                                Matched("@showhash");
+                                                do_showhash(player, arg1);
+                                                break;
+                                            default:
+                                                goto bad;
+                                        }
+                                        break;
+                                    case 't':
+                                    case 'T':
+                                        Matched("@stats");
+                                        do_stats(player, arg1);
+                                        break;
+                                    case 'u':
+                                    case 'U':
+                                        Matched("@su");
+                                        if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                        do_su(player, arg1, arg2);
+                                        break;
+                                    case 'w':
+                                    case 'W':
+                                        switch(command[3])
+                                        {
+                                            case 'a':
+                                            case 'A':
+                                                Matched("@swap");
+                                                do_swap(player, arg1, arg2);
+                                                break;
+                                            case 'e':
+                                            case 'E':
+                                                Matched("@sweep");
+                                                do_sweep(player, pure);
+                                                break;
+                                            case 'i':
+                                            case 'I':
+                                                Matched("@switch");
+                                                do_switch(player, arg1, argv, cause);
+                                                break;
+                                            default:
+                                                goto bad;
+                                        }
+                                        break;
+                                    default:
+                                        goto bad;
+                                }
+                                break;
+                            case 't':
+                            case 'T':
+                                switch(command[2])
+                                {
+                                    case 'e':
+                                    case 'E':
+                                        switch(command[3])
+                                        {
+                                            case 'l':
+                                            case 'L':
+                                            case '\0':
+                                                Matched("@teleport");
+                                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                do_teleport(player, arg1, arg2);
+                                                break;
+                                            case 'x':
+                                            case 'X':
+                                                Matched("@text");
+                                                do_text(player, arg1, arg2, NULL);
+                                                break;
+                                            default: goto bad;
+                                        }
+                                        break;
+                                    case 'r':
+                                    case 'R':
+                                        switch(command[3])
+                                        {
+                                            case 'i':
+                                            case 'I':
+                                            case '\0':
+                                                Matched("@trigger");
+                                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                do_trigger(player, arg1, argv);
+                                                break;
+                                            case '_':
+                                                Matched("@tr_as");
+                                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                do_trigger_as(player, arg1, argv);
+                                                break;
+                                            default: goto bad;
+                                        };
+                                        break;
+                                    default:
+                                        goto bad;
+                                }
+                                break;
+                            case 'u':
+                            case 'U':
+                                switch(command[2])
+                                {
+                                    case 'l':
+                                    case 'L':
+                                        Matched("@ulink");
+                                        do_ulink(player, arg1);
+                                        break;
+                                    case 'n':
+                                    case 'N':
+                                        switch(command[3])
+                                        {
+                                            case 'd':
+                                            case 'D':
+                                                switch(command[4])
+                                                {
+                                                    case 'e':
+                                                    case 'E':
+                                                        switch(command[5])
+                                                        {
+                                                            case 's':
+                                                            case 'S':
+                                                                Matched("@undestroy");
+                                                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                                do_undestroy(player, arg1);
+                                                                break;
+                                                            case 'f':
+                                                            case 'F':
+                                                                Matched ("@undefattr");
+                                                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                                do_undefattr (player, arg1);
+                                                                break;
+                                                            default:
+                                                                goto bad;
+                                                        }
+                                                        break;
+                                                    default:
+                                                        goto bad;
+                                                }
+                                                break;
+                                            case 'l':
+                                            case 'L':
+                                                switch(command[4])
+                                                {
+                                                    case 'i':
+                                                    case 'I':
+                                                        Matched("@unlink");
+                                                        if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                        do_unlink(player, arg1);
+                                                        break;
+                                                    case 'o':
+                                                    case 'O':
+                                                        Matched("@unlock");
+                                                        if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                                        do_unlock(player, arg1);
+                                                        break;
+                                                    default:
+                                                        goto bad;
+                                                }
+                                                break;
+                                            case 'h':
+                                            case 'H':
+                                                Matched("@unhide");
+                                                do_unhide(player, arg1);
+                                                break;
+                                            case 'z':
+                                            case 'Z':
+                                                Matched("@unzlink");
+                                                do_unzlink(player, arg1);
+                                                break;
+                                                default: goto bad;
+                                        }
+                                        break;
+                                    case 'p':
+                                    case 'P':
+                                        Matched("@upfront");
+                                        do_upfront(player, arg1);
+                                        break;
+                                    case 's':
+                                    case 'S':
+                                        if (string_compare(command, "@usercap"))
+                                        {
+                                            goto bad;
+                                        }
+                                        if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                        do_usercap(player, arg1);
+                                        break;
+                                    default:
+                                        goto bad;
+                                }
+                                break;
+                            case 'w':
+                            case 'W':
+                                if (strcmp(command, "@whereis") == 0)
+                                {
+                                    do_whereis(player, arg1);
+                                    break;
+                                }
+                                if ( strcmp(command, "@wipeout") == 0 )
+                                {
+                                    if (!is_direct)
+                                    {
+                                        goto bad;
+                                    }
+                                    do_wipeout(player, arg1, arg2);
+                                    break;
+                                }
+                                if ( strcmp(command, "@wemit") == 0 )
+                                {
+                                    if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                    do_wemit(player, arg1, arg2);
+                                    break;
+                                }
+                                Matched("@wait");
+                                if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                wait_que(player,atoi(arg1), arg2,cause);
+                                break;
+                            case 'z':
+                            case 'Z':
+                                switch(command[2])
+                                {
+                                    case 'e':
+                                    case 'E':
+                                        Matched("@zemit");
+                                        if (Guest(player))
+                                        {
+                                            do_general_emit(player, arg1, pure2, 3);
+                                        }
+                                        else
+                                        {
+                                            do_general_emit(player, arg1, arg2, 3);
+                                        }
+                                        break;
+                                    case 'l':
+                                    case 'L':
+                                        Matched("@zlink");
+                                        if (Guest(player)) { send_message(player, guest_fail()); return; };
+                                        do_zlink(player, arg1, arg2);
+                                        break;
+                                    default:
+                                        goto bad;
+	                        }
+                                break;
+                            default:
+                                goto bad;
+                        }
+                        break;
+                    case 'd':
+                    case 'D':
+                        Matched("drop");
+                        do_drop(player, arg1);
+                        break;
+                    case 'e':
+                    case 'E':
+                        switch(command[1])
+                        {
+                            case 'X':
+                            case 'x':
+                                Matched("examine");
+                                do_examine(player, arg1, arg2);
+                                break;
+                            case 'N':
+                            case 'n':
+                                Matched("enter");
+                                do_enter(player, arg1);
+                                break;
+                            default:
+                                goto bad;
+                        }
+                        break;
+                    case 'f':
+                    case 'F':
+                        Matched("follow");
+                        do_follow(player, arg1);
+                        break;
+                    case 'g':
+                    case 'G':
+                        // get, give, go, or gripe 
+                        switch(command[1])
+                        {
+                            case 'e':
+                            case 'E':
+                                Matched("get");
+                                do_get(player, arg1);
+                                break;
+                            case 'i':
+                            case 'I':
+                                Matched("give");
+                                do_give(player, arg1, arg2);
+                                break;
+                            case 'o':
+                            case 'O':
+                                Matched("goto");
+                                do_move(player, arg1);
+                                break;
+                            case 'r':
+                            case 'R':
+                                Matched("gripe");
+                                do_gripe(player, arg1, arg2);
+                                break;
+                            default:
+                                goto bad;
+                        }
+                        break;
+                    case 'h':
+                    case 'H':
+                        Matched("help");
+                        do_text(player, "help", arg1, NULL);
+                        //do_help(player, arg1, "help", HELPINDX, HELPTEXT, NULL); 
+                        break;
+                    case 'i':
+                    case 'I':
+                        Matched("inventory");
+                        do_inventory(player);
+                        break;
+                    case 'j':
+                    case 'J':
+                        Matched("join");
+                        do_join(player, arg1);
+                        break;
+                    case 'l':
+                    case 'L':
+                        switch(command[1]) {
+                            case 'o':
+                            case 'O':
+                            case '\0':		// patch allow 'l' command to do a look
+                                Matched("look");
+                                do_look_at(player, arg1);
+                                break;
+                            case 'E':
+                            case 'e':
+                                Matched("leave");
+                                do_leave(player);
+                                break;
+                            default:
+                                goto bad;
+                        }
+                        break;
+                    case 'm':
+                    case 'M':
+                        switch(command[1])
+                        {
+                            case 'o':
+                            case 'O':
+                            switch(command[2])
+                            {
+                                case 'n':
+                                case 'N':
+                                    Matched("money");
+                                    do_money(player, arg1, arg2);
+                                    break;
+                                case 'v':
+                                case 'V':
+                                    Matched("move");
+                                    do_move(player, arg1);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        default:
+                            goto bad;
+                    }
+                    break;
+                case 'n':
+                case 'N':
+                    // news 
+                    if (string_compare(command, "news"))
+                    {
+                        goto bad;
+                    }
+                    do_text(player, "news", arg1, A_ANEWS);
+                    break;
+                case 'p':
+                case 'P':
+                    switch(command[1])
+                    {
+                        case 'a':
+                        case 'A':
+                        case '\0':
+                            Matched("page");
+                            do_page(player, arg1, arg2);
+                            break;
+                        case 'o':
+                        case 'O':
+                            Matched("pose");
+                            do_pose(player, arg1, arg2, 0);
+                            break;
+                        default:
+                            goto bad;
+                    }
+                    break;
+                case 'r':
+                case 'R':
+                    switch(command[1])
+                    {
+                        case 'e':
+                        case 'E':
+                            Matched("read");	// undocumented alias for look at 
+                            do_look_at(player, arg1);
+                            break;
+                        default:
+                            goto bad;
+                    }
+                    break;
+                case 's':
+                case 'S':
+                    // say, "score" 
+                    switch(command[1])
+                    {
+                        case 'a':
+                        case 'A':
+                            Matched("say");
+                            if (Guest(player))
+                            {
+                                do_say(player, arg1, pure2);
+                            }
+                            else
+                            {
+                                do_say(player, arg1, arg2);
+                            }
+                            break;
+                        case 'c':
+                        case 'C':
+                            Matched("score");
+                            do_score(player);
+                            break;
+                        case 'l':
+                        case 'L':
+                            Matched("slay");
+                            do_slay(player, arg1);
+                            break;
+                        case 'u':
+                        case 'U':
+                            Matched("summon");
+                            do_summon(player, arg1);
+                            break;
+                        default:
+                            goto bad;
+                    }
+                    break;
+                case 't':
+                case 'T':
+                    switch(command[1])
+                    {
+                        case 'a':
+                        case 'A':
+                            Matched("take");
+                            do_get(player, arg1);
+                            break;
+                        case 'h':
+                        case 'H':
+                            Matched("throw");
+                            do_drop(player, arg1);
+                            break;
+                        case 'o':
+                        case 'O':
+                            Matched("to");
+                            do_to(player, arg1, arg2);
+                            break;
+                        default:
+                            goto bad;
+                    }
+                    break;
+                case 'u':
+                case 'U':
+                    Matched("use");
+                    do_use(player, arg1);
+                    break;
+                case 'w':
+                case 'W':
+                    switch(command[1])
+                    {
+                        case 'h':
+                        case 'H':
+                            switch(command[2])
+                            {
+                                case 'i':
+                                case 'I':
+                                case '\0':
+                                    Matched("whisper");
+                                    if (Guest(player))
+                                    {
+                                        do_whisper(player, arg1, pure2);
+                                    }
+                                    else
+                                    {
+                                        do_whisper(player, arg1, arg2);
+                                    }
+                                    break;
+                                case 'o':
+                                case 'O':
+                                    Matched("who");
+                                    dump_users(player, arg1, arg2, NULL);
+                                    break;
+                                default:
+                                    goto bad;
+                            }
+                            break;
+                        case '\0':
+                            do_whisper(player, arg1, arg2);
+                            break;
+                        default:
+                            goto bad;
+                    }
+                    break;
+                default:
+                    goto bad;
+                bad:
+                    // printf("debug::process_command() : went to bad section");
 
                 // Check for comsystem aliases 
                 if (is_on_channel(player, command) >= 0)
                 {
-                     if (buff[0]!='\0')
+                     if (buff[0] != '\0')
                      {
                           do_com(player, command, buff);
                           break;
@@ -2217,10 +2198,10 @@ void process_command(dbref player, char *command, dbref cause)
                 }
 
                 // try matching user defined functions before chopping 
-                match = list_check(db[db[player].location].contents,player,'$',unp)
-                     || list_check(db[player].contents,player,'$',unp)
-                     || atr_match(db[player].location,player,'$',unp)
-                     || list_check(db[db[player].location].exits,player,'$',unp);
+                match = list_check(db[db[player].location].contents, player, '$', unp)
+                     || list_check(db[player].contents, player, '$', unp)
+                     || atr_match(db[player].location, player, '$', unp)
+                     || list_check(db[db[player].location].exits, player, '$', unp);
 
                 DOZONE(zon, player)
                 {

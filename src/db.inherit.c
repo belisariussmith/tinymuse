@@ -6,13 +6,6 @@
 #include "config.h"
 #include "db.h"
 
-//
-// Unused, planned for deletion (Belisarius)
-//
-#if 0
-static void reparent P((dbref, dbref, dbref *)), unparent P((dbref));
-#endif
-
 void put_atrdefs(FILE *file, ATRDEF *defs)
 {
     extern void putstring P((FILE *, char *));
@@ -324,7 +317,9 @@ void do_delparent(dbref player, char *arg1, char *arg2)
     parent = match_thing (player, arg2);
 
     if (parent == NOTHING)
+    {
         return;
+    }
 
     if (!(db[parent].flags&BEARING) && !controls(player,parent,POW_MODIFY))
     {
@@ -357,8 +352,8 @@ void do_delparent(dbref player, char *arg1, char *arg2)
 			
     check_hearing();
 
-    did_it(thing,parent,A_UNPARENT,NULL,A_OUNPARENT,NULL,A_AUNPARENT);
-    did_it(player,parent,A_UNPARENT,NULL,A_OUNPARENT,NULL,A_AUNPARENT);
+    did_it(thing, parent, A_UNPARENT, NULL, A_OUNPARENT, NULL, A_AUNPARENT);
+    did_it(player, parent, A_UNPARENT, NULL, A_OUNPARENT, NULL, A_AUNPARENT);
 }
 
 void do_addparent(dbref player, char *arg1, char *arg2)
@@ -376,7 +371,7 @@ void do_addparent(dbref player, char *arg1, char *arg2)
     }
 
     mark_hearing(thing);
-    parent = match_thing (player, arg2);
+    parent = match_thing(player, arg2);
 
     if (parent == NOTHING)
     {
@@ -404,10 +399,11 @@ void do_addparent(dbref player, char *arg1, char *arg2)
         }
     }
   
-    if (can_doit&2)
+    if (can_doit & 2)
     {
         send_message(player, "Sorry, it already has that as its parent.");
     }
+
     if (can_doit != 0)
     {
         return;
