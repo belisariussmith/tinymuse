@@ -28,8 +28,8 @@ void do_text(dbref player, char *arg1, char *arg2, ATTR *trig)
         return;
     }
 
-    sprintf(indx,"msgs/%sindx",arg1);
-    sprintf(text,"msgs/%stext",arg1);
+    sprintf(indx,"run/msgs/%sindx",arg1);
+    sprintf(text,"run/msgs/%stext",arg1);
 
     do_help(player, arg2, arg1, indx, text, trig);
 }

@@ -54,24 +54,24 @@ char *bad_object_doomsday = "600";
 char *default_doomsday    = "600";
 
 // Database
-char *def_db_in  = "db/mdb";
-char *def_db_out = "db/mdb";
+char *def_db_in  = "run/db/mdb";
+char *def_db_out = "run/db/mdb";
 
 // Logfiles
-char *stdout_logfile       = "logs/out.log";
-char *wd_logfile           = "logs/wd.log";
+char *stdout_logfile       = "run/logs/out.log";
+char *wd_logfile           = "run/logs/wd.log";
 
-char *muse_pid_file        = "logs/muse_pid";
-char *wd_pid_file          = "logs/wd_pid";
+char *muse_pid_file        = "run/logs/muse_pid";
+char *wd_pid_file          = "run/logs/wd_pid";
  
-char *create_msg_file      = "msgs/create.txt";
-char *connect_msg_file     = "msgs/connect.txt";
-char *welcome_msg_file     = "msgs/welcome.txt";
-char *guest_msg_file       = "msgs/guest.txt";
-char *register_msg_file    = "msgs/register.txt";
-char *leave_msg_file       = "msgs/leave.txt";
-char *guest_lockout_file   = "lockouts/guest-lockout";
-char *welcome_lockout_file = "lockouts/welcome-lockout";
+char *create_msg_file      = "run/msgs/create.txt";
+char *connect_msg_file     = "run/msgs/connect.txt";
+char *welcome_msg_file     = "run/msgs/welcome.txt";
+char *guest_msg_file       = "run/msgs/guest.txt";
+char *register_msg_file    = "run/msgs/register.txt";
+char *leave_msg_file       = "run/msgs/leave.txt";
+char *guest_lockout_file   = "run/lockouts/guest-lockout";
+char *welcome_lockout_file = "run/lockouts/welcome-lockout";
 
 // root player db ID #
 dbref root = 1;                  // Should match the # in the Database 

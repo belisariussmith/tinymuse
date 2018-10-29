@@ -36,14 +36,14 @@ This is the remnants of the changelog instituted beginning with version *1.8a4*
 - Added numerous comments to explain code behavior
 
 - Renamed many variables to actually be useful.
-      - f    ->   file
-      - i    ->   db_obj_id
-      - etc.
+      * f    ->   file
+      * i    ->   db_obj_id
+      * etc.
 
 - Renamed various functions to more appropriate names:
-      - shovechars()      ->   mud_loop()
-      - load_more_db()    ->   load_database()
-      - etc. 
+      * shovechars()      ->   mud_loop()
+      * load_more_db()    ->   load_database()
+      * etc. 
 
 - Converted old-style (K&R) C-type declaration syntac for parameters to
   the new modern style
@@ -64,7 +64,7 @@ This is the remnants of the changelog instituted beginning with version *1.8a4*
 
 - Numerous implicit int type variable declarations made explicit
 
-- Renamed BUFFER_LEN to MAX_CMD_BUF and moved it and associated define
+- Renamed BUFFER_LEN to MAX_CMD_BUF, then moved it, and associated define
   to tinymuse.h from interface.h ; updated all references to new one
 
 - Fixed some typos
@@ -82,6 +82,9 @@ This is the remnants of the changelog instituted beginning with version *1.8a4*
 - Renamed *netmuse* to **tinymuse** 
 
 - Changed default to allowing people to create new characters
+
+- Changed execution location from confusing run/ sub-directory to top-level directory. Server
+  is now booted up by executing _# bin/tinymuse_
 
 ## Changes since revision 1.9f2:		Mark Eisenstat <meisen@musenet.org>
 

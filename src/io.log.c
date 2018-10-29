@@ -11,13 +11,13 @@
 #include "log.h"
 
 struct log
-    important_log = { NULL, -1, "logs/important", "*log_imp"   },
-    sensitive_log = { NULL, -1, "logs/sensitive", "*log_sens"  },
-    error_log     = { NULL, -1, "logs/error",     "*log_err"   },
-    ioerr_log     = { NULL, -1, "logs/ioerr",     "*log_ioerr" },
-    io_log        = { NULL, -1, "logs/io",        "*log_io"    },
-    gripe_log     = { NULL, -1, "logs/gripe",     "*log_gripe" },
-    root_log      = { NULL, -1, "logs/root",      "*log_root"  }
+    important_log = { NULL, -1, "run/logs/important", "*log_imp"   },
+    sensitive_log = { NULL, -1, "run/logs/sensitive", "*log_sens"  },
+    error_log     = { NULL, -1, "run/logs/error",     "*log_err"   },
+    ioerr_log     = { NULL, -1, "run/logs/ioerr",     "*log_ioerr" },
+    io_log        = { NULL, -1, "run/logs/io",        "*log_io"    },
+    gripe_log     = { NULL, -1, "run/logs/gripe",     "*log_gripe" },
+    root_log      = { NULL, -1, "run/logs/root",      "*log_root"  }
 ;
 
 struct log *logs[] = {
@@ -60,7 +60,7 @@ void muse_log(struct log *l, char *str)
     }
 
     bdown = localtime((time_t *)&now);
-    fprintf(l->fptr, "%02d/%02d:%02d:%02d:%02d| %s\n", bdown->tm_mon+1,bdown->tm_mday,bdown->tm_hour,bdown->tm_min,bdown->tm_sec,str);
+    fprintf(l->fptr, "%02d/%02d:%02d:%02d:%02d| %s\n", bdown->tm_mon+1, bdown->tm_mday, bdown->tm_hour, bdown->tm_min, bdown->tm_sec, str);
     fflush(l->fptr);
 
     if (l->counter-- < 0)

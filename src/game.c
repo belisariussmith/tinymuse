@@ -659,7 +659,7 @@ static char **do_argbee(dbref player, char *rest, dbref cause, char *arge[], cha
     {
         if (arge[a])
         {
-            exec(&arge[a],buff,player,cause,0);
+            exec(&arge[a],buff,player,cause, 0);
             strcpy(arge[a]=(char *)newglurp(strlen(buff)+1),buff);
         }
     }
@@ -682,7 +682,7 @@ void process_command(dbref player, char *command, dbref cause)
     char *rest, *temp;
     int match, z=NOTHING;
     dbref zon;
-    // general form command arg0=arg1,arg2...arg10 
+    // general form command arg0=arg1, arg2...arg10 
     int slave = IS(player,TYPE_PLAYER,PLAYER_SLAVE);
     int is_direct = 0;
 
@@ -797,7 +797,7 @@ void process_command(dbref player, char *command, dbref cause)
 
         if (command_log == NULL)
         {
-            command_log = fopen("logs/commands", "w");
+            command_log = fopen("run/logs/commands", "w");
             setbuf(command_log, NULL);
         }
 
@@ -832,8 +832,8 @@ void process_command(dbref player, char *command, dbref cause)
             }
 
             command_log = NULL;
-            unlink("logs/commands~");
-            rename("logs/commands","logs/commands~");
+            unlink("run/logs/commands~");
+            rename("run/logs/commands", "run/logs/commands~");
         }
     }
 
@@ -961,7 +961,7 @@ void process_command(dbref player, char *command, dbref cause)
 
         if (arge[0])
         {
-              exec(&arge[0],buff2,player,cause,0);
+              exec(&arge[0],buff2,player,cause, 0);
         }
 
         arg1 = (arge[0]) ? buff2 : "";
@@ -1060,7 +1060,7 @@ void process_command(dbref player, char *command, dbref cause)
                                 case 'a':
                                 case 'A':
                                     Matched("+mail");
-                                    do_mail(player,arg1,arg2);
+                                    do_mail(player, arg1, arg2);
                                     break;
                                 default: goto bad;
                             }
@@ -1111,13 +1111,13 @@ void process_command(dbref player, char *command, dbref cause)
                                 case 't':
                                 case 'T':
                                     Matched("@at");
-                                     if (Guest(player)) { send_message(player,guest_fail()); return; };
+                                     if (Guest(player)) { send_message(player, guest_fail()); return; };
                                     do_at(player, arg1, arg2);
                                     break;
                                 case 's':
                                 case 'S':
                                     Matched("@as");
-                                     if (Guest(player)) { send_message(player,guest_fail()); return; };
+                                     if (Guest(player)) { send_message(player, guest_fail()); return; };
                             do_as(player, arg1, arg2);
                                     break;
                                 default:
@@ -1197,7 +1197,7 @@ void process_command(dbref player, char *command, dbref cause)
                           case 'r':
                           case 'R':
 	    Matched("@create");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_create(player, arg1, atol(arg2));
 	    break;
 	  case 't':
@@ -1223,8 +1223,8 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'o':
 	    case 'O':
 	      Matched("@clone");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
-	      do_clone(player,arg1,arg2);
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
+	      do_clone(player, arg1, arg2);
 	      break;
 	    default:
 	      goto bad;
@@ -1233,19 +1233,19 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'o':
 	  case 'O':
 	    Matched("@config");
-	    do_config(player,arg1,arg2);
+	    do_config(player, arg1, arg2);
 	    break;
 	  case 's':
 	  case 'S':
 	    Matched("@cset");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
-	    do_set(player,arg1,arg2,1);
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
+	    do_set(player, arg1, arg2, 1);
 	    break;
 	  case 'y':
 	  case 'Y':
 	    Matched("@cycle");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
-	    do_cycle(player,arg1,argv);
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
+	    do_cycle(player, arg1, argv);
 	    break;
 	  default:
 	    goto bad;
@@ -1266,7 +1266,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 't':
 	    case 'T':
 	      Matched("@dbtop");
-	      do_dbtop(player,arg1);
+	      do_dbtop(player, arg1);
 	      break;
 	    default: goto bad;
 	    }
@@ -1277,7 +1277,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'c':
 	    case 'C':
 	      Matched("@decompile");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
 	      do_decompile (player, arg1, arg2);
 	      break;
 	    case 's':
@@ -1291,7 +1291,7 @@ void process_command(dbref player, char *command, dbref cause)
 	      case 't':
 	      case 'T':
 		Matched("@destroy");
-                if (Guest(player)) { send_message(player,guest_fail()); return; };
+                if (Guest(player)) { send_message(player, guest_fail()); return; };
 		do_recycle(player, arg1);
 		break;
 	      default: goto bad;
@@ -1300,13 +1300,13 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'f':
 	    case 'F':
 	      Matched("@defattr");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
 	      do_defattr(player, arg1, arg2);
 	      break;
 	    case 'l':
 	    case 'L':
 	      Matched("@delparent");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
 	      do_delparent (player, arg1, arg2);
 	      break;
 	    default:
@@ -1316,8 +1316,8 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'i':
 	  case 'I':
 	    Matched("@dig");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
-	    do_dig(player, arg1,argv);
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
+	    do_dig(player, arg1, argv);
 	    break;
 	  case 'u':
 	  case 'U':
@@ -1335,7 +1335,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'i':
 	  case 'I':
 	    Matched("@find");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_find(player, arg1);
 	    break;
 	  case 'o':
@@ -1343,7 +1343,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    if (string_prefix ("@foreach", command) && strlen(command)>4)
             {
 	      Matched("@foreach");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
 	      do_foreach(player, arg1, arg2, cause);
 	      break;
 	    }
@@ -1365,15 +1365,15 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'C':
 	    Matched("@echo");
 	    if (Guest(player))
-	      do_echo(player,arg1,pure2,0);
+	      do_echo(player, arg1, pure2, 0);
 	    else
-	      do_echo(player,arg1,arg2,0);
+	      do_echo(player, arg1, arg2, 0);
 	    break;
 	  case 'd':
 	  case 'D':
 	    Matched("@edit");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
-	    do_edit(player,arg1,argv);
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
+	    do_edit(player, arg1, argv);
 	    break;
 	  case 'm':
 	  case 'M':
@@ -1383,15 +1383,15 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'I':
 	      Matched("@emit");
               if (Guest(player))
-                do_emit(player,arg1,pure2,0);
+                do_emit(player, arg1, pure2, 0);
               else
-                do_emit(player,arg1,arg2,0);
+                do_emit(player, arg1, arg2, 0);
 	      break;
 	    case 'p':
 	    case 'P':
 	      Matched("@empower");
 	      if (!is_direct) goto bad;
-	      do_empower(player,arg1,arg2);
+	      do_empower(player, arg1, arg2);
 	      break;
 	    default: goto bad;
 	    }
@@ -1409,7 +1409,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'i':
 	  case 'I':
 	    Matched("@giveto");
-	    do_giveto(player,arg1,arg2);
+	    do_giveto(player, arg1, arg2);
 	    break;
 	  case 'e':
 	  case 'E':
@@ -1427,7 +1427,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'a':
 	  case 'A':
 	    Matched("@halt");
-	    do_halt(player,arg2);
+	    do_halt(player, arg2);
 	    break;
 	  case 'i':		// hides player name from WHO 
 	  case 'I':
@@ -1451,7 +1451,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'i':
 	  case 'I':
 	    Matched("@link");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_link(player, arg1, arg2);
 	    break;
 	  case 'o':
@@ -1485,7 +1485,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'c':
 	  case 'C':
 	    Matched("@ncset");
-	    if (Guest(player)) { send_message(player,guest_fail()); return; };
+	    if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_set(player, arg1, pure2, 1);
 	    break;
 	  case 'e':
@@ -1494,7 +1494,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'c':
 	    case 'C':
 	      Matched("@necho");
-	      do_echo(player,pure,NULL,1);
+	      do_echo(player, pure, NULL, 1);
 	      break;
 	    case 'w':
 	      if(strcmp(command, "@newpassword")) goto bad;
@@ -1504,7 +1504,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'm':
 	    case 'M':
 	      Matched("@nemit");
-	      do_emit(player,pure,NULL,1);
+	      do_emit(player, pure, NULL, 1);
 	      break;
 	    default:
 	      goto bad;
@@ -1516,8 +1516,8 @@ void process_command(dbref player, char *command, dbref cause)
             case 'l':
             case 'L':
               Matched("@nologins");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
-              do_nologins(player,arg1);
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
+              do_nologins(player, arg1);
               break;
 	    case 'o':
 	    case 'O':
@@ -1552,7 +1552,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 's':
 	  case 'S':
 	    Matched("@nset");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_set(player, arg1, pure2, is_direct);
 	    break;
           case 'u':
@@ -1579,13 +1579,13 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'p':
 	  case 'P':
 	    Matched("@open");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_open(player, arg1, arg2,NOTHING);
 	    break;
 	  case 'u':
 	  case 'U':
 	    Matched("@outgoing");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_outgoing(player, arg1, arg2);
 	    break;
 	  default:
@@ -1625,12 +1625,12 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'O':
 	      Matched("@Poor");
 	      if (!is_direct) goto bad;
-	      do_poor(player,arg1);
+	      do_poor(player, arg1);
 	      break;
 	    case 'w':
 	    case 'W':
 	      Matched("@powers");
-	      do_powers(player,arg1);
+	      do_powers(player, arg1);
 	      break;
 	    default: goto bad;
 	    }
@@ -1669,7 +1669,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'M':
 	      Matched("@remit");
               if (Guest(player))
-                do_general_emit(player,arg1,pure2,1);
+                do_general_emit(player, arg1, pure2, 1);
               else
                 do_general_emit(player, arg1, arg2, 1);
 	      break;
@@ -1679,7 +1679,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'O':
 	  case 'o':
 	    Matched("@robot");
-	    do_robot(player,arg1,arg2);
+	    do_robot(player, arg1, arg2);
 	    break;
 	  default:
 	    goto bad;
@@ -1694,13 +1694,13 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'a':
 	    case 'A':
 	      Matched("@search");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
 	      do_search(player, arg1, arg2);
 	      break;
 	    case 't':
 	    case 'T':
 	      Matched("@set");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
 	      do_set(player, arg1, arg2, is_direct);
 	      break;
 	    default:
@@ -1717,7 +1717,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'o':
 	    case 'O':
 	      Matched("@showhash");
-	      do_showhash(player,arg1);
+	      do_showhash(player, arg1);
 	      break;
 	    default:
 	      goto bad;
@@ -1731,7 +1731,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'u':
 	  case 'U':
 	    Matched("@su");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_su(player, arg1, arg2);
 	    break;
 	  case 'w':
@@ -1750,7 +1750,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'i':
 	    case 'I':
 	      Matched("@switch");
-	      do_switch(player,arg1,argv,cause);
+	      do_switch(player, arg1, argv, cause);
 	      break;
 	    default:
 	      goto bad;
@@ -1770,7 +1770,7 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'L':
 	    case '\0':
 	      Matched("@teleport");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
 	      do_teleport(player, arg1, arg2);
 	      break;
 	    case 'x':
@@ -1788,13 +1788,13 @@ void process_command(dbref player, char *command, dbref cause)
 	    case 'I':
 	    case '\0':
 	      Matched("@trigger");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
-	      do_trigger(player,arg1,argv);
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
+	      do_trigger(player, arg1, argv);
 	      break;
 	    case '_':
 	      Matched("@tr_as");
-              if (Guest(player)) { send_message(player,guest_fail()); return; };
-	      do_trigger_as(player,arg1,argv);
+              if (Guest(player)) { send_message(player, guest_fail()); return; };
+	      do_trigger_as(player, arg1, argv);
 	      break;
 	    default: goto bad;
 	    };
@@ -1823,13 +1823,13 @@ void process_command(dbref player, char *command, dbref cause)
 		case 's':
 		case 'S':
 		  Matched("@undestroy");
-                  if (Guest(player)) { send_message(player,guest_fail()); return; };
+                  if (Guest(player)) { send_message(player, guest_fail()); return; };
 		  do_undestroy(player, arg1);
 		  break;
 		case 'f':
 		case 'F':
 		  Matched ("@undefattr");
-                  if (Guest(player)) { send_message(player,guest_fail()); return; };
+                  if (Guest(player)) { send_message(player, guest_fail()); return; };
 		  do_undefattr (player, arg1);
 		  break;
 		default: goto bad;
@@ -1844,13 +1844,13 @@ void process_command(dbref player, char *command, dbref cause)
 	      case 'i':
 	      case 'I':
 		Matched("@unlink");
-                if (Guest(player)) { send_message(player,guest_fail()); return; };
+                if (Guest(player)) { send_message(player, guest_fail()); return; };
 		do_unlink(player, arg1);
 		break;
 	      case 'o':
 	      case 'O':
 		Matched("@unlock");
-                if (Guest(player)) { send_message(player,guest_fail()); return; };
+                if (Guest(player)) { send_message(player, guest_fail()); return; };
 		do_unlock(player, arg1);
 		break;
 	      default:
@@ -1873,13 +1873,13 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'p':
 	  case 'P':
 	    Matched("@upfront");
-	    do_upfront(player,arg1);
+	    do_upfront(player, arg1);
 	    break;
           case 's':
           case 'S':
             if (string_compare(command, "@usercap")) goto bad;
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
-            do_usercap(player,arg1);
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
+            do_usercap(player, arg1);
             break;
 	  default: goto bad;
 	  }
@@ -1899,13 +1899,13 @@ void process_command(dbref player, char *command, dbref cause)
 	  }
           if ( strcmp(command, "@wemit") == 0 )
           {
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
-            do_wemit(player,arg1,arg2);
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
+            do_wemit(player, arg1, arg2);
             break;
           }
 	  Matched("@wait");
-          if (Guest(player)) { send_message(player,guest_fail()); return; };
-	  wait_que(player,atoi(arg1),arg2,cause);
+          if (Guest(player)) { send_message(player, guest_fail()); return; };
+	  wait_que(player,atoi(arg1), arg2,cause);
 	  break;
 	case 'z':
 	case 'Z':
@@ -1922,7 +1922,7 @@ void process_command(dbref player, char *command, dbref cause)
 	  case 'l':
 	  case 'L':
 	    Matched("@zlink");
-            if (Guest(player)) { send_message(player,guest_fail()); return; };
+            if (Guest(player)) { send_message(player, guest_fail()); return; };
 	    do_zlink(player, arg1, arg2);
 	    break;
 	  default: goto bad;
@@ -1948,7 +1948,7 @@ void process_command(dbref player, char *command, dbref cause)
 	case 'N':
 	case 'n':
 	  Matched("enter");
-	  do_enter(player,arg1);
+	  do_enter(player, arg1);
 	  break;
 	default:
 	  goto bad;
@@ -1957,7 +1957,7 @@ void process_command(dbref player, char *command, dbref cause)
       case 'f':
       case 'F':
 	Matched("follow");
-	do_follow(player,arg1);
+	do_follow(player, arg1);
 	break;
       case 'g':
       case 'G':
@@ -2063,12 +2063,12 @@ void process_command(dbref player, char *command, dbref cause)
 	case 'A':
 	case '\0':
 	  Matched("page");
-	  do_page(player, arg1,arg2);
+	  do_page(player, arg1, arg2);
 	  break;
 	case 'o':
 	case 'O':
 	  Matched("pose");
-	  do_pose(player,arg1,arg2,0);
+	  do_pose(player, arg1, arg2, 0);
 	  break;
 	default:
 	  goto bad;
@@ -2119,7 +2119,7 @@ void process_command(dbref player, char *command, dbref cause)
 	case 'u':
 	case 'U':
 	  Matched("summon");
-	  do_summon(player,arg1);
+	  do_summon(player, arg1);
 	  break;
 	default:
 	  goto bad;
@@ -2150,7 +2150,7 @@ void process_command(dbref player, char *command, dbref cause)
       case 'u':
       case 'U':
 	Matched("use");
-	do_use(player,arg1);
+	do_use(player, arg1);
 	break;
       case 'w':
       case 'W':
@@ -2401,7 +2401,7 @@ static int atr_match(dbref thing, dbref player, int type, char *str)
 
                 if (!eval_boolexp(player,thing,atr_get(thing,A_ULOCK),get_zone_first(player)))
                 {
-                    did_it(player,thing,A_UFAIL,NULL,A_OUFAIL,NULL,A_AUFAIL);
+                    did_it(player,thing,A_UFAIL, NULL,A_OUFAIL, NULL,A_AUFAIL);
                 }
                 else
                 {
