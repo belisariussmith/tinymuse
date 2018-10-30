@@ -16,6 +16,10 @@ Various files that should be in the [`run/msgs/`] directory:
 
 <sup>Note that these are just blank if they don't exist. Server won't complain about it or anything.</sup>
 
+## Server
+
+Run the server from the top level directory Ex: [`bin/tinymuse`] 
+
 ## God / Wizard Accounts
 
 The database has two player accounts by default.
