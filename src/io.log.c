@@ -2,7 +2,7 @@
 // $Id: log.c,v 1.7 1993/12/19 17:59:51 nils Exp $ 
 
 #include <stdio.h>
-#include <time.h>    // Belisarius - fixes dereferncing pointer to incomplete type 'struct tm' error 
+#include <time.h>
 
 #include "tinymuse.h"
 #include "db.h"

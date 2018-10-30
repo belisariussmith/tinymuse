@@ -73,13 +73,9 @@ void do_open(dbref player, char *direction, char *linkto, dbref pseudo)
     // dbref pseudo;  // a phony location for a player if a back exit is needed
     dbref exit;
 
-    //
-    // Belisarius
-    // appear to be assigned, but unused
-    /*
-    dbref loczone;
-    dbref linkzone;
-     */
+    //dbref loczone;
+    //dbref linkzone;
+    // appear to be assigned, but unused -- Belisarius
 
     if ((loc == NOTHING) || (Typeof(loc) == TYPE_PLAYER))
     {
@@ -135,13 +131,9 @@ void do_open(dbref player, char *direction, char *linkto, dbref pseudo)
                 }
                 else
                 {
-                    //
-                    // Belisarius
-                    // appear to be unused
-                    /*
                     //loczone = get_zone_first(player);
                     //linkzone = get_zone_first(loc);
-                    */
+                    // appear to be unused -- Belisarius
 
                     // it's ok, link it
                     db[exit].link = loc;
@@ -163,132 +155,166 @@ void do_open(dbref player, char *direction, char *linkto, dbref pseudo)
 ///////////////////////////////////////////////////////////////////////////////
 void do_link(dbref player, char *name, char *room_name)
 {
-  dbref thing;
-  dbref room;
-  char buf[BUF_SIZE];
+    dbref thing;
+    dbref room;
+    char buf[BUF_SIZE];
 
-  init_match(player, name, TYPE_EXIT);
-  match_everything();
+    init_match(player, name, TYPE_EXIT);
+    match_everything();
 
-  if((thing = noisy_match_result()) != NOTHING) {
-    switch(Typeof(thing)) {
-    case TYPE_EXIT:
-      if ( (room = parse_linkable_room(player, room_name)) == NOTHING)
-	return;
+    if ((thing = noisy_match_result()) != NOTHING)
+    {
+        switch(Typeof(thing))
+        {
+            case TYPE_EXIT:
+                if ( (room = parse_linkable_room(player, room_name)) == NOTHING)
+                {
+                    return;
+                }
 
-      if ( (room!=HOME) && !controls(player,room,POW_MODIFY) &&
-	  ! (db[room].flags & LINK_OK)) {
-	send_message(player,perm_denied());
-	break;
-      }
+                if ( (room != HOME) && !controls(player, room, POW_MODIFY) && ! (db[room].flags & LINK_OK))
+                {
+                    send_message(player,perm_denied());
+                    break;
+                }
 
-      // we're ok, check the usual stuff
-      if(db[thing].link != NOTHING) {
-	if(controls(player, thing, POW_MODIFY)) {
-	  //	  if(Typeof(db[thing].link) == TYPE_PLAYER)
-          //  send_message(player, "That exit is being carried.");
-          //  else
-	  send_message(player, "%s is already linked.",
-				 unparse_object(player,thing));
-	} else {
-	  send_message(player, perm_denied());
-	}
-      } else {
-	// handle costs
-	if(db[thing].owner == db[player].owner) {
-	  if(!payfor(player, link_cost)) {
-	    send_message(player,
-		   "It costs a Credit to link this exit.");
-	    return;
-	  }
-	} else {
-	  if ( ! can_pay_fees(def_owner(player),
-			      link_cost+exit_cost, QUOTA_COST) )
-	    return;
-	  else {
-	    // pay the owner for his loss
-	    giveto(db[thing].owner, exit_cost);
-	    add_quota(db[thing].owner, QUOTA_COST);
-	  }
-	}
+                // we're ok, check the usual stuff
+                if (db[thing].link != NOTHING)
+                {
+                    if (controls(player, thing, POW_MODIFY))
+                    {
+                        //if (Typeof(db[thing].link) == TYPE_PLAYER)
+                        //    send_message(player, "That exit is being carried.");
+                        //else
+                        send_message(player, "%s is already linked.", unparse_object(player,thing));
+                    }
+                    else
+                    {
+                        send_message(player, perm_denied());
+                    }
+                }
+                else
+                {
+                    // handle costs
+                    if (db[thing].owner == db[player].owner)
+                    {
+                        if (!payfor(player, link_cost))
+                        {
+                            send_message(player, "It costs a Credit to link this exit.");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if ( ! can_pay_fees(def_owner(player), link_cost+exit_cost, QUOTA_COST) )
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            // pay the owner for his loss
+                            giveto(db[thing].owner, exit_cost);
+                            add_quota(db[thing].owner, QUOTA_COST);
+                        }
+                    }
 
-	// link has been validated and paid for; do it
-	db[thing].owner = def_owner(player);
-	if (!(db[player].flags & INHERIT_POWERS))
-	  db[thing].flags &= ~(INHERIT_POWERS);
-	db[thing].link = room;
+                    // link has been validated and paid for; do it
+                    db[thing].owner = def_owner(player);
 
-	// notify the player
-	send_message(player, "%s linked to %s.",
-			       unparse_object_a(player,thing),
-			       unparse_object_a(player,room));
-      }
-      break;
-    case TYPE_PLAYER:
-    case TYPE_THING:
-      init_match(player, room_name, NOTYPE);
-      match_exit();
-      match_neighbor();
-      match_possession();
-      match_me();
-      match_here();
-      match_absolute();
-      match_player();
-      if ((room=noisy_match_result())<0) {
-	  //	  send_message(player,"No match."); noisy_match_result talks bout it
-	  return;
-	}
-      if (Typeof(room)==TYPE_EXIT) {
-	  send_message(player, "%s is an exit.",unparse_object(player,room));
-	  return;
-	}
-      // abode
-      if (!controls(player,room,POW_MODIFY) &&
-	  !(db[room].flags&LINK_OK)) {
-	send_message(player,perm_denied());
-	break;
-      }
-      if(!controls(player, thing, POW_MODIFY)
-	 && ((db[thing].location!=player) || !(db[thing].flags & LINK_OK ))) {
-	send_message(player, perm_denied());
-      } else if(room == HOME) {
-	send_message(player, "Can't set home to home.");
-      } else {
-	// do the link
-	db[thing].link = room; // home
-	send_message(player, "Home set to %s.",unparse_object(player,room));
-      }
-      break;
-    case TYPE_ROOM:
-      if((room = parse_linkable_room(player, room_name)) == NOTHING) return;
+                    if (!(db[player].flags & INHERIT_POWERS))
+                    {
+                        db[thing].flags &= ~(INHERIT_POWERS);
+                    }
 
-      if (Typeof(room)!=TYPE_ROOM) {
-	  send_message(player, "%s is not a room!",
-				unparse_object(player,room));
-	  return;
-	}
-      if ((room!=HOME) && !controls(player,room,POW_MODIFY) &&
-	  !(db[room].flags & LINK_OK)) {
-	send_message(player,perm_denied());
-	break;
-      }
-      if(!controls(player, thing, POW_MODIFY)) {
-	send_message(player, perm_denied());
-      } else {
-	// do the link, in location....no, in link! yay!
-	db[thing].link = room; // dropto
-	send_message(player, "Dropto set to %s.",
-			       unparse_object(player,room));
-      }
-      break;
-    default:
-      send_message(player, "Internal error: weird object type.");
-      sprintf(buf, "PANIC weird object: Typeof(%d) = %ld", (int)thing, Typeof(thing));
-      log_error(buf);
-      report();
-      break;
+                    db[thing].link = room;
+
+                    // notify the player
+                    send_message(player, "%s linked to %s.", unparse_object_a(player, thing), unparse_object_a(player, room));
+                }
+                break;
+            case TYPE_PLAYER:
+            case TYPE_THING:
+                init_match(player, room_name, NOTYPE);
+                match_exit();
+                match_neighbor();
+                match_possession();
+                match_me();
+                match_here();
+                match_absolute();
+                match_player();
+
+                if ((room = noisy_match_result()) < 0)
+                {
+                    // send_message(player,"No match."); noisy_match_result talks bout it
+                    return;
+                }
+
+                if (Typeof(room) == TYPE_EXIT)
+                {
+                    send_message(player, "%s is an exit.",unparse_object(player, room));
+                    return;
+                }
+
+                // abode
+                if (!controls(player,room,POW_MODIFY) && !(db[room].flags&LINK_OK))
+                {
+                    send_message(player, perm_denied());
+                    break;
+                }
+
+                if (!controls(player, thing, POW_MODIFY) && ((db[thing].location!=player) || !(db[thing].flags & LINK_OK )))
+                {
+                    send_message(player, perm_denied());
+                }
+                else if (room == HOME)
+                {
+                    send_message(player, "Can't set home to home.");
+                }
+                else
+                {
+                    // do the link
+                    db[thing].link = room; // home
+                    send_message(player, "Home set to %s.", unparse_object(player, room));
+                }
+                break;
+            case TYPE_ROOM:
+                if ((room = parse_linkable_room(player, room_name)) == NOTHING)
+                {
+                    return;
+                }
+
+                if (Typeof(room) != TYPE_ROOM)
+                {
+                    send_message(player, "%s is not a room!",
+                    unparse_object(player, room));
+                    return;
+                }
+
+                if ((room != HOME) && !controls(player, room, POW_MODIFY) && !(db[room].flags & LINK_OK))
+                {
+                    send_message(player, perm_denied());
+                    break;
+                }
+
+                if (!controls(player, thing, POW_MODIFY))
+                {
+                    send_message(player, perm_denied());
+                }
+                else
+                {
+                    // do the link, in location....no, in link! yay!
+                    db[thing].link = room; // dropto
+                    send_message(player, "Dropto set to %s.", unparse_object(player, room));
+                }
+                break;
+            default:
+                send_message(player, "Internal error: weird object type.");
+                sprintf(buf, "PANIC weird object: Typeof(%d) = %ld", (int)thing, Typeof(thing));
+                log_error(buf);
+                report();
+                break;
+        }
     }
-  }
 }
 
 // Links a room to a "zone object"
@@ -296,11 +322,7 @@ void do_zlink(dbref player, char *arg1, char *arg2)
 {
     dbref room;
     dbref object;
-    //
-    // Belisarius
-    // Appears to not be assigned, but never used
-    // dbref old_zone;
-    //
+    //dbref old_zone; // Appears to not be assigned, but never used -- Belisarius
 
     init_match(player, arg1, TYPE_ROOM);
     match_here();
@@ -312,14 +334,10 @@ void do_zlink(dbref player, char *arg1, char *arg2)
         match_possession();
         match_absolute();
 
-        //
-        // Belisarius
-        // Assigned but never used
-        // old_zone = get_zone_first(room);
-        //
+        //old_zone = get_zone_first(room);  // Assigned but never used -- Belisarius
         if ((object = noisy_match_result()) != NOTHING)
         {
-            if ( (!(controls(player,room,POW_MODIFY) && controls(player,object,POW_MODIFY)))
+            if ( (!(controls(player, room, POW_MODIFY) && controls(player, object, POW_MODIFY)))
 	          || (Typeof(room) != TYPE_ROOM && Typeof(room)!= TYPE_THING && !power(player, POW_SECURITY))
                )
             {
@@ -336,7 +354,7 @@ void do_zlink(dbref player, char *arg1, char *arg2)
                     // silly person doesn't know
                     // how to set up a zone
                     // right..
-	                db[object].zone = db[0].zone;
+	            db[object].zone = db[0].zone;
                 }
                 db[room].zone = object;
 
@@ -543,10 +561,12 @@ void do_clone(dbref player, char *arg1, char *arg2)
 {
     dbref clone,thing;
 
-    if ( Guest(db[player].owner) )  {
+    if ( Guest(db[player].owner) )
+    {
         send_message(player, "Guests can't clone objects\n");
         return;
     }
+
     init_match(player, arg1, NOTYPE);
     match_everything();
 
@@ -563,7 +583,7 @@ void do_clone(dbref player, char *arg1, char *arg2)
         return;
     }
 
-    if (Typeof(thing)!=TYPE_THING)
+    if (Typeof(thing) != TYPE_THING)
     {
         send_message(player, "You can only clone things.");
         return;

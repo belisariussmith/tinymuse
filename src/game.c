@@ -757,7 +757,7 @@ void process_command(dbref player, char *command, dbref cause)
         char buf[BUF_SIZE*2];
 
         sprintf(buf, "%s>> %s", db[player].name, command);
-        message_ch_raw(db[player].owner, buf);  // Wouldn't regular message_ch() work? (Belisarius)
+        message_ch_raw(db[player].owner, buf);  // Wouldn't regular message_ch() work? -- Belisarius
     }
 
     // eat leading whitespace 

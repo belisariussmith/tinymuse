@@ -1,6 +1,8 @@
-/* dbtop.c */
-/* $Id: dbtop.c,v 1.4 1993/08/16 01:56:33 nils Exp $ */
-
+///////////////////////////////////////////////////////////////////////////////
+// dbtop.c 
+///////////////////////////////////////////////////////////////////////////////
+// $Id: dbtop.c,v 1.4 1993/08/16 01:56:33 nils Exp $ 
+///////////////////////////////////////////////////////////////////////////////
 #include "tinymuse.h"
 #include "db.h"
 #include "externs.h"
@@ -21,17 +23,15 @@ static int dt_mem(dbref x)
 
     return atoi(atr_get(x, A_BYTESUSED));
  
-    // Supposed to be used ? (Belisarius)
-    /*
-    for (dbref i = 0; i < db_top; i++)
-    {
-        if (db[i].owner == x)
-        {
-            tot += mem_usage(i);
-        }
-    }
-    return tot; 
-    */
+    // Supposed to be used ? -- Belisarius
+    //for (dbref i = 0; i < db_top; i++)
+    //{
+    //    if (db[i].owner == x)
+    //    {
+    //        tot += mem_usage(i);
+    //    }
+    //}
+    //return tot; 
 }
 
 static int dt_cred(dbref x)
@@ -81,7 +81,7 @@ static int dt_quota(dbref x)
     }
 
     return atoi(atr_get(x, A_QUOTA));
-    //return atoi(atr_get(x,A_RQUOTA))+dt_obj(x); // deprecated? (Belisarius)
+    //return atoi(atr_get(x, A_RQUOTA))+dt_obj(x); // deprecated? --Belisarius
 }
 
 static int dt_obj(register dbref x)
@@ -91,19 +91,18 @@ static int dt_obj(register dbref x)
         return -1;
     }
 
-    // Deprecated? (Belisarius)
-    /*
-    for(y = 0; y < db_top; y++)
-    {
-        if(db[y].owner == x)
-        {
-            num++; 
-        }
-    }
-    */
+    // Deprecated? --Belisarius
+    //
+    //for (y = 0; y < db_top; y++)
+    //{
+    //    if (db[y].owner == x)
+    //    {
+    //        num++; 
+    //    }
+    //}
 
     return atoi(atr_get(x, A_QUOTA)) - atoi(atr_get(x, A_RQUOTA));
-    //return num; // Deprecated? (Belisarius)
+    //return num; // Deprecated? --Belisarius
 }
 
 static int dt_numdefs(dbref x)
@@ -160,10 +159,11 @@ void do_dbtop(dbref player, char *arg1)
         if (string_prefix(ptr->nam, arg1) || !strcmp(arg1, "all"))
         {
             nm++;
-            /*if(!power(player,POW_DBTOP)) {
-                send_message(player,"@dbtop is a restricted command.");
-                return;
-            }*/
+            //if(!power(player, POW_DBTOP))
+            //{
+            //    send_message(player, "@dbtop is a restricted command.");
+            //    return;
+            //}
             dbtop_internal(player, ptr->func, ptr->nam);
         }
     }

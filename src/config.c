@@ -151,12 +151,12 @@ void info_config(dbref player)
 
     send_message(player, "  permission denied messages:");
 
-    for (i=0; perm_messages[i]; i++)
+    for (i = 0; perm_messages[i]; i++)
     {
         send_message(player, "    %s", perm_messages[i]);
     }
 
-// What ridiculous nonsense is this? (Belisarius)
+// Oh boy, why are we in this situation? -- Belisarius
 #define DO_NUM(str,var) send_message(player, "  %-22s: %d" ,str, var);
 #define DO_STR(str,var) send_message(player, "  %-22s: %s" ,str, var);
 #define DO_REF(str,var) send_message(player, "  %-22s: #%d" , str, var);
@@ -223,7 +223,7 @@ void do_config(dbref player, char *arg1, char *arg2)
         char *newv;
 
         // we need to re-allocate strings so we can change them. 
-// What ridiculous nonsense is this? (Belisarius)
+// Oh boy, why are we in this situation? -- Belisarius
 #define DO_NUM(str,var) ;
 #define DO_STR(str,var) newv=malloc(strlen(var)+1);strcpy(newv,var);var=newv;
 #define DO_REF(str,var) ;
@@ -233,7 +233,7 @@ void do_config(dbref player, char *arg1, char *arg2)
 #undef DO_REF
         initted = 1;
     }
-// What ridiculous nonsense is this? (Belisarius)
+// Oh boy, why are we in this situation? -- Belisarius
 #define DO_NUM(str,var) if(!string_compare(arg1,str)) donum(player, &var, arg2); else
 #define DO_STR(str,var) if(!string_compare(arg1,str)) dostr(player, &var, arg2); else
 #define DO_REF(str,var) if(!string_compare(arg1,str)) doref(player, &var, arg2); else

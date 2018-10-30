@@ -2492,10 +2492,10 @@ void dump_users(dbref w, char *arg1, char *arg2, struct descriptor_data *k)
                 {
                     break;
                 }
-                // Belisarius
                 // this if statement not originally part of
                 // for loop, may need to be outside of lookup_player
                 // was ambiguous due to no use of curlybraces
+                // -- Belisarius
                 if ( i > name_list[0] )
                 {
                     continue;
@@ -2689,14 +2689,15 @@ void dump_users(dbref w, char *arg1, char *arg2, struct descriptor_data *k)
                                 {
                                     who_bh_buf[0] = '[';
 
-                                    // (Belisarius) 
                                     // p has just been assigned this exact same string just
                                     // prior to reaching this if block
+                                    // -- Belisarius
                                     // for ( j = 1, p = tprintf("%s@%s", d->user, d->addr); j <= 30 && *p != '\0'; j++, p++ )
                                     for ( j = 1; j <= 30 && *p != '\0'; j++, p++ )
                                     {
                                         who_bh_buf[j] = *p;
                                     }
+
                                     who_bh_buf[j++] = ']';
                                     who_bh_buf[j] = '\0';
                                     p = who_bh_buf;

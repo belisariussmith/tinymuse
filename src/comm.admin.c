@@ -14,7 +14,7 @@
 #include "player.h"
 
 #include <ctype.h>
-#include <crypt.h> // Belisarius - for implicit declaration of crypt()
+#include <crypt.h>
 
 #define  ANY_OWNER	-2
 
@@ -565,7 +565,7 @@ static object_flag_type convert_flags(dbref player, int is_wizard, char *s, obje
     int last_id=' ';
     object_flag_type mask, type;
 
-    // Should the below be placed outside local scope and into header file? (Belisarius)
+    // Should the below be placed outside local scope and into header file? -- Belisarius
     static struct
     {
         int id, type;
@@ -1474,7 +1474,7 @@ void do_swap(dbref player, char *arg1, char *arg2)
     db[thing2] = db[thing1];
     db[thing1] = swapbuf;
 
-// Should be placed outside of local scope or even in header (Belisarius)
+// Should be placed outside of local scope or even in header -- Belisarius
 #define SWAPREF(x) do { \
   if((x) == thing1) \
     (x) = thing2; \

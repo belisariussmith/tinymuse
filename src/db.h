@@ -156,13 +156,11 @@ struct attr {
 #define s_Succ(thing,s) atr_add(thing,A_SUCC,s)
 #define s_Pass(thing,s) atr_add(thing,A_PASS,s)
 #define s_Desc(thing,s) atr_add(thing,A_DESC,s)
-//
-// Belisarius
-// second parameter must be deprecated?
-// modified to squash 'right-hand operand of comma expression has no effect' warnings
-//
+
+// Second parameter must be deprecated, so I modified to squash
+//    'right-hand operand of comma expression has no effect' warnings
+// --Belisarius
 //#define s_Pennies(thing,pp) ((pp > 10000) ? (atr_add(thing, A_PENNIES, "9900"), 1) : (atr_add(thing, A_PENNIES, int_to_str(pp)), 1))
- 
 #define s_Pennies(thing,pp) ((pp > 10000) ? (atr_add(thing, A_PENNIES, "9900")) : (atr_add(thing, A_PENNIES, int_to_str(pp))))
 #define s_Exits(thing,pp) (db[thing].exits=(pp))
 #define s_Home(thing,pp) (db[thing].exits=(pp))

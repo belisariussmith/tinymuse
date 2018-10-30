@@ -869,7 +869,7 @@ void do_quota(dbref player, char *arg1, char *arg2)
     
     owned = -1;  // a player is never included in his own quota
   
-    // Belisarius - Doesn't this still need to be done?
+    // Doesn't this still need to be done? -- Belisarius
     //for ( thing = 0; thing < db_top; thing++ )
     //{
     //    if ( db[thing].owner == who )

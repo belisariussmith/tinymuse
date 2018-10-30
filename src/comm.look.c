@@ -392,7 +392,7 @@ void do_look_at(dbref player, char *arg1)
 
                 if (!*s)
                 {
-                    // (Belisarius) - wth ? a preformatted string
+                    // ? a preformatted string -- Belisarius
                     send_message(player, NOMATCH_PATT, arg1);
                     return;
                 }
@@ -420,11 +420,11 @@ void do_look_at(dbref player, char *arg1)
                     switch (thing = match_result())
                     {
                         case NOTHING:
-                            // (Belisarius) - wth ? a preformatted string?
+                            // ? a preformatted string? -- Belisarius
                             send_message(player, NOMATCH_PATT, arg1);
                             break;
                         case AMBIGUOUS:
-                            send_message(player,AMBIGUOUS_MESSAGE);
+                            send_message(player, AMBIGUOUS_MESSAGE);
                             break;
                         default:
                             init_match(thing, name, TYPE_THING);
@@ -433,18 +433,18 @@ void do_look_at(dbref player, char *arg1)
                             switch(thing2 = match_result())
                             {
                                 case NOTHING:
-                                    // (Belisarius) - wth ? a preformatted string?
+                                    // ? a preformatted string? -- Belisarius
                                     send_message(player, NOMATCH_PATT, arg1);
                                     break;
                                 case AMBIGUOUS:
-                                    send_message(player,AMBIGUOUS_MESSAGE);
+                                    send_message(player, AMBIGUOUS_MESSAGE);
                                     break;
                                 default:
                                     if ( (db[thing].flags & OPAQUE)
                                       && (!power(player, POW_EXAMINE))
                                        )
                                     {
-                                        // (Belisarius) - wth ? a preformatted string?
+                                        // ? a preformatted string? -- Belisarius
                                         send_message(player, NOMATCH_PATT, name);
                                     }
                                     else
@@ -456,7 +456,7 @@ void do_look_at(dbref player, char *arg1)
                 }
                 else
                 {
-                    // (Belisarius) - wth ? a preformatted string?
+                    // ? a preformatted string? -- Belisarius
                     send_message(player, NOMATCH_PATT, arg1);
                 }
                 break;

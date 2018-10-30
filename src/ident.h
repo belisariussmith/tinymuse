@@ -76,16 +76,10 @@ typedef struct {
 // Low-level calls and macros
 #define id_fileno(ID)	((ID)->fd)
 
-//
-// Belisarius
-//
 extern ident_t * id_open(struct in_addr *laddr, struct in_addr *faddr, struct timeval *timeout);
 
 extern int id_close(ident_t *id);
 
-//
-// Belisarius
-//
 extern int id_query(ident_t *id, int lport, int fport, struct timeval *timeout);
 
 extern int id_parse(ident_t *id, struct timeval *timeout, int *lport, int *fport, char **identifier, char **opsys, char **charset);

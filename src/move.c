@@ -208,7 +208,7 @@ void enter_room(dbref player, dbref loc)
 
     moveit(player, loc);
 
-    // Belisarius (monkied around with this code a bit, make sure it works right)
+    // monkied around with this code a bit, make sure it works right - Belisarius
     if (loc != old)
     {
         DOZONE(zon, player)
@@ -373,7 +373,7 @@ void do_move(dbref player, char *direction)
     char buf[BUF_SIZE];
     dbref exit;
     dbref loc;
-    // dbref zresult;  // (Belisarius) never used (see below)
+    // dbref zresult;  // never used (see below) - Belisarius
     dbref old = db[player].location;
 
     if (Typeof(player) == TYPE_ROOM)
@@ -386,7 +386,7 @@ void do_move(dbref player, char *direction)
     {
         // send him home 
         // but.. steal all his possessions 
-        if (Typeof(player) == TYPE_ROOM || Typeof(player)==TYPE_EXIT)
+        if (Typeof(player) == TYPE_ROOM || Typeof(player) == TYPE_EXIT)
         {
             return;
         }
@@ -463,17 +463,15 @@ void do_move(dbref player, char *direction)
                     did_it(player, exit, A_DROP, NULL, A_ODROP, (db[exit].flags & DARK) ? NULL : glurpdup(buf), A_ADROP);
 
                     //
-                    // Belisarius
                     // zresult is never assigned. It was previously, but that assignment
                     // was commented out up above.
+                    // - Belisarius
                     //
-                     /*
-                    if (zresult > (dbref) 1)
-                    {
-                        // we entered a new zone
-                        did_it(player, zresult, A_DROP, NULL, A_ODROP, NULL, A_ADROP);
-                    }
-                    */
+                    //if (zresult > (dbref) 1)
+                    //{
+                    //    // we entered a new zone
+                    //    did_it(player, zresult, A_DROP, NULL, A_ODROP, NULL, A_ADROP);
+                    //}
                 }
                 else
                 {
@@ -491,11 +489,12 @@ void do_get(dbref player, char *what)
 
     if (Typeof(player) == TYPE_EXIT)
     {
-        send_message(player,"You can't pick up things!");
+        send_message(player, "You can't pick up things!");
         return;
     }
 
-    if ((Typeof(loc)!=TYPE_ROOM) && !(db[loc].flags & ENTER_OK) && !controls(player,loc,POW_TELEPORT)) {
+    if ((Typeof(loc) != TYPE_ROOM) && !(db[loc].flags & ENTER_OK) && !controls(player, loc, POW_TELEPORT))
+    {
         send_message(player, perm_denied());
         return;
     }
@@ -634,7 +633,7 @@ void do_enter(dbref player, char *what)
                 return;
             }
 
-            if (could_doit(player,thing,A_ELOCK) // && check_zone(player, player, thing, 0) 
+            if (could_doit(player, thing, A_ELOCK) // && check_zone(player, player, thing, 0) 
                )
             {
                 safe_tel(player,thing);
@@ -649,7 +648,7 @@ void do_enter(dbref player, char *what)
 
 void do_leave(dbref player)
 {
-    if (Typeof(db[player].location)==TYPE_ROOM || db[db[player].location].location == NOTHING)
+    if (Typeof(db[player].location) == TYPE_ROOM || db[db[player].location].location == NOTHING)
     {
         send_message(player, "you can't leave. you're stuck here forever! mwahahah!");
         return;
@@ -657,7 +656,7 @@ void do_leave(dbref player)
 
     if (could_doit(player, db[player].location, A_LLOCK))
     {
-        enter_room(player,db[db[player].location].location);
+        enter_room(player, db[db[player].location].location);
     }
     else
     {

@@ -140,7 +140,7 @@ ATTR *builtin_atr_str(char *str)
 
     if (!attrhash)
     {
-        // Belisarius - should modify make_hashtab to free() what attr_disp returns
+        // should modify make_hashtab to free() what attr_disp returns -- Belisarius
         attrhash = make_hashtab(207, attr, sizeof(struct builtinattr), "attr", attr_disp);
     }
 
@@ -967,7 +967,7 @@ static int get_list(FILE *db_file, dbref obj_id, int vers)
                     if (attr_obj_id >= obj_id)
                     {
                         // ergh, haven't read it in yet.
-                        // (Belisarius) this references an object which has not yet been read in yet
+                        // this references an object which has not yet been read in yet - Belisarius
                         old_db_top = db_top;
                         db_grow (attr_obj_id+1);
                         db_init_object(attr_obj_id);
@@ -980,7 +980,8 @@ static int get_list(FILE *db_file, dbref obj_id, int vers)
                             db[attr_obj_id].atrdefs->next   = NULL;
                         }
 
-                        // (Belisarius) clean up, see if crash on boot **
+                        // ** start **
+                        // clean up, see if crash on boot -- Belisarius
                         attributes = db[attr_obj_id].atrdefs;
                         //ATRDEF *attributes2;
                         //attributes2 = attributes->next;
