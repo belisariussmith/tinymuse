@@ -17,7 +17,7 @@ A TinyMUSE database contains a collection of 4 different types of objects: rooms
         &lt;link:integer&gt;
         &lt;next:integer&gt;
         &lt;owner:integer&gt;
-        &lt;powers:string&gt;**
+        <strong>&lt;powers:string&gt;**</strong>
         Attribute List
         {
             {
@@ -43,7 +43,7 @@ A TinyMUSE database contains a collection of 4 different types of objects: rooms
     }
 </pre>
 
-** This line only exists in *Player* Objects
+_<strong>**</strong> This line only exists in <strong>Player</strong> Objects_
 
 #### dbref
 
