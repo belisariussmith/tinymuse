@@ -5,31 +5,31 @@ A TinyMUSE database contains a collection of 4 different types of objects: rooms
 #### _This document is currently incomplete_ and written by Belisarius Smith
 
 ## Object Formats
-`
+<pre>
     Object
     {
-        &<objectid:dbref>
-        <name:string>
-        <location:integer>
-        <zone:integer>
-        <contents:integer>
-        <exits:integer>
-        <link:integer>
-        <next:integer>
-        <owner:integer>
-        <powers:string>**
+        &&lt;objectid:dbref&gt;
+        &lt;name:string&gt;
+        &lt;location:integer&gt;
+        &lt;zone:integer&gt;
+        &lt;contents:integer&gt;
+        &lt;exits:integer&gt;
+        &lt;link:integer&gt;
+        &lt;next:integer&gt;
+        &lt;owner:integer&gt;
+        &lt;powers:string&gt;**
         Attribute List
         {
             {
                 >Attribute ID#
-                <objectid:dbref>
-                <attribute:string>
+                &lt;objectid:dbref&gt;
+                &lt;attribute:string&gt;
             }
             { ... }
             <
         }
-        <parents:list>
-        <children:list>
+        &lt;parents:list&gt;
+        &lt;children:list&gt;
         Attribute Definitions
         {
             {
@@ -41,58 +41,58 @@ A TinyMUSE database contains a collection of 4 different types of objects: rooms
         }
         \
     }
-`
+</pre>
 
 ** This line only exists in *Player* Objects
 
-### dbref
+#### dbref
 
 Consider this the ID# of the database object. It will be the position in the 
 array that contains all of the objects in the MUD.
 
-### name
+#### name
 
 The name of the of the object
 
-### location
+#### location
 
 The object containing this object
 
 _Rooms should be located in themselves, in other words the location of a Room is always itself_
 
-### zone
+#### zone
 
 The object's zone
 
-### contents
+#### contents
 
-### exits
+#### exits
 
-### link
+#### link
 
 -1 indicates that there is no link
 
-### next
+#### next
 
 -1 indicates that there is no next
 
-### owner
+#### owner
 
 The owner of the object. 
 
 _Players should own themselves._
 
-### flags
-
+#### flags
+<pre>
 * Contains the object type
 ** TYPE_ROOM
 ** TYPE_THING
 ** TYPE_EXIT
 ** NOTYPE
 ** TYPE_PLAYER
-
-#### Universal
-
+</pre>
+##### Universal
+<pre>
 * CHOWN OK        0x20
 * DARK            0x40       // contents of room are not printed
 * STICKY          0x100      // this object goes home when dropped
@@ -108,23 +108,23 @@ _Players should own themselves._
 * OPAQUE          0x800000
 * QUIET           0x1000000
 * BEARING         0x8000000
-
+</pre>
 Each object type has its own bitflags 
 
-#### Things
-
+##### Things
+<pre>
 * THING KEY       0x10
 * THING LIGHT     0x80
 * THING DEST OK   0x200
 * THING SACROK    0x1000
 * THING DIG OK    0x2000000
-
-#### Exits
-
+</pre>
+##### Exits
+<pre>
 * EXIT LIGHT      0x10
-
-#### Players
-
+</pre>
+##### Players
+<pre>
 * PLAYER NEWBIE   0x10
 * PLAYER SLAVE    0x80
 * PLAYER MORTAL   0x800
@@ -133,30 +133,30 @@ Each object type has its own bitflags
 * PLAYER NO WALLS 0x2000000
 * PLAYER NO COM   0x20000000
 * PLAYER NO ANN   0x40000000
-
-#### Rooms
-
+</pre>
+##### Rooms
+<pre>
 * ROOM JUMP OK    0x200
 * ROOM AUDITORIUM 0x800
 * ROOM FLOATING   0x1000
 * ROOM DIG OK     0x2000000
-
-### modtime
+</pre>
+#### modtime
 
 This is the time of the object's last modification in unix time (UNIX epoch time)
 
-### createtime
+#### createtime
 
 This is the time of the object's creation modification in unix time (UNIX epoch time)
 
-### powers
+#### powers
 
 This is an optional line that should only exist for Player objects 
 
-### attributes
+#### attributes
 
-#### Attribute Flags
-
+##### Attribute Flags
+<pre>
 * OSee      Players other than owner can see it
 * Dark      No one can see it
 * Wizard    Only wizards can change it
@@ -170,9 +170,9 @@ This is an optional line that should only exist for Player objects
 * Builtin   Server supplies value. not database.
 * DBRef     Value displayed as dbref.
 * !Mem      This isn't included in memory calculations
-
-#### Attribute List
-
+</pre>
+##### Attribute List
+<pre>
 Name                Flags                        Attribute ID #
 ---------------------------------------------------------------------
 * Osucc             Inherit                            1
@@ -311,8 +311,9 @@ Name                Flags                        Attribute ID #
 * Modified          Builtin|Date                       267
 * Created           Builtin|Date                       268
 * Longflags         Builtin                            269
+</pre
 
-### \
+#### \
 
 This is the terminator
 
