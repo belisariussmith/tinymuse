@@ -422,17 +422,17 @@ char *atr_get(dbref thing, ATTR *atr)
             dbref *list;
             int i;
             *buf = '\0';
-            list = (atr==A_PARENTS)?db[thing].parents:db[thing].children;
+            list = (atr == A_PARENTS) ? db[thing].parents : db[thing].children;
 
             for (i = 0; list && list[i] != NOTHING; i++)
             {
                 if (*buf)
                 {
-                    sprintf(buf+strlen(buf)," #%d",list[i]);
+                    sprintf(buf+strlen(buf), " #%d", list[i]);
                 }
                 else
                 {
-                    sprintf(buf,"#%d",list[i]);
+                    sprintf(buf, "#%d", list[i]);
                 }
             }
         }
@@ -440,6 +440,7 @@ char *atr_get(dbref thing, ATTR *atr)
         {
             dbref it;
             *buf = '\0';
+
             for (it = db[thing].contents; it != NOTHING; it = db[it].next)
             {
                 if (*buf)
@@ -535,7 +536,7 @@ void atr_free(dbref thing)
         return;
     }
 
-    for (ptr=db[thing].list;ptr;ptr=next)
+    for (ptr = db[thing].list; ptr; ptr = next)
     {
         next = AL_NEXT(ptr);
         free(ptr);
@@ -686,12 +687,10 @@ dbref new_object()
 
     // Attribute initialization. Similar to the need for the db_init_object()
     // when reading objects in from the database. If the NULL assignment is
-    // not completed and the memory not allocated, then segementation fault
+    // not completed then segementation fault is inevtiable.
     // is inevitable.
     db_obj->atrdefs  = NULL;
-    db_obj->atrdefs  = malloc( sizeof(ATRDEF));
-    db_obj->atrdefs->a.name = NULL;
-    db_obj->atrdefs->next   = NULL;
+    // Do not allocate the memory for this yet!
 
     db_obj->mod_time     = 0;
     db_obj->create_time  = now;
@@ -743,9 +742,9 @@ static int db_write_object(FILE *file, dbref i)
             {
                 if (x->obj == NOTHING)
                 {        //  builtin attribute. 
-                    fputc ('>',file);
-                    putref (file, ((struct builtinattr *)x)->number); // kludgy. fix this. xxxx 
-                    putref (file, NOTHING);
+                    fputc('>',file);
+                    putref(file, ((struct builtinattr *)x)->number); // kludgy. fix this. xxxx 
+                    putref(file, NOTHING);
                 }
                 else
                 {
@@ -758,15 +757,15 @@ static int db_write_object(FILE *file, dbref i)
                     {
                         if ((&(m->a)) == AL_TYPE(list))
                         {
-                            putref (file, j);
+                            putref(file, j);
                             break;
                         }
                     }
 
                     if (!m)
                     {
-                        putref (file, 0);
-                        putref (file, NOTHING);
+                        putref(file, 0);
+                        putref(file, NOTHING);
                     }
                     else
                     {
@@ -774,7 +773,7 @@ static int db_write_object(FILE *file, dbref i)
                     }
                 }
 
-                putstring (file, (AL_STR (list)));
+                putstring(file, (AL_STR (list)));
             }
         }
     }
@@ -847,14 +846,6 @@ dbref parse_dbref(char *s)
 /////////////////////////////////////////////////////////////////////
 //     This function reads a line from the database file and converts
 // it into an int and returns it.
-/////////////////////////////////////////////////////////////////////
-// Notes:
-//     This is an incredibly convoluted and insane way to read data
-// in from the database. The other two functions associated with this
-// one need to all be replaced with a single function.
-//     Secondly, there are a load of macros that are built around
-// this insanity. Those will all be able to be removed since they'll
-// be pointless afterwards.
 /////////////////////////////////////////////////////////////////////
 // See also: getstring_noalloc(), getstring()
 /////////////////////////////////////////////////////////////////////
@@ -932,7 +923,7 @@ static void db_free()
 ///////////////////////////////////////////////////////////////////////////////
 // Returns: Boolean
 ///////////////////////////////////////////////////////////////////////////////
-static int get_list(FILE *db_file, dbref obj_id, int vers)
+static int get_list(FILE *db_file, dbref obj_id, int dbVersion)
 {
     char buf[BUF_SIZE];
     ATRDEF *attributes;
@@ -948,14 +939,14 @@ static int get_list(FILE *db_file, dbref obj_id, int vers)
         switch(read_char = fgetc(db_file))
         {
             case '>': // read # then string 
-                attr_id = getref(db_file);
+                attr_id     = getref(db_file);
                 attr_obj_id = getref(db_file);
 
                 if (attr_obj_id == NOTHING)
                 {
                     if (builtin_atr(attr_id) && !(builtin_atr(attr_id)->flags & AF_UNIMP))
                     {
-                        atr_add (obj_id, builtin_atr(attr_id), s = getstring_noalloc(db_file));
+                        atr_add(obj_id, builtin_atr(attr_id), s = getstring_noalloc(db_file));
                     }
                     else
                     {
@@ -969,7 +960,7 @@ static int get_list(FILE *db_file, dbref obj_id, int vers)
                         // ergh, haven't read it in yet.
                         // this references an object which has not yet been read in yet - Belisarius
                         old_db_top = db_top;
-                        db_grow (attr_obj_id+1);
+                        db_grow(attr_obj_id+1);
                         db_init_object(attr_obj_id);
                         db_top = old_db_top;
 
@@ -980,12 +971,7 @@ static int get_list(FILE *db_file, dbref obj_id, int vers)
                             db[attr_obj_id].atrdefs->next   = NULL;
                         }
 
-                        // ** start **
-                        // clean up, see if crash on boot -- Belisarius
                         attributes = db[attr_obj_id].atrdefs;
-                        //ATRDEF *attributes2;
-                        //attributes2 = attributes->next;
-                        // ** end **
 
                         for (attributes = db[attr_obj_id].atrdefs, i = 0; attributes->next && i < attr_id; attributes = attributes->next, i++)
                         {
@@ -1245,24 +1231,18 @@ load_database()
     db_free();
     db_obj_id = 0;
 
-    printf("debug:: passed clear_players() and db_free()\n");
-
     // Read every object
     for (int j = 0; j < 123 && db_obj_id >= 0; j++, db_obj_id++)
     {
-        printf("debug:: loop { j = %d ; db_obj_id = %d ; \n", j, db_obj_id);
         if ( ( (db_obj_id % 1000) == 1) && db_init)
         {
-            printf("debug::        if () \n");
             struct descriptor_data *d;
             char buf[BUF_SIZE];
 
             sprintf(buf, "Loading database object #%d of %d.\n", (db_obj_id - 1), (db_init * 2/3) );
 
-            printf("debug::        | \n");
             if ((db_obj_id - 1) != 0)
             {
-                printf("debug::        |___ if (..) \n");
                 for (d = descriptor_list; d; d = d->next)
                 {
                     queue_string(d, buf);
@@ -1270,11 +1250,7 @@ load_database()
             }
         }
         db_obj_id = db_read_object (db_obj_id, db_read_file);
-        printf("debug:: db_top = %d\n", db_top);
-        printf("debug:: loop } j = %d ; db_obj_id = %d ; \n", j, db_obj_id);
     }
-    printf("debug:: passed loading database objects\n");
-    printf("debug:: db_top = %d\n", db_top);
 
     // if db_read_object() returns (-2) this signals that all objects
     // have been read
@@ -1363,18 +1339,13 @@ static int db_read_object (dbref db_obj_id, FILE *file)
         // TinyMUSH new version object storage definition
         case '!': // non-zone oriented database
         case '&': // zone oriented database
-            printf("debug::                         &  \n");
-
             // make space
             db_obj_id = getref(file);
-            printf("debug::                         &%d \n", db_obj_id);
             db_grow(db_obj_id + 1);
             // read it in
             o = db + db_obj_id;
             getstring(file, o->name);
-            printf("debug::                             Name: %s \n", o->name);
             o->location = getref(file);
-            printf("debug::                             Location: %d \n", o->location);
 
             if ( c == '!' )
             {
@@ -1384,7 +1355,6 @@ static int db_read_object (dbref db_obj_id, FILE *file)
             {
                 o->zone = getref(file);
             }
-            printf("debug::                             Zone: %d \n", o->zone);
 
             o->contents = getref(file);
             o->exits    = getref(file);
@@ -1394,16 +1364,12 @@ static int db_read_object (dbref db_obj_id, FILE *file)
             o->list = NULL;
 
             o->owner = getref(file);
-            printf("debug::                             Owner: %d \n", o->owner);
 
             o->flags = upgrade_flags(db_version, db_obj_id, getref(file));
 
-            printf("debug::                             passed Flags!\n");
 
             o->mod_time    = getref(file);
-            printf("debug::                             passed Mod Time!\n");
             o->create_time = getref(file);
-            printf("debug::                             passed Create Time!\n");
 
             if (Typeof(db_obj_id) == TYPE_PLAYER)
             {
@@ -1422,9 +1388,9 @@ static int db_read_object (dbref db_obj_id, FILE *file)
                 return -2;
             }
 
-            o->parents = getlist (file);
+            o->parents  = getlist (file);
             o->children = getlist (file);
-            o->atrdefs = get_atrdefs (file, o->atrdefs);
+            o->atrdefs  = get_atrdefs (file, o->atrdefs);
 
             // check to see if it's a player
             if (Typeof(db_obj_id) == TYPE_PLAYER)
@@ -1460,25 +1426,31 @@ static int db_read_object (dbref db_obj_id, FILE *file)
 
     return db_obj_id;
 }
-
-static dbref *getlist(FILE *f)
+///////////////////////////////////////////////////////////////////////////////
+// getlist()
+///////////////////////////////////////////////////////////////////////////////
+// 
+///////////////////////////////////////////////////////////////////////////////
+// Returns: *dbref
+///////////////////////////////////////////////////////////////////////////////
+static dbref *getlist(FILE *file)
 {
     dbref *op;
-    int len;
+    int length;
 
-    len = getref(f);
+    length = getref(file);
 
-    if (len == 0)
+    if (length == 0)
     {
         return NULL;
     }
 
-    op = malloc( sizeof(dbref)*(len+1));
-    op[len] = NOTHING;
+    op = malloc( sizeof(dbref)*(length+1));
+    op[length] = NOTHING;
 
-    for (len--; len >= 0; len--)
+    for (length--; length >= 0; length--)
     {
-        op[len] = getref(f);
+        op[length] = getref(file);
     }
 
     return op;
@@ -1546,19 +1518,14 @@ void init_attributes()
 
 void update_bytes()
 {
-    printf("debug::   >> update_bytes()\n");
     int difference;
     int newsize;
 
-    printf("debug::   check db_top\n");
     if ((++update_bytes_counter) >= db_top)
     {
         update_bytes_counter = 0;
     }
-    printf("debug::   update_bytes_counter = %d\n", update_bytes_counter);
-    printf("debug::   db_top               = %d\n", db_top);
 
-    printf("debug::   for loop\n");
     for (int i = 0; i < 100; i++)
     {
         if (db[update_bytes_counter].i_flags & I_UPDATEBYTES)
@@ -1572,24 +1539,17 @@ void update_bytes()
         }
     }
 
-    printf("debug::   find update bytes\n");
     if (!(db[update_bytes_counter].i_flags & I_UPDATEBYTES))
     {
         // couldn't find any
         return;
     }
 
-    printf("debug::   determine new size\n");
     newsize = mem_usage(update_bytes_counter);
-    printf("debug::   determine difference\n");
     difference = newsize-db[update_bytes_counter].size;
-    printf("debug::   add_bytesused()\n");
     add_bytesused(db[update_bytes_counter].owner, difference); // this has to be done right here in the middle, because it calls recalc_bytes which may reset size and I_UPDATEBYTES. 
-    printf("debug::   update db with newsize\n");
     db[update_bytes_counter].size = newsize;
-    printf("debug::   update db flags with updatebytes\n");
     db[update_bytes_counter].i_flags &= ~I_UPDATEBYTES;
-    printf("debug::   << update_bytes()\n");
 }
 
 /*****************************************************XXX BRG DB CODE XXX*/

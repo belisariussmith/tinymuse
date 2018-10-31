@@ -23,12 +23,21 @@ void put_atrdefs(FILE *file, ATRDEF *defs)
   fputs("\\\n", file);
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// get_atrdefs()
+///////////////////////////////////////////////////////////////////////////////
+//     Used when reading in an object from the database. This typically reads
+// in three lines, the first being the attribute flags, the object id, and then
+// the name.
+//     Continues reading in atrdefs until it catches the termination char '\'
+///////////////////////////////////////////////////////////////////////////////
 ATRDEF *get_atrdefs(FILE *file, ATRDEF *olddefs)
 {
     extern char *getstring_noalloc P((FILE *));
     char k;
     ATRDEF *ourdefs = NULL;
     ATRDEF *endptr  = NULL;
+    int attribute   = 0;
   
     for (;;)
     {
@@ -45,15 +54,32 @@ ATRDEF *get_atrdefs(FILE *file, ATRDEF *olddefs)
                 return ourdefs;
                 break;
             case '/':
+                // An ATRDEF
+
+                // Get the attribute first 
+                attribute = getref(file);
+                // Is it a valid one?
+                if (attribute > 8191)
+                {
+                    // Invalid attribute
+                    attribute = getref(file);  // Read to ignore
+                    attribute = getref(file);  // Read to ignore
+
+                    // Hop to next one
+                    break;
+                }
+
                 if (!endptr)
                 {
                     if (olddefs)
                     {
+                        // Previous atrdefs defined, so add to linked list
                         endptr  = ourdefs = olddefs;
                         olddefs = olddefs->next;
                     }
                     else
                     {
+                        // No previous atrdef defined, so allocate for a new one
                         endptr = ourdefs = malloc( sizeof(ATRDEF));
                     }
                 }
@@ -67,12 +93,13 @@ ATRDEF *get_atrdefs(FILE *file, ATRDEF *olddefs)
                     }
                     else
                     {
+                        // No atrdef defined for next in linked list, so allocate for a new one
                         endptr->next = malloc( sizeof(ATRDEF));
                         endptr = endptr->next;
                     }
                 }
 
-                endptr->a.flags = getref(file);
+                endptr->a.flags = attribute;
                 endptr->a.obj   = getref(file);
                 endptr->next    = NULL;
                 endptr->a.name  = NULL;

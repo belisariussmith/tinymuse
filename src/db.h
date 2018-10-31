@@ -131,6 +131,8 @@ struct attr {
 #define AF_DBREF   2048 // value displayed as dbref.
 #define AF_NOMEM   4096 // this isn't included in memory calculations
 
+#define MAX_AF     8191 // Maximum possible bit value
+
 #define DOATTR(var, name, flags, num) extern ATTR *var;
 #define DECLARE_ATTR
 #include "attrib.h"

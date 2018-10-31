@@ -15,7 +15,7 @@ This project is maintained by [Belisarius Smith](https://www.belisariussmith.com
 ### v1.0 - v1.8a4
 - Nils McCarthy (@shkoo, **nils@chezmoto.ai.mit.edu**)
 - Erk (@Erk, **erk@chezmoto.ai.mit.edu**)
-- Michael (**michael@chezmoto.ai.mit.edu**)
+- Michael (@Bard **michael@chezmoto.ai.mit.edu**)
 
 ### v1.8a4 - v1.9f3
 - Mark Eisenstat (@Morgoth **meisen@musenet.org**)
