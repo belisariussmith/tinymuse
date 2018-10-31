@@ -37,7 +37,7 @@ static char *get_version()
         abs_day -= atoi(&base_date[3]);
     }
 
-    sprintf(buf, "%s.%d.%d%s", BASE_VERSION, abs_day, day_release-1
+    sprintf(buf, "%s.%d%s", BASE_VERSION, day_release-1
 #ifdef MODIFIED
 	  ,"M"
 #else

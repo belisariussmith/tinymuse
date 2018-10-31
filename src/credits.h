@@ -44,14 +44,14 @@
 #define BASE_VERSION   "TinyMUSE v2.0"
 
 //#define ALPHA 
-#define BETA
-//#define FINAL
+//#define BETA
+#define FINAL
 
 // These dates must be of the form MM/DD/YY
 // BASE_DATE...: Date from last change to the value of BASE_VERSION 
 // UPGRADE_DATE: This is the release of this code.
 #define BASE_DATE      "11/18/95"
-#define UPGRADE_DATE   "11/18/18"
+#define UPGRADE_DATE   "10/31/18"
 
 // This is the release number for a particular day.  If this is the third 
 // time mods have been released in a day, then this number should be 3

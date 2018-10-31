@@ -86,6 +86,11 @@ This is the remnants of the changelog instituted beginning with version *1.8a4*
 - Changed execution location from confusing run/ sub-directory to top-level directory. Server
   is now booted up by executing _# bin/tinymuse_
 
+- Added check on database object loading so that server will no longer crash if invalid
+  atrdef is used in the object
+
+- Disabled quota check
+
 ## Changes since revision 1.9f2:		Mark Eisenstat <meisen@musenet.org>
 
 - Changed wd to remove the 'muse_pid' file when trying to restart the MUSE.

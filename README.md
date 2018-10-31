@@ -34,7 +34,7 @@ See [ADMIN.md](ADMIN.md)
 
 ## Version
 
-This is currently version 2.0 (beta)
+This is currently version 2.0 
 
 ## Original Changelog (pre-git)
 
@@ -52,4 +52,3 @@ Any new code or separate code in version 2.0+ falls under the MIT license.
 
 —
 
-<sup>NOTE: This project is still a work in progress, and will not be considered "complete" until version **2.0** is finalized from beta.</sup>
