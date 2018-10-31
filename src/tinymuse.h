@@ -40,6 +40,9 @@
 #define MOVE_WALK     0                       // Walking
 #define MOVE_TELEPORT 1                       // Teleporting
 
+// Quota
+#define NO_QUOTA      1                       // Turn off the quota system
+
 // Typedefs
 typedef int dbref;                            // offset into database
 typedef int dbref_t;                          // FUTURE: replacement for dbref

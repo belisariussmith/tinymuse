@@ -689,6 +689,10 @@ int pay_quota(dbref who, int cost)
     int quota;
     char buf[20];
 
+#ifdef NO_QUOTA
+    return TRUE;
+#endif
+
     if (db[db[who].owner].i_flags & I_QUOTAFULL)
     {
         return FALSE;
