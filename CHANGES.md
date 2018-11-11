@@ -16,7 +16,7 @@ This is the remnants of the changelog instituted beginning with version *1.8a4*
 
 - Removed pointless double assignments in dbtop.c
 
-- Added <crypt.h> to various files using crypt() and clearned any implicit
+- Added <crypt.h> to various files using crypt() and cleared any implicit
   declaration warnings.
 
 - Casts made for improper conversions to and from chars, ints, and pointers
