@@ -28,6 +28,15 @@ This project is maintained by [Belisarius Smith](https://www.belisariussmith.com
 
 This project is a work of love, in appreciation for all the hours of fun from running (and playing) my first MUD server... to all those who wrote, maintained, and played, I thank you.
 
+## Documentation
+
+Comprehensive documentation for the TinyMUSE codebase:
+
+- **[Software Architecture](docs/software-architecture.md)** - Overview of system design and components
+- **[Server Architecture](docs/server-architecture.md)** - Technical implementation details  
+- **[Features](docs/features.md)** - Complete list of application features
+- **[Modernization Opportunities](docs/potential-issues.md)** - Areas for improvement and modernization
+
 ## Server Administration
 
 See [ADMIN.md](ADMIN.md)
